@@ -9,7 +9,7 @@ import React, { Component } from 'react';
 //import charge component
 import Charge from './App/Components/Charge';
 
-import AddNote from './App/Components/AddNote'; //test code
+import Keypad from './App/Components/Keypad'; //test code
 
 import {
   AppRegistry,
@@ -29,7 +29,7 @@ var styles = StyleSheet.create({
 export default class Zynle extends Component {
   render() {
     return (
-        <Charge />
+        <Keypad />
     );
   }
 }

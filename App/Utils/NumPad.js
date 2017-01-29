@@ -32,8 +32,9 @@ export default class NumPad extends Component {
   
   render(){
     return (
-        <TouchableHighlight 
+        <TouchableHighlight
           style={styles.container}
+          underlayColor={'#EDEBE5'}
           onPress={this.props.onPress}>
           <Text style={{color: this.props.num === '+' ? '#39B7EF' : '#95989A', fontSize:35 }}>{this.props.num}</Text>
         </TouchableHighlight>
@@ -41,6 +42,6 @@ export default class NumPad extends Component {
   }
 }
 
-NumPad.propTypes = {
+/*NumPad.propTypes = {
   num: React.PropTypes.string.isRequired
-};
+};*/

@@ -69,20 +69,46 @@ export default class Keypad extends Component {
     };
     
     this.state = this.initialState;
-    //this.addToScreen = this.addToScreen.bind(this);
   }
   
   
   addToScreen(num) {
-    alert(num);
+    console.log(num + ' was pressed');
+    
+    //check length of screen number
+    if(this.state.itemCharge.length > 5){
+      alert('You have reached the purchase limit');
+    } else {
+      //check if itemCharge is zero
+      if(this.state.itemCharge === 0){
+      
+      //assign number pressed to itemCharge
+      this.setState({ itemCharge: num });
+      } else {
+        //append number pressed at to screen
+        this.setState({ itemCharge: this.state.itemCharge + num });
+      }
+    }
   }
   
   clearScreen(){
-    alert('clicked');
+    console.log('clear');
+    this.setState({ itemCharge: 0 });
   }
   
+ addToTotal(){
+   console.log('added to charge');
+ } 
+  
+  printLog(){
+    console.log('rendered keypad');
+}
+  
   render() {
+    this.printLog();
+    
     return(
+      
       <View style={styles.container}>
         <View style={styles.subContainer}>
           <View style={styles.addNote}>
@@ -98,12 +124,26 @@ export default class Keypad extends Component {
       </View>
         
         <View style={styles.numpad}>
-          <NumPad  num={'1'} onPress={this.addToScreen('2')}/>
-          <NumPad num={'2'} onPress={this.addToScreen('2')}/>
-          <NumPad num={'3'} onPress={this.addToScreen('3')}/>
+          <NumPad  num={'1'} onPress={this.addToScreen.bind(this, '1')}/>
+          <NumPad num={'2'} onPress={this.addToScreen.bind(this, '2')}/>
+          <NumPad num={'3'} onPress={this.addToScreen.bind(this, '3')}/>
+        </View>
+        <View style={styles.numpad}>
+          <NumPad num={'4'} onPress={this.addToScreen.bind(this, '4')}/>
+          <NumPad num={'5'} onPress={this.addToScreen.bind(this, '5')}/>
+          <NumPad num={'6'} onPress={this.addToScreen.bind(this, '6')}/>
+        </View>
+        <View style={styles.numpad}>
+          <NumPad num={'7'} onPress={this.addToScreen.bind(this, '7')}/>
+          <NumPad num={'8'} onPress={this.addToScreen.bind(this, '8')}/>
+          <NumPad num={'9'} onPress={this.addToScreen.bind(this, '9')}/>
+        </View>
+         <View style={styles.numpad}>
+          <NumPad num={'C'} onPress={this.clearScreen.bind(this)}/>
+          <NumPad num={'0'} onPress={this.addToScreen.bind(this, '0')}/>
+          <NumPad num={'+'}/>
         </View>
       </View>
-
       
     );
   }
@@ -113,19 +153,5 @@ export default class Keypad extends Component {
 
 
 /* 
-        <View style={styles.numpad}>
-          <NumPad num={'4'} onPress={this.addToScreen('4')}/>
-          <NumPad num={'5'} onPress={this.addToScreen('5')}/>
-          <NumPad num={'6'} onPress={this.addToScreen('6')}/>
-        </View>
-        <View style={styles.numpad}>
-          <NumPad num={'7'} onPress={this.addToScreen('7')}/>
-          <NumPad num={'8'} onPress={this.addToScreen('8')}/>
-          <NumPad num={'9'} onPress={this.addToScreen('9')}/>
-        </View>
-         <View style={styles.numpad}>
-          <NumPad num={'C'} />
-          <NumPad num={'0'} onPress={this.addToScreen('0')}/>
-          <NumPad num={'+'}/>
-        </View>
+
 */
