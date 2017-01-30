@@ -15,7 +15,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 //import textinput effects
 import { Hideo } from 'react-native-textinput-effects';
 
-
 var styles = StyleSheet.create({
   container: {
     flex:1,
@@ -63,6 +62,13 @@ var styles = StyleSheet.create({
 var statusIcon = null;
 
 export default class ChargeCard extends Component {
+  
+    static navigationOptions = {
+    // Nav options can be defined as a function of the navigation prop:
+    title: ({state}) => `Charge K${state.params.totalCharge}`,
+  };
+  
+  
   
   constructor (props){
     super(props);
