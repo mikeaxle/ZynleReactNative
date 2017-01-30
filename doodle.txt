@@ -1,0 +1,24 @@
+Actions:
+
+AddToTotal
+AddNote
+
+
+Reducers
+individual charges
+total charge
+
+
+total charge object
+
+["charge1": {
+   "note": '',
+   "cost": 0
+ },
+ "Charge2": {
+ 
+ },
+ "charge3": {
+    
+  }
+]

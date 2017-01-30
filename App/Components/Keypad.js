@@ -55,7 +55,7 @@ var styles = StyleSheet.create({
   },
 });
 
-
+var _itemChage = null;
 
 
 export default class Keypad extends Component {
@@ -94,10 +94,17 @@ export default class Keypad extends Component {
   clearScreen(){
     console.log('clear');
     this.setState({ itemCharge: 0 });
+    _itemChage = 0;
   }
   
- addToTotal(){
-   console.log('added to charge');
+ addToTotal(){  
+   _itemChage = Number(this.state.itemCharge);
+   
+   this.setState({ totalCharge:  _itemChage});
+   
+   console.log( _itemChage + ' added to charge');
+   
+   this.clearScreen();
  } 
   
   printLog(){
@@ -141,7 +148,7 @@ export default class Keypad extends Component {
          <View style={styles.numpad}>
           <NumPad num={'C'} onPress={this.clearScreen.bind(this)}/>
           <NumPad num={'0'} onPress={this.addToScreen.bind(this, '0')}/>
-          <NumPad num={'+'}/>
+          <NumPad num={'+'} onPress={this.addToTotal.bind(this)}/>
         </View>
       </View>
       
