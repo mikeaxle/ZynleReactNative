@@ -87,7 +87,16 @@ var styles = StyleSheet.create({
 });
 
 export default class PaymentSuccess extends Component {
+  
+  static navigationOptions = {
+    // Nav options can be defined as a function of the navigation prop:
+    title: 'Payment Successful',
+  };
+  
+  
   render(){
+    const { params } = this.props.navigation.state;
+    console.log(params);
     return(
       <View style={styles.container}>
           
@@ -95,7 +104,7 @@ export default class PaymentSuccess extends Component {
         <View style={styles.greyContainer}>
           <Text style={styles.heading3}>Payment Successful</Text>
           <Icon name="check" size={150} color='#95989A'/>
-          <Text style={styles.heading2}>Payment for K000,000.00 was successful</Text>
+          <Text style={styles.heading2}>Payment for K{params} was successful</Text>
           <Text style={styles.heading1}>How would u like your reciept?</Text>
         </View>
         <View style={styles.whiteContainer}>
@@ -127,7 +136,9 @@ export default class PaymentSuccess extends Component {
           
           <Text style={styles.heading1}>If you do not want to send a reciept, simply leave both of the above fields empty.</Text>
          
-          <TouchableOpacity style={styles.button} underlayColor="#39B7EF">
+          <TouchableOpacity style={styles.button} underlayColor="#39B7EF"
+            onPress={goHome.bind(this)}
+            >
             <Text style={styles.buttonText}>Complete</Text>
           </TouchableOpacity>
         </View>  

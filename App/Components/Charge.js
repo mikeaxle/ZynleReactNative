@@ -1,9 +1,4 @@
 import React, { Component } from 'react';
-import NumPad from '../Utils/NumPad';
-import Icon from 'react-native-vector-icons/SimpleLineIcons';
-import { StackNavigator } from 'react-navigation';
-import ChargeCard from './ChargeCard';
-
 import {
   AppRegistry,
   View,
@@ -12,6 +7,15 @@ import {
   StyleSheet,
   TouchableOpacity
 } from 'react-native'; 
+
+
+import NumPad from '../Utils/NumPad';
+import ChargeCard from './ChargeCard';
+import PaymentSuccess from './PaymentSuccess';
+
+import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import { StackNavigator } from 'react-navigation';
+
 
 
 var styles = StyleSheet.create ({
@@ -198,7 +202,12 @@ export default class Charge extends Component {
 const Zynle = StackNavigator({
   Charge: { screen: Charge },
   ChargeCard: { screen: ChargeCard },
+  PaymentSuccess: {screen: PaymentSuccess},
+}, {
+  initialRouteName: 'Charge',
 });
+
+
 
 
 AppRegistry.registerComponent('Zynle', () => Zynle);

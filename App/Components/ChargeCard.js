@@ -11,9 +11,11 @@ import {
 //import icons
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-
 //import textinput effects
 import { Hideo } from 'react-native-textinput-effects';
+
+//import carIO
+import { CardIOModule, CardIOUtilities } from 'react-native-awesome-card-io';
 
 var styles = StyleSheet.create({
   container: {
@@ -60,6 +62,7 @@ var styles = StyleSheet.create({
 
 //variable to render status 
 var statusIcon = null;
+var totalCharge = null;
 
 export default class ChargeCard extends Component {
   
@@ -67,8 +70,6 @@ export default class ChargeCard extends Component {
     // Nav options can be defined as a function of the navigation prop:
     title: ({state}) => `Charge K${state.params.totalCharge}`,
   };
-  
-  
   
   constructor (props){
     super(props);
@@ -78,12 +79,52 @@ export default class ChargeCard extends Component {
       
       //card details temp storage
       nameOnCard: null,
-      debitCardNumber: null,
+      cardNumber: null,
       expiryDate: null,
-      CVV: null
+      cvv: null
     }
+    
+    
+    
+  }
+
+//charge card method
+  chargeCard(){
+   /* if (this.state.cardNumber === null || this.state.expiryDate === null || this.state.cvv === null){
+      alert('Scan card using peripheral or camera, or enter card details manually');
+    } else {
+      //call zynle api
+      
+      //navigate to success screen
+      
+      
+    }*/
+    
+    const { navigate } = this.props.navigation;
+    navigate('PaymentSuccess',totalCharge);
   }
   
+//scan card method
+  scanCard() {
+    CardIOModule
+      .scanCard()
+      .then(card => {
+        // the scanned card
+      this.setState({
+        nameOnCard: card.cardholderName,
+        cardNumber: card.cardNumber,
+        expiryDate: card.expiryMonth + '/' + card.expiryYear,
+        cvv: card.cvv
+      });
+      
+      console.log(this.state);
+
+      })
+      .catch((error) => {
+        // the user cancelled
+      alert(error);
+      })
+  }  
   
   //check if card reader is connected and return value of status text
   checkCardReader(){
@@ -104,11 +145,14 @@ export default class ChargeCard extends Component {
   }
   
   render(){
+    const { params } = this.props.navigation.state;
+    totalCharge = params.totalCharge;
     return(
       <View style={styles.container}>
         <View>
           {this.checkCardReader()}
         </View>
+        <Text>total charge is {totalCharge}</Text>
         <Hideo
             iconClass={Icon}
             iconName={'smile-o'}
@@ -116,10 +160,14 @@ export default class ChargeCard extends Component {
             // this is used as backgroundColor of icon container view.
             iconBackgroundColor={'#39B7EF'}
             inputStyle={styles.textBox}
-              style={{marginBottom: 5}}
+            style={{marginBottom: 5}}
             placeholder='Name of card holder'
               multiline={true}
+            onChangeText={(nameOnCard) => this.setState({nameOnCard})}
+            value={this.state.nameOnCard}
             />
+
+        
         <Hideo
             iconClass={Icon}
             iconName={'credit-card'}
@@ -130,8 +178,11 @@ export default class ChargeCard extends Component {
               style={{marginBottom: 5}}
             placeholder='Debit or credit card number'
               multiline={true}
-                          keyboardType='numeric'
+          keyboardType='numeric'
+          onChangeText={(cardNumber) => this.setState({cardNumber})}
+          value={this.state.cardNumber}
             />
+
                 <Hideo
             iconClass={Icon}
             iconName={'calendar-o'}
@@ -143,6 +194,9 @@ export default class ChargeCard extends Component {
             placeholder='Expiry date of card'
               multiline={true}
                           keyboardType='numeric'
+                  
+        onChangeText={(expiryDate) => this.setState({expiryDate})}
+          value={this.state.expiryDate}
             />
                 <Hideo
             iconClass={Icon}
@@ -155,15 +209,22 @@ export default class ChargeCard extends Component {
             placeholder='CVV'
               multiline={true}
                           keyboardType='numeric'
+                            onChangeText={(cvv) => this.setState({cvv})}
+          value={this.state.cvv}
             />
         
         
         <View style={{alignItems: 'center'}}>
-          <Icon name="camera" size={50} color="#39B7EF"/>
+          <TouchableOpacity
+            onPress={this.scanCard.bind(this)}>
+            <Icon name="camera" size={50} color="#39B7EF"/>
           <Text style={{fontSize:18, fontWeight: '600'}}>Scan</Text>
+          </TouchableOpacity>
+
         </View>
         
-        <TouchableOpacity style={styles.button} underlayColor="#39B7EF">
+        <TouchableOpacity style={styles.button} underlayColor="#39B7EF"
+          onPress={this.chargeCard.bind(this)}>
             <Text style={styles.buttonText}>Charge Card</Text>
         </TouchableOpacity>
         
