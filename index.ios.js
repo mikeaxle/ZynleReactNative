@@ -29,7 +29,7 @@ var styles = StyleSheet.create({
 export default class Zynle extends Component {
   render() {
     return (
-        <Charge />
+        <Keypad />
     );
   }
 }
