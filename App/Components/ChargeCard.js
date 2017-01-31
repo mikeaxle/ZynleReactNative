@@ -60,6 +60,9 @@ var styles = StyleSheet.create({
   
 });
 
+
+
+
 //variable to render status 
 var statusIcon = null;
 var totalCharge = null;
@@ -68,9 +71,13 @@ export default class ChargeCard extends Component {
   
     static navigationOptions = {
     // Nav options can be defined as a function of the navigation prop:
-    title: ({state}) => `Charge K${state.params.totalCharge}`,
+      title: ({state}) => `Charge K${state.params.totalCharge}`,
+      header: {
+        visible: true,
+        right:<Icon name="question-circle" size={25} color='#95989A'style={{marginRight:20}}/>
+      }
   };
-  
+
   constructor (props){
     super(props);
     this.state = {
@@ -83,9 +90,6 @@ export default class ChargeCard extends Component {
       expiryDate: null,
       cvv: null
     }
-    
-    
-    
   }
 
 //charge card method
@@ -96,8 +100,7 @@ export default class ChargeCard extends Component {
       //call zynle api
       
       //navigate to success screen
-      
-      
+    
     }*/
     
     const { navigate } = this.props.navigation;
@@ -124,7 +127,7 @@ export default class ChargeCard extends Component {
         // the user cancelled
       alert(error);
       })
-  }  
+  }
   
   //check if card reader is connected and return value of status text
   checkCardReader(){
@@ -218,7 +221,7 @@ export default class ChargeCard extends Component {
           <TouchableOpacity
             onPress={this.scanCard.bind(this)}>
             <Icon name="camera" size={50} color="#39B7EF"/>
-          <Text style={{fontSize:18, fontWeight: '600'}}>Scan</Text>
+          <Text style={{fontSize:18, fontWeight: '600', alignSelf: 'center'}}>Scan</Text>
           </TouchableOpacity>
 
         </View>

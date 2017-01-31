@@ -93,6 +93,16 @@ export default class PaymentSuccess extends Component {
     title: 'Payment Successful',
   };
   
+  goHome(){
+    
+    //send email
+    
+    //semn text
+    
+    //send home
+    const { navigate } = this.props.navigation;
+    navigate('Charge');
+  }
   
   render(){
     const { params } = this.props.navigation.state;
@@ -137,7 +147,7 @@ export default class PaymentSuccess extends Component {
           <Text style={styles.heading1}>If you do not want to send a reciept, simply leave both of the above fields empty.</Text>
          
           <TouchableOpacity style={styles.button} underlayColor="#39B7EF"
-            onPress={goHome.bind(this)}
+            onPress={this.goHome.bind(this)}
             >
             <Text style={styles.buttonText}>Complete</Text>
           </TouchableOpacity>

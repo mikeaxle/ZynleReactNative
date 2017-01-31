@@ -5,7 +5,9 @@ import {
   Text,
   Image,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  Modal,
+  TextInput
 } from 'react-native'; 
 
 
@@ -72,37 +74,96 @@ var styles = StyleSheet.create ({
   },
   itemChargeTextKeypad: {
     color: '#B5B7B8',
-    fontSize:14,
-    textAlign: 'left',
-   // flex: 1
+    fontSize:16,
+   // textAlign: 'right',
+   //flex: 1
   },
   addNoteKeypad: {
-   // flex:1
+   //flex:1,
     flexDirection: 'row'
     
   },
     addNoteTextKeypad: {
     color: '#B5B7B8',
     fontSize:20,
-    textAlign: 'left',
-  //  flex:1
+   // textAlign: 'left',
+    //flex:1
   },
   numpadKeypad: {
     flexDirection: 'row',
     flex: 1,
     //justifyContent: 'space-around',
     //alignItems: 'flex-end'
-  }
+  },
+});
+
+//modal styles
+var stylesModal = StyleSheet.create({
+  container: {
+    //padding: 20
+  },
   
+  header: {
+    //marginTop:20,
+    padding: 20,
+    height: 50,
+    backgroundColor: '#EDEDED',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  headerText: {
+    fontSize: 20,
+    color: '#95989A',
+    alignSelf: 'center',
+    flex: 2
+  },
+  
+  contentArea: {
+    flex:1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    padding: 20
+    
+  },
+    textBox: {
+    height: 100,
+    borderRadius: 5,
+    backgroundColor: '#EDEDED',
+    color: '#95989A',
+    padding: 10,
+      fontSize: 18
+    //marginTop:20,
+  },
+  button: {
+    backgroundColor: 'white',
+    borderColor: '#95989A',
+    borderWidth: 1,
+    height: 75,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    marginTop: 20,
+  },
+  buttonText: {
+    color: '#95989A',
+    fontSize: 28,
+  }
 });
 
 
 //Charge Component Screen
 export default class Charge extends Component {
   
+  //set navigation options
   static navigationOptions = {
-    title: 'Charge'
+    title: 'Charge',
+    header: {
+      visible: false,
+    }
   };
+  
   
   //define state
    constructor(props){
@@ -110,10 +171,14 @@ export default class Charge extends Component {
     this.state = {
       toolTipText: 'this is a tool tip',
       totalCharge: 0,
-      note: 'this is the note'
+      note: '',
+      modalVisible: false
     }
   }
   
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
+  }
   
   //append numbers to screen
     addToScreen(num) {
@@ -142,11 +207,35 @@ export default class Charge extends Component {
     _itemChage = 0;
   }
   
-  
   render(){
     const { navigate } = this.props.navigation;
     return (
-      <View style={styles.container}>  
+      <View style={styles.container}>
+        
+        <View style={stylesModal.container}>
+          <Modal animationType={"slide"} transparent={false} visible={this.state.modalVisible} onRequestClose={() => {alert("Your note has been saved")}}>
+            <View>
+              <View style={stylesModal.header}>
+                  <Icon name="close" size={25} color='#95989A' style={{flex:1}} onPress={() => {this.setModalVisible(!this.state.modalVisible)}}/>
+                <Text style={stylesModal.headerText}>Item Name(s)</Text>
+              </View>
+              <View style={stylesModal.contentArea}>
+                <TextInput style={stylesModal.textBox} maxLength={30}
+                  placeholder= 'Enter your note here'
+                  multiline={true}
+                  maxLength={30}
+                  numberOfLines={2} 
+                  value={this.state.note}
+                  onChangeText={ (note) => this.setState({note})  }/>
+                <TouchableOpacity style={stylesModal.button} underlayColor="#39B7EF" 
+                  onPress={() => {this.setModalVisible(!this.state.modalVisible)}}>
+                  <Text style={stylesModal.buttonText}>Done</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+        </View>
+        
         <View style={{padding: 10}}>
           <TouchableOpacity style={styles.button} underlayColor="#39B7EF"
             onPress={() => navigate('ChargeCard',this.state)}>
@@ -158,9 +247,12 @@ export default class Charge extends Component {
         
         <View style={{flex:1, backgroundColor: 'white'}}>
           <View style={styles.subContainerKeypad}>
+            
             <View style={styles.addNoteKeypad}>
-              <TouchableOpacity>
-                <Text style={styles.addNoteTextKeypad}>Add Note  <Icon name="note" size={25} color="#39B7EF" /></Text>
+              <TouchableOpacity
+                onPress={() => {
+                  this.setModalVisible(true)}}>
+                <Text style={styles.addNoteTextKeypad}>Item Name(s)  <Icon name="note" size={25} color="#39B7EF" /></Text>
               </TouchableOpacity>
             </View>
             <View style={styles.itemChargeKeypad}>
@@ -187,9 +279,8 @@ export default class Charge extends Component {
          <View style={styles.numpadKeypad}>
           <NumPad num={'C'} onPress={this.clearScreen.bind(this)}/>
           <NumPad num={'0'} onPress={this.addToScreen.bind(this, '0')}/>
-          <NumPad num={'?'} />
+          <NumPad num={<Icon name="question" size={40} color='red'/>} />
         </View>         
-          
         </View>
       </View>
 

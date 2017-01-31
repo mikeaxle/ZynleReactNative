@@ -36,7 +36,7 @@ export default class NumPad extends Component {
           style={styles.container}
           underlayColor={'#EDEBE5'}
           onPress={this.props.onPress}>
-          <Text style={{color: this.props.num === '?' ? '#39B7EF' : '#95989A', fontSize:35 }}>{this.props.num}</Text>
+          <Text style={{color: this.props.num === 'C' ? '#39B7EF' : '#95989A', fontSize:35 }}>{this.props.num}</Text>
         </TouchableHighlight>
     );
   }

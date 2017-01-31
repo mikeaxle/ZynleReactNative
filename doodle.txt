@@ -22,3 +22,7 @@ total charge object
     
   }
 ]
+
+export ANDROID_HOME=/Users/michaellungu/Library/Android/sdk
+
+/Users/michaellungu/Library/Android/sdk
