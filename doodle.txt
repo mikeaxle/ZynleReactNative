@@ -23,6 +23,4 @@ total charge object
   }
 ]
 
-export ANDROID_HOME=/Users/michaellungu/Library/Android/sdk
-
-/Users/michaellungu/Library/Android/sdk
+  `Thank you for your order. You receipt number is ${this.state.referenceNumber} for the amount ${totalCharge}`

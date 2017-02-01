@@ -86,30 +86,45 @@ var styles = StyleSheet.create({
   }
 });
 
+var totalCharge = null;
+var sms = null;
 export default class PaymentSuccess extends Component {
+
+  constructor (props){
+    super(props);
+    
+    this.state = {
+      phoneNumber: null,
+      refrenceNumber: '12356',
+    }
+  }
   
   static navigationOptions = {
     // Nav options can be defined as a function of the navigation prop:
     title: 'Payment Successful',
   };
+
   
-  goHome(){
+  goHome(){    
     
-    //send email
     
-    //semn text
-    
+    if(this.state.phoneNumber != null){
+      //send text
+      sms = `Thank you for your order. You receipt number is ${this.state.refrenceNumber} for the amount ${totalCharge}`;
+      fetch(`http://www.bulksms.co.zm/smsservice/httpapi?username=zynlepay&password=zynle12&msg=${sms}&shortcode=2343&sender_id=0955000679&phone=${this.state.phoneNumber}&api_key=121231313213123123`);
+      console.log('sms sent to ' + this.state.phoneNumber);
+    }
+   
     //send home
     const { navigate } = this.props.navigation;
     navigate('Charge');
   }
   
   render(){
-    const { params } = this.props.navigation.state;
-    console.log(params);
+    const  { params }  = this.props.navigation.state;
+    totalCharge = params;
     return(
       <View style={styles.container}>
-          
         
         <View style={styles.greyContainer}>
           <Text style={styles.heading3}>Payment Successful</Text>
@@ -129,22 +144,11 @@ export default class PaymentSuccess extends Component {
               style={{marginBottom: 5}}
             placeholder='SMS reciept'
               multiline={true}
-            />
-
-             <Hideo
-            iconClass={Icon}
-            iconName={'envelope'}
-            iconColor={'white'}
-            // this is used as backgroundColor of icon container view.
-            iconBackgroundColor={'#39B7EF'}
-            inputStyle={styles.textBox}
-            style={{marginTop: 5}}
-            placeholder='Email reciept'
-               multiline={true}
-            />  
-          
-          
-          <Text style={styles.heading1}>If you do not want to send a reciept, simply leave both of the above fields empty.</Text>
+              value={this.state.phoneNumber}
+              onChangeText={ (phoneNumber) => this.setState({phoneNumber}) }
+              keyboardType='numeric'
+            />          
+          <Text style={styles.heading1}>If you do not want to send a reciept, simply leave the sms field empty.</Text>
          
           <TouchableOpacity style={styles.button} underlayColor="#39B7EF"
             onPress={this.goHome.bind(this)}

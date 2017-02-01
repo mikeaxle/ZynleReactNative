@@ -3,11 +3,11 @@ import {
   AppRegistry,
   View,
   Text,
-  Image,
   StyleSheet,
   TouchableOpacity,
   Modal,
-  TextInput
+  TextInput,
+  Alert
 } from 'react-native'; 
 
 
@@ -207,13 +207,29 @@ export default class Charge extends Component {
     _itemChage = 0;
   }
   
-  render(){
+  goToCharge(){
     const { navigate } = this.props.navigation;
+    if(this.state.totalCharge === 0 || this.state.totalCharge <= 9){
+      Alert.alert(
+        '...Sorry',
+        'You must enter a value of K10 or more to charge a card.',[
+          {text: 'Correct this'},
+        ]
+      );
+    } else{
+      navigate('ChargeCard',this.state)
+    }
+  }
+  
+  render(){
+   // const { navigate } = this.props.navigation;
     return (
       <View style={styles.container}>
         
         <View style={stylesModal.container}>
-          <Modal animationType={"slide"} transparent={false} visible={this.state.modalVisible} onRequestClose={() => {alert("Your note has been saved")}}>
+          <Modal animationType={"slide"} transparent={false} visible={this.state.modalVisible} 
+            onRequestClose={() => {
+              {this.setModalVisible(!this.state.modalVisible)}}}>
             <View>
               <View style={stylesModal.header}>
                   <Icon name="close" size={25} color='#95989A' style={{flex:1}} onPress={() => {this.setModalVisible(!this.state.modalVisible)}}/>
@@ -221,7 +237,7 @@ export default class Charge extends Component {
               </View>
               <View style={stylesModal.contentArea}>
                 <TextInput style={stylesModal.textBox} maxLength={30}
-                  placeholder= 'Enter your note here'
+                  placeholder= 'Enter your item name(s) here'
                   multiline={true}
                   maxLength={30}
                   numberOfLines={2} 
@@ -238,7 +254,7 @@ export default class Charge extends Component {
         
         <View style={{padding: 10}}>
           <TouchableOpacity style={styles.button} underlayColor="#39B7EF"
-            onPress={() => navigate('ChargeCard',this.state)}>
+            onPress={this.goToCharge.bind(this)}>
             <Text style={styles.buttonText}>Charge </Text>
             <Text style={styles.buttonText}>K{this.state.totalCharge}</Text>
           </TouchableOpacity>

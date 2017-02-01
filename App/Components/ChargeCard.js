@@ -155,7 +155,7 @@ export default class ChargeCard extends Component {
         <View>
           {this.checkCardReader()}
         </View>
-        <Text>total charge is {totalCharge}</Text>
+
         <Hideo
             iconClass={Icon}
             iconName={'smile-o'}
