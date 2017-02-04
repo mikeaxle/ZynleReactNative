@@ -186,7 +186,9 @@ export default class Charge extends Component {
     
     //check length of screen number
     if(this.state.totalCharge.length > 5){
-      alert('You have reached the purchase limit');
+      
+      Alert.alert('You have reached the purchase limit', 'ass', 
+                  [{ text: 'Enter a lower amount' }]);
     } else {
       //check if itemCharge is zero
       if(this.state.totalCharge === 0){
