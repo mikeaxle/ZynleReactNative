@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Tabs from './Tabs';
+import Api from '../Utils/Api';
 
 import {
   View,
@@ -70,6 +71,7 @@ export default class Charge extends Component {
   
   
   render(){
+    Api.CallWebAPI("20.0", "4383755000927515", "08", "22", "549", "shoes", "Michael Lungu");
     return (
       <View style={styles.container}>
 

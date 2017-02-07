@@ -11,6 +11,9 @@ import Charge from './App/Components/Charge';
 
 import Keypad from './App/Components/Keypad';
 
+//crypto js
+//import './shim.js';
+
 import {
   AppRegistry,
   StyleSheet,
