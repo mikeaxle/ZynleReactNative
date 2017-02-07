@@ -15,6 +15,7 @@ import NumPad from '../Utils/NumPad';
 import ChargeCard from './ChargeCard';
 import PaymentSuccess from './PaymentSuccess';
 
+
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { StackNavigator } from 'react-navigation';
 
@@ -171,7 +172,7 @@ export default class Charge extends Component {
     this.state = {
       toolTipText: 'this is a tool tip',
       totalCharge: 0,
-      note: '',
+      note: 'undefined product',
       modalVisible: false
     }
   }

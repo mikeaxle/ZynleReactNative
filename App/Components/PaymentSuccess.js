@@ -122,14 +122,19 @@ export default class PaymentSuccess extends Component {
   
   render(){
     const  { params }  = this.props.navigation.state;
-    totalCharge = params;
+   // const { apiResult } = this.props.navigation.apiResult;
+    
+    console.log(params);
+    
+   // totalCharge = params;
     return(
       <View style={styles.container}>
         
         <View style={styles.greyContainer}>
           <Text style={styles.heading3}>Payment Successful</Text>
+          <Text>Reference #: </Text>
           <Icon name="check" size={150} color='#95989A'/>
-          <Text style={styles.heading2}>Payment for K{params} was successful</Text>
+          <Text style={styles.heading2}>Payment for K{params.sale} was successful</Text>
           <Text style={styles.heading1}>How would u like your reciept?</Text>
         </View>
         <View style={styles.whiteContainer}>

@@ -8,6 +8,10 @@ import {
   
 } from 'react-native';
 
+
+//import zynle api
+import Api from '../Utils/Api';
+
 //import icons
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -34,6 +38,7 @@ var styles = StyleSheet.create({
     backgroundColor: '#EDEDED',
     color: '#95989A',
     padding: 10,
+    fontSize:16,
    // marginTop:20,
   },
   subContainer: {
@@ -65,7 +70,7 @@ var styles = StyleSheet.create({
 
 //variable to render status 
 var statusIcon = null;
-var totalCharge = null;
+var sale = null;
 
 export default class ChargeCard extends Component {
   
@@ -87,7 +92,8 @@ export default class ChargeCard extends Component {
       //card details temp storage
       nameOnCard: null,
       cardNumber: null,
-      expiryDate: null,
+      expiryMonth: null,
+      expiryYear: null,
       cvv: null
     }
   }
@@ -99,12 +105,18 @@ export default class ChargeCard extends Component {
     } else {
       //call zynle api
       
+      
       //navigate to success screen
     
     }*/
+
+  
+    var apiResult = Api.CallWebAPI(sale.totalCharge, this.state.cardNumber, this.state.expiryMonth, this.state.expiryYear, this.state.cvv, sale.note, this.state.nameOnCard);
+    
+    console.log('this is the api result: ' + apiResult);
     
     const { navigate } = this.props.navigation;
-    navigate('PaymentSuccess',totalCharge);
+    navigate('PaymentSuccess',{'sale': sale.totalCharge, 'apiResult': apiResult});
   }
   
 //scan card method
@@ -112,11 +124,14 @@ export default class ChargeCard extends Component {
     CardIOModule
       .scanCard()
       .then(card => {
+      
+      console.log(card);
         // the scanned card
       this.setState({
         nameOnCard: card.cardholderName,
         cardNumber: card.cardNumber,
-        expiryDate: card.expiryMonth + '/' + card.expiryYear,
+        expiryMonth: card.expiryMonth.toString(),
+        expiryYear: card.expiryYear.toString(),
         cvv: card.cvv
       });
       
@@ -149,7 +164,7 @@ export default class ChargeCard extends Component {
   
   render(){
     const { params } = this.props.navigation.state;
-    totalCharge = params.totalCharge;
+    sale = params;
     return(
       <View style={styles.container}>
         <View>
@@ -185,23 +200,8 @@ export default class ChargeCard extends Component {
           onChangeText={(cardNumber) => this.setState({cardNumber})}
           value={this.state.cardNumber}
             />
-
-                <Hideo
-            iconClass={Icon}
-            iconName={'calendar-o'}
-            iconColor={'white'}
-            // this is used as backgroundColor of icon container view.
-            iconBackgroundColor={'#39B7EF'}
-            inputStyle={styles.textBox}
-              style={{marginBottom: 5}}
-            placeholder='Expiry date of card'
-              multiline={true}
-                          keyboardType='numeric'
-                  
-        onChangeText={(expiryDate) => this.setState({expiryDate})}
-          value={this.state.expiryDate}
-            />
-                <Hideo
+        
+        <Hideo
             iconClass={Icon}
             iconName={'lock'}
             iconColor={'white'}
@@ -216,8 +216,43 @@ export default class ChargeCard extends Component {
           value={this.state.cvv}
             />
         
+        <Text style={{fontSize: 16, color: '#95989A', alignSelf: 'center', marginBottom: 5}}>Expiry Date</Text>
+        <View style={{flexDirection: 'row', flex: 1, }}>
+          <Hideo
+            iconClass={Icon}
+            iconName={'calendar-o'}
+            iconColor={'white'}
+            // this is used as backgroundColor of icon container view.
+            iconBackgroundColor={'#39B7EF'}
+            inputStyle={styles.textBox}
+              style={{marginBottom: 5,marginRight:5}}
+            placeholder='MM'
+              multiline={true}
+                          keyboardType='numeric'
+                  
+        onChangeText={(expiryMonth) => this.setState({expiryMonth})}
+          value={this.state.expiryMonth}
+            />
         
-        <View style={{alignItems: 'center'}}>
+                        <Hideo
+            iconClass={Icon}
+            iconName={'calendar-o'}
+            iconColor={'white'}
+            // this is used as backgroundColor of icon container view.
+            iconBackgroundColor={'#39B7EF'}
+            inputStyle={styles.textBox}
+              style={{marginBottom: 5, marginLeft:5}}
+            placeholder='YY'
+              multiline={true}
+                          keyboardType='numeric'
+                  
+        onChangeText={(expiryYear) => this.setState({expiryYear})}
+          value={this.state.expiryYear}
+            />
+        </View>
+              
+        
+        <View style={{alignItems: 'center', marginTop:10}}>
           <TouchableOpacity
             onPress={this.scanCard.bind(this)}>
             <Icon name="camera" size={50} color="#39B7EF"/>
