@@ -18,6 +18,7 @@ import PaymentSuccess from './PaymentSuccess';
 
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { StackNavigator } from 'react-navigation';
+import LoginForm from './LoginForm';
 
 
 
@@ -225,8 +226,9 @@ export default class Charge extends Component {
   }
   
   render(){
+    return (<LoginForm />);
    // const { navigate } = this.props.navigation;
-    return (
+  /*  return (
       <View style={styles.container}>
         
         <View style={stylesModal.container}>
@@ -304,7 +306,7 @@ export default class Charge extends Component {
       </View>
 
       
-    );
+    );*/
   }
 };
 
@@ -316,8 +318,6 @@ const Zynle = StackNavigator({
 }, {
   initialRouteName: 'Charge',
 });
-
-
 
 
 AppRegistry.registerComponent('Zynle', () => Zynle);

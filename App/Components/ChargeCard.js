@@ -111,12 +111,12 @@ export default class ChargeCard extends Component {
     }*/
 
   
-    var apiResult = Api.CallWebAPI(sale.totalCharge, this.state.cardNumber, this.state.expiryMonth, this.state.expiryYear, this.state.cvv, sale.note, this.state.nameOnCard);
+    Api.CallWebAPI(sale.totalCharge, this.state.cardNumber, this.state.expiryMonth, this.state.expiryYear, this.state.cvv, sale.note, this.state.nameOnCard);
     
-    console.log('this is the api result: ' + apiResult);
+   // console.log('this is the api result: ' + apiResult);
     
     const { navigate } = this.props.navigation;
-    navigate('PaymentSuccess',{'sale': sale.totalCharge, 'apiResult': apiResult});
+    navigate('PaymentSuccess',sale.totalCharge);
   }
   
 //scan card method

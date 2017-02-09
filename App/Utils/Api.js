@@ -31,12 +31,11 @@ var Api ={
   //url .= ".json";
     
     var responseObj = fetch(url)
-    .then((response) => response.json())
-    .then((responseJson) => {
-     // console.log(responseJson);
+    .then((response) => {
       
-      return responseJson.responseCode;
-      })
+      console.log(response);
+      return response;
+    })
       .catch((error) => {
       console.error(error);
       }); 
