@@ -66,11 +66,18 @@ const styles = StyleSheet.create({
 
 
 class LoginForm extends Component {
+  
+    static navigationOptions = {
+    title: 'Login Form',
+    header: {
+      visible: false,
+    }
+  };
     
   state = { 
-    'username': '',
-    'passord': '',
-    'merchant_id': '',
+    'username': '0977547820',
+    'password': '1234',
+    'merchant_id': '45',
     'loading': false,
     'error': ''
   }
@@ -239,21 +246,38 @@ class LoginForm extends Component {
       if(response.status === 200){
         console.log("success");
         
+        //navigate to charge screen
+        const { navigate } = this.props.navigation;
+        navigate('Charge');
+        
+        
+        //write to Asych Storage
+        
         
       } else {
         console.log("failed")
         
+        //alert authentication error
         Alert.alert(
           'Something went wrong...',
-          'Your login details didn\'t work. If you do not have login credentials contact Zynle customer care at 0977547820',
+          'Your login details didn\'t work. If you do not have login credentials, please contact Zynle customer care at 0977547820',
           [{text: 'Got it', onPress: () => console.log('close error box')}]
         );
       }
     })
     .catch((error) => {
-      console.error(error);
+      //hide spinner 
+      this.setState({ 'loading': false});
+      
+      //alert network error
+      Alert.alert(
+          'No internet connectivity...',
+          'It appears your phone is not connected to the internet. Please connect to a wifi network or turn on your mobile data',
+          [{text: 'Got it', onPress: () => console.log(error)}]
+        );
+      
+      
     });
-    
     
   }
   

@@ -4,7 +4,8 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  ToastAndroid
 } from 'react-native';
 
 //import icons
@@ -107,12 +108,17 @@ export default class PaymentSuccess extends Component {
   
   goHome(){    
     
+    const  { params }  = this.props.navigation.state;
     
     if(this.state.phoneNumber != null){
       //send text
-      sms = `Thank you for your order. You receipt number is ${this.state.refrenceNumber} for the amount ${totalCharge}`;
-      fetch(`http://www.bulksms.co.zm/smsservice/httpapi?username=zynlepay&password=zynle12&msg=${sms}&shortcode=2343&sender_id=0955000679&phone=${this.state.phoneNumber}&api_key=121231313213123123`);
+      sms = `Thank you for your order. You receipt number is ${this.state.refrenceNumber} for the amount K${params}`;
+      fetch(`http://www.bulksms.co.zm/smsservice/httpapi?username=zynlepay&password=zynle12&msg=${sms}&shortcode=2343&sender_id=0955000679&phone=${this.state.phoneNumber}&api_key=121231313213123123`)
+        .catch((error) => {
+        alert(error);
+      });
       console.log('sms sent to ' + this.state.phoneNumber);
+      ToastAndroid.show(`Receipt Sent to ${this.state.phoneNumber}`, ToastAndroid.SHORT);
     }
    
     //send home

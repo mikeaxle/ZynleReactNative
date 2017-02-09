@@ -4,7 +4,8 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
   
 } from 'react-native';
 
@@ -133,6 +134,7 @@ export default class ChargeCard extends Component {
         expiryMonth: card.expiryMonth.toString(),
         expiryYear: card.expiryYear.toString(),
         cvv: card.cvv
+       
       });
       
       console.log(this.state);
@@ -140,7 +142,12 @@ export default class ChargeCard extends Component {
       })
       .catch((error) => {
         // the user cancelled
-      alert(error);
+      Alert.alert('Card Scan Cancelled',
+                 'If you are unable to scan your card for some reason, you can still enter the card details manually or use the card reader peripheral', 
+                  [
+        {text:'Try other options', onPress: () => console.log(error)}
+        
+      ]);
       })
   }
   
@@ -214,6 +221,8 @@ export default class ChargeCard extends Component {
                           keyboardType='numeric'
                             onChangeText={(cvv) => this.setState({cvv})}
           value={this.state.cvv}
+          secureTextEntry
+          
             />
         
         <Text style={{fontSize: 16, color: '#95989A', alignSelf: 'center', marginBottom: 5}}>Expiry Date</Text>
