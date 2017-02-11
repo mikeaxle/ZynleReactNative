@@ -128,11 +128,7 @@ export default class PaymentSuccess extends Component {
   
   render(){
     const  { params }  = this.props.navigation.state;
-   // const { apiResult } = this.props.navigation.apiResult;
-    
-    console.log(params);
-    
-   // totalCharge = params;
+
     return(
       <View style={styles.container}>
         

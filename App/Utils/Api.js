@@ -16,8 +16,9 @@ var Api ={
     var request_id = Math.floor(Date.now() / 1000);
     var secret = "b1ad6c0262edce80e705c030760951a35530c771";
     var generate_key = base64.encode(this.sha1(secret + request_id));       
-    var url = "http://www.zynlepay.com:8070/zynlepay/zpay/api/runCardReader?";
-    var url = url + "api_id=" + ("0977547820") + "&";
+    var url = encodeURI(`http://www.zynlepay.com:8070/zynlepay/zpay/api/runCardReader?api_id=0977547820&merchant_id=45&request_id=${request_id}&key=${generate_key}&amount=${amount}&cardnumber=${cardnumber}&expirymonth=${expirymonth}&expiryyear=${expiryyear}&cvv=${cvv}&product=${product}&nameoncard=${nameoncard}`);
+
+    /*var url = url + "api_id=0977547820&";
     var url = url + "merchant_id=" + ("45") + "&";
     var url = url + "request_id=" + (request_id) + "&";
     var url = url + "key=" + (generate_key) + "&";
@@ -27,20 +28,21 @@ var Api ={
     var url = url + "expiryyear=" + (expiryyear) + "&";
     var url = url + "cvv=" + (cvv) + "&";
     var url = url + "product=" + (product) + "&";
-    var url = url + "nameoncard=" + (nameoncard);
-  //url .= ".json";
+    var url = url + "nameoncard=" + (nameoncard);*/
     
-    var responseObj = fetch(url)
-    .then((response) => {
+    console.log(url);
+    
+    return fetch(url)
+    .then((response) => response.json())
+    .then((responseJson) => {
       
-      console.log(response);
-      return response;
+      //console.log(responseJson);
+      return responseJson;
     })
-      .catch((error) => {
-      console.error(error);
-      }); 
-    
-    return responseObj;
+    .catch((error) =>{
+      console.log(error);
+    });
+
     },
   
   

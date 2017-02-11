@@ -6,7 +6,8 @@ import {
   TextInput,
   StyleSheet,
   ActivityIndicator,
-  Alert
+  Alert,
+  ToastAndroid
   
 } from 'react-native';
 
@@ -245,6 +246,9 @@ class LoginForm extends Component {
       
       if(response.status === 200){
         console.log("success");
+        
+        //show toast
+        ToastAndroid.show('You are now logged in permanently', ToastAndroid.SHORT);
         
         //navigate to charge screen
         const { navigate } = this.props.navigation;

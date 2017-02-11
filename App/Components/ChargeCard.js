@@ -91,17 +91,22 @@ export default class ChargeCard extends Component {
       cardReaderConnected: false,
       
       //card details temp storage
-      nameOnCard: null,
-      cardNumber: null,
-      expiryMonth: null,
-      expiryYear: null,
-      cvv: null
+      nameOnCard: 'Michael Lungu',
+      cardNumber: '4383755000927515',
+      expiryMonth: '04',
+      expiryYear: '22',
+      cvv: '549'
     }
   }
 
+
+  
+  
 //charge card method
   chargeCard(){
-   /* if (this.state.cardNumber === null || this.state.expiryDate === null || this.state.cvv === null){
+   
+    //validation
+    /*if (this.state.cardNumber === null || this.state.expiryDate === null || this.state.cvv === null){
       alert('Scan card using peripheral or camera, or enter card details manually');
     } else {
       //call zynle api
@@ -110,12 +115,10 @@ export default class ChargeCard extends Component {
       //navigate to success screen
     
     }*/
-
-  
-    Api.CallWebAPI(sale.totalCharge, this.state.cardNumber, this.state.expiryMonth, this.state.expiryYear, this.state.cvv, sale.note, this.state.nameOnCard);
     
-   // console.log('this is the api result: ' + apiResult);
+    var requestResponse = Api.CallWebAPI(sale.totalCharge, this.state.cardNumber, this.state.expiryMonth, this.state.expiryYear, this.state.cvv, sale.note, this.state.nameOnCard);
     
+    console.log(requestResponse);
     const { navigate } = this.props.navigation;
     navigate('PaymentSuccess',sale.totalCharge);
   }
