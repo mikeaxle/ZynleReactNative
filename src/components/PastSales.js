@@ -20,6 +20,7 @@ var styles = StyleSheet.create({
 });
 
 export default class PastSales extends Component {
+
   
   render() {
     return(

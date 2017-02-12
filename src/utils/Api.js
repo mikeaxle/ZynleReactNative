@@ -1,44 +1,53 @@
 import base64 from 'base-64';
 
 var Api ={
-  authenticateUser(){
-    var userName = "zynlepay";
-    var passWord = "b1ad6c0262edce80e705c030760951a35530c771";
-    var token = userName + ":" + passWord;
-    var hash = base64.encode(token);
-    console.log(token);
-    return "Basic " + hash;
-  },
-  
-  CallWebAPI(amount, cardnumber, expirymonth, expiryyear, cvv, product, nameoncard) {
-    var request_id = Math.floor(Date.now() / 1000);
-    var secret = "b1ad6c0262edce80e705c030760951a35530c771";
-    var generate_key = base64.encode(this.sha1(secret + request_id));       
-    var url = "http://www.zynlepay.com:8070/zynlepay/zpay/api/runCardReader?";
-    var url = url + "api_id=" + ("0977547820") + "&";
-    var url = url + "merchant_id=" + ("45") + "&";
-    var url = url + "request_id=" + (request_id) + "&";
-    var url = url + "key=" + (generate_key) + "&";
-    var url = url + "amount=" + (amount) + "&";
-    var url = url + "cardnumber=" + (cardnumber) + "&";
-    var url = url + "expirymonth=" + (expirymonth) + "&";
-    var url = url + "expiryyear=" + (expiryyear) + "&";
-    var url = url + "cvv=" + (cvv) + "&";
-    var url = url + "product=" + (product) + "&";
-    var url = url + "nameoncard=" + (nameoncard);
-    
-    fetch(url)
-      .then((response) => {
-      console.log(response);
-    })
-      .catch((error) => {
-      console.error(error);
-      }); 
+    authenticateUser(){
+        var userName = "zynlepay";
+        var passWord = "b1ad6c0262edce80e705c030760951a35530c771";
+        var token = userName + ":" + passWord;
+        var hash = base64.encode(token);
+        console.log(token);
+        return "Basic " + hash;
     },
-  
-  
-  sha1(msg) {
-        
+
+    CallWebAPI(amount, cardnumber, expirymonth, expiryyear, cvv, product, nameoncard) {
+
+
+        var request_id = Math.floor(Date.now() / 1000);
+        var secret = "b1ad6c0262edce80e705c030760951a35530c771";
+        var generate_key = base64.encode(this.sha1(secret + request_id));
+        var url = encodeURI(`http://www.zynlepay.com:8070/zynlepay/zpay/api/runCardReader?api_id=0977547820&merchant_id=45&request_id=${request_id}&key=${generate_key}&amount=${amount}&cardnumber=${cardnumber}&expirymonth=${expirymonth}&expiryyear=${expiryyear}&cvv=${cvv}&product=${product}&nameoncard=${nameoncard}`);
+
+        /*var url = url + "api_id=0977547820&";
+         var url = url + "merchant_id=" + ("45") + "&";
+         var url = url + "request_id=" + (request_id) + "&";
+         var url = url + "key=" + (generate_key) + "&";
+         var url = url + "amount=" + (amount) + "&";
+         var url = url + "cardnumber=" + (cardnumber) + "&";
+         var url = url + "expirymonth=" + (expirymonth) + "&";
+         var url = url + "expiryyear=" + (expiryyear) + "&";
+         var url = url + "cvv=" + (cvv) + "&";
+         var url = url + "product=" + (product) + "&";
+         var url = url + "nameoncard=" + (nameoncard);*/
+
+        console.log(url);
+
+        return fetch(url)
+            .then((response) => response.json())
+            .then((responseJson) => {
+
+                //console.log(responseJson);
+                return responseJson;
+            })
+            .catch((error) =>{
+                console.log(error);
+            });
+
+    },
+
+
+    sha1(msg) {
+
         function rotate_left(n, s) {
             var t4 = (n << s) | (n >>> (32 - s));
             return t4;
@@ -102,7 +111,7 @@ var Api ={
         var word_array = new Array();
         for (i = 0; i < msg_len - 3; i += 4) {
             j = msg.charCodeAt(i) << 24 | msg.charCodeAt(i + 1) << 16 |
-                    msg.charCodeAt(i + 2) << 8 | msg.charCodeAt(i + 3);
+                msg.charCodeAt(i + 2) << 8 | msg.charCodeAt(i + 3);
             word_array.push(j);
         }
         switch (msg_len % 4) {
@@ -174,8 +183,7 @@ var Api ={
         }
         var temp = cvt_hex(H0) + cvt_hex(H1) + cvt_hex(H2) + cvt_hex(H3) + cvt_hex(H4);
         return temp.toLowerCase();
-    }  
+    }
 };
 
 module.exports = Api;
-
