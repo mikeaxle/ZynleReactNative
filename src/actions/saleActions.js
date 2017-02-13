@@ -8,3 +8,6 @@ export const createSale =  ({amount, note}) => {
         payload: {amount, note}
     };
 };
+
+
+//action to edit sale

@@ -11,7 +11,8 @@ import {
     Image,
     TouchableOpacity,
     ListView,
-    TextInput
+    TextInput,
+    BackAndroid
 } from 'react-native';
 
 
@@ -70,6 +71,28 @@ const styles = {
 //create SaleDetail Screen
 class SalesDetail extends  Component {
 
+    //set up back button listener
+    componentDidMount() {
+        BackAndroid.addEventListener('backPress', () => {
+            const { navigate } = this.props.navigation
+
+            //  this.nav.goBack(null);
+            // if (ChargeCard(nav)) return false
+            this.props.moveToScreen('SaleList');
+            return true
+
+        })
+    }
+
+    //remove back button listener
+    componentWillUnmount() {
+        BackAndroid.removeEventListener('backPress')
+    }
+
+    componentWillMount() {
+
+    }
+
     //define navigation option - hide header
     static navigationOptions = {
         title: 'Amount: K',  //add variable from redux
@@ -90,12 +113,14 @@ class SalesDetail extends  Component {
 
 
     render() {
+
+        console.log(this.props.index);
         return(
             <View style={styles.container}>
                 <View style={styles.contentAea}>
 
                     <View style={{marginBottom: 20}}>
-                        <Text style={styles.label}>Price</Text>
+                        <Text style={styles.label}>Price - {this.props.index}</Text>
                         <TextInput style={styles.textBox}/>
                     </View>
 
@@ -132,12 +157,17 @@ class SalesDetail extends  Component {
 
 }
 
-/*map redux state to local props
- const mapStateToProps = () => {
+//map redux state to local props
+ const mapStateToProps = (state) => {
 
- return {}
- } */
+   //  { index } = stat.
+
+ return {
+     sale: state.sale,
+     index: state.selectedSale
+ }
+}
 
 
 //connect reducers and actions
-export default connect(null, { moveToScreen })(SalesDetail);
+export default connect(mapStateToProps, { moveToScreen })(SalesDetail);

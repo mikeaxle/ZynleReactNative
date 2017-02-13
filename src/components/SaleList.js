@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 /**     import redux  stuff   **/
 import { connect } from 'react-redux';
-import { moveToScreen } from '../actions';
+import { moveToScreen, selectSale } from '../actions';
 
 
 import {
@@ -10,8 +10,12 @@ import {
     Text,
     Image,
     TouchableOpacity,
-    ListView
+    ListView,
+    TouchableNativeFeedback,
+    BackAndroid
 } from 'react-native';
+
+//import ListItem from './ListItem'; //import list item
 
 
 //define scene styles
@@ -38,19 +42,80 @@ const styles = {
     },
 
 
-}
+};
+
+const stylesItem = {
+    container: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 5
+    },
+    text: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#95989A'
+    }
+};
+
 
 
 //create SalesList Screen
 class SalesList extends  Component {
 
-    //define navigation option - hide header
+    //define navigation option - show header
     static navigationOptions = {
-        title: 'Total: K',  //add variable from redux
+
+        title:'Total K',
         header: {
             visible: true,
         }
     };
+
+
+    constructor(props){
+        super(props);
+        this.state = {
+            red: 'ass'
+        }
+    }
+
+    //set up back button listener
+    componentDidMount() {
+        BackAndroid.addEventListener('backPress', () => {
+            const { navigate } = this.props.navigation
+
+            //  this.nav.goBack(null);
+            // if (ChargeCard(nav)) return false
+            this.props.moveToScreen('Charge');
+            return true
+
+        })
+    }
+
+
+
+    //setup component data on mount
+    componentWillMount(){
+
+        const ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 !== r2
+        });
+
+        this.dataSource = ds.cloneWithRows(this.props.sale);
+
+    }
+
+    //remove back button listener
+    componentWillUnmount() {
+        BackAndroid.removeEventListener('backPress')
+    }
+
+    //call actions
+    openSaleItem(rowID){
+        this.props.selectSale(rowID);
+        this.props.moveToScreen('SalesDetail');
+
+    }
 
     //function to clear sales
     clearSales(){
@@ -59,16 +124,28 @@ class SalesList extends  Component {
 
 
     render() {
+
+
         return(
             <View style={styles.container}>
-                <Text>This text is here</Text>
+
+                <ListView
+                    dataSource={this.dataSource}
+                    renderRow={(rowData, sectionID, rowID) =>
+                    <TouchableNativeFeedback onPress={this.openSaleItem.bind(this,rowID)}>
+                    <View style={stylesItem.container}>
+                     <Text style={stylesItem.text}>K{rowData.amount}</Text>
+                     <Text style={stylesItem.text}>{rowData.note}</Text>
+                     <Text style={stylesItem.text}>{rowID}</Text>
+                     </View>
+                     </TouchableNativeFeedback>}
+                    />
 
                 <View style={{padding: 10}}>
                     <TouchableOpacity
                         style={styles.button}
                         underlayColor="#39B7EF"
-                        onPress={() => this.props.moveToScreen('SalesDetail')}
-                    >
+                        onPress={() => this.props.moveToScreen('SalesDetail')}>
                         <Text style={styles.buttonText}>Clear Sale</Text>
                     </TouchableOpacity>
                 </View>
@@ -83,10 +160,16 @@ class SalesList extends  Component {
 const mapStateToProps = (state) => {
 
     return {
-        sale: state.sale
+        //return entire sale list
+        sale: state.sale,
+
+        //return the sum of all sale items aka total amount
+       // totalCharge: state.sale.reduce(function(result, item) {
+        //    return result + Number(item.amount);
+        //}, 0)
     }
 }
 
 
 //connect reducers and actions
-export default connect(mapStateToProps, { moveToScreen })(SalesList);
+export default connect(mapStateToProps, { moveToScreen, selectSale })(SalesList);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, } from 'react-native';
-import { TabViewAnimated, TabBar } from 'react-native-tab-view'; //delete this shit
+
 import Keypad from './Keypad';
 import PastSales from './PastSales';
 

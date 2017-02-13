@@ -31,7 +31,7 @@ const styles = {
     icon: {
         backgroundColor: '#39B7EF',
         padding: 15,
-        borderRadius: 150,
+        borderRadius: 250,
         alignItems: 'center',
         justifyContent: 'center'
 
@@ -309,7 +309,7 @@ class LoginForm extends Component {
 
                 <View style={{flexDirection:'row', alignItems:'center', flex:1, marginBottom:150, marginTop:20}}>
                     <View style={styles.icon}>
-                        <Icon name="credit-card" size={40} color="#fff" />
+                        <Icon name="credit-card" size={30} color="#fff" />
                     </View>
                     <Text style={{fontSize:35}}>  Zynle</Text>
                     <Text style={{fontSize:35, color: '#39B7EF'}}>Pay</Text>

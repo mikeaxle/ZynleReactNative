@@ -10,7 +10,7 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native'; 
 
 
@@ -62,6 +62,9 @@ var styles = {
 
 class Charge extends Component {
 
+
+
+
     //define navigation option - hide header
     static navigationOptions = {
         title: 'Login Form',
@@ -99,6 +102,8 @@ class Charge extends Component {
   
   render(){
 
+      console.log(this.props);
+
     return (
       <View style={styles.container}>
 
@@ -134,8 +139,6 @@ class Charge extends Component {
 
 //map redux state to local props
 const mapStateToProps = (state) => {
-
-    console.log(state);
 
     return {
 

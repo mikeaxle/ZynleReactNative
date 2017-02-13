@@ -4,7 +4,8 @@ import {
     Text,
     Image,
     StyleSheet,
-    TouchableHighlight
+    TouchableHighlight,
+    TouchableNativeFeedback
 } from 'react-native';
 
 var styles = {
@@ -32,12 +33,26 @@ export default class NumPad extends Component {
 
     render(){
         return (
-            <TouchableHighlight
-                style={styles.container}
-                underlayColor={'#EDEBE5'}
+            <TouchableNativeFeedback
                 onPress={this.props.onPress}>
-              <Text style={{color: this.props.num === 'c' ? '#39B7EF' : '#95989A' && this.props.num === '+' ? '#39B7EF' : '#95989A', fontSize:35 }}>{this.props.num}</Text>
-            </TouchableHighlight>
+                <View style={styles.container}>
+                    <Text style={{color: this.props.num === 'c' ? '#39B7EF' : '#95989A' && this.props.num === '+' ? '#39B7EF' : '#95989A', fontSize:35 }}>
+                        {this.props.num}
+                        </Text>
+                </View>
+            </TouchableNativeFeedback>
         );
     }
 }
+
+
+/*
+
+ <TouchableHighlight
+ style={styles.container}
+ underlayColor={'#EDEBE5'}
+ onPress={this.props.onPress}>
+ <Text style={{color: this.props.num === 'c' ? '#39B7EF' : '#95989A' && this.props.num === '+' ? '#39B7EF' : '#95989A', fontSize:35 }}>{this.props.num}</Text>
+ </TouchableHighlight>
+
+ */

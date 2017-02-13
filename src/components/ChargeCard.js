@@ -4,7 +4,8 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
-    Alert
+    Alert,
+    BackAndroid
 
 } from 'react-native';
 
@@ -35,7 +36,6 @@ var styles = {
         borderTopRightRadius: 5,
         borderBottomRightRadius: 5,
         backgroundColor: '#EDEDED',
-        color: '#95989A',
         padding: 10,
         fontSize:16,
         // marginTop:20,
@@ -69,9 +69,26 @@ var styles = {
 
 //variable to render status
 var statusIcon = null;
-var sale = null; //change to redux
 
 class ChargeCard extends Component {
+
+    componentDidMount() {
+
+
+        BackAndroid.addEventListener('backPress', () => {
+            const { navigate } = this.props.navigation
+
+          //  this.nav.goBack(null);
+           // if (ChargeCard(nav)) return false
+            this.props.moveToScreen('Charge');
+            return true
+
+        })
+    }
+
+    componentWillUnmount() {
+        BackAndroid.removeEventListener('backPress')
+    }
 
     static navigationOptions = {
         // Nav options can be defined as a function of the navigation prop:

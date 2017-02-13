@@ -138,7 +138,7 @@ class Keypad extends Component {
         //check length of screen number
         if(this.state.totalCharge.length > 5){
 
-            Alert.alert('You have reached the purchase limit', 'ass',
+            Alert.alert('Slow Down!', 'You have reached the purchase limit',
                 [{ text: 'Enter a lower amount' }]);
         } else {
             //check if itemCharge is zero
