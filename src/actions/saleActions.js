@@ -11,3 +11,16 @@ export const createSale =  ({amount, note}) => {
 
 
 //action to edit sale
+export const updateSale = (amount, note, index) => {
+    return {
+        type: SALE_UPDATE,
+        payload: { amount, note, index }
+    };
+};
+
+export const deleteSale = ({index}) => {
+    return {
+        type: SALE_DELETE,
+        payload: index
+    };
+};

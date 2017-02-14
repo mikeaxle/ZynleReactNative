@@ -13,7 +13,7 @@ export default (state = INITIAL_NAV_STATE, action) => {
     switch (action.type){
         // add sale
         case SELECTED_ID:
-            return   type.payload;
+            return action.payload;
 
         default:
             return state;

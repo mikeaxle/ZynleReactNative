@@ -82208,6 +82208,18 @@ switch(action.type){
 case _types.SALE_CREATE:
 return[].concat(babelHelpers.toConsumableArray(state),[{amount:action.payload.amount,note:action.payload.note}]);
 
+case _types.SALE_UPDATE:
+
+return[].concat(babelHelpers.toConsumableArray(state.slice(0,action.payload.index)),[
+state[action.payload.index].amount=action.payload.amount,
+state[action.payload.index].amount=action.payload.note],babelHelpers.toConsumableArray(
+state.slice(action.payload.index+1)));
+
+case _types.SALE_DELETE:
+
+return[].concat(babelHelpers.toConsumableArray(state.slice(0,action.payload.index)),babelHelpers.toConsumableArray(
+state.slice(action.payload.index+1)));
+
 default:
 return state;}
 
@@ -82216,7 +82228,7 @@ return state;}
 return state;
 };
 }, 647, null, "Zynle/src/reducers/saleReducers.js");
-__d(/* Zynle/src/reducers/saleSelectReducer.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _actions=require(649 /* ../actions */);
+__d(/* Zynle/src/reducers/saleSelectReducer.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _types=require(646 /* ../actions/types */);
 
 
 
@@ -82225,13 +82237,13 @@ var INITIAL_NAV_STATE=null;exports.default=
 
 function(){var state=arguments.length>0&&arguments[0]!==undefined?arguments[0]:INITIAL_NAV_STATE;var action=arguments[1];
 
-console.log(action);
+
 
 
 switch(action.type){
 
-case _actions.SELECTED_ID:
-return 1;
+case _types.SELECTED_ID:
+return action.payload;
 
 default:
 return state;}
@@ -82241,49 +82253,6 @@ return state;}
 return state;
 };
 }, 648, null, "Zynle/src/reducers/saleSelectReducer.js");
-__d(/* Zynle/src/actions/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _navigationActions=require(650 /* ./navigationActions */);Object.keys(_navigationActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _navigationActions[key];}});});var _saleActions=require(651 /* ./saleActions */);
-Object.keys(_saleActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _saleActions[key];}});});var _selectSaleActions=require(652 /* ./selectSaleActions */);
-Object.keys(_selectSaleActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _selectSaleActions[key];}});});
-}, 649, null, "Zynle/src/actions/index.js");
-__d(/* Zynle/src/actions/navigationActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.backScreen=exports.moveToScreen=undefined;var _types=require(646 /* ./types */);
-
-
-var moveToScreen=exports.moveToScreen=function moveToScreen(screen){
-return{
-type:_types.NAVIGATE,
-payload:screen};
-
-};
-
-
-
-var backScreen=exports.backScreen=function backScreen(){
-return{
-type:_types.BACK_SCREEN};
-
-
-};
-}, 650, null, "Zynle/src/actions/navigationActions.js");
-__d(/* Zynle/src/actions/saleActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.createSale=undefined;var _types=require(646 /* ./types */);
-
-
-
-var createSale=exports.createSale=function createSale(_ref){var amount=_ref.amount,note=_ref.note;
-return{
-type:_types.SALE_CREATE,
-payload:{amount:amount,note:note}};
-
-};
-}, 651, null, "Zynle/src/actions/saleActions.js");
-__d(/* Zynle/src/actions/selectSaleActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.selectSale=undefined;var _types=require(646 /* ./types */);
-
-var selectSale=exports.selectSale=function selectSale(index){
-return{
-type:_types.SELECTED_ID,
-payload:index};
-
-};
-}, 652, null, "Zynle/src/actions/selectSaleActions.js");
 __d(/* Zynle/src/components/LoginForm.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -86906,6 +86875,65 @@ root.base64=base64;
 
 })(this);
 }, 715, null, "base-64/base64.js");
+__d(/* Zynle/src/actions/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _navigationActions=require(650 /* ./navigationActions */);Object.keys(_navigationActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _navigationActions[key];}});});var _saleActions=require(651 /* ./saleActions */);
+Object.keys(_saleActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _saleActions[key];}});});var _selectSaleActions=require(652 /* ./selectSaleActions */);
+Object.keys(_selectSaleActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _selectSaleActions[key];}});});
+}, 649, null, "Zynle/src/actions/index.js");
+__d(/* Zynle/src/actions/navigationActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.backScreen=exports.moveToScreen=undefined;var _types=require(646 /* ./types */);
+
+
+var moveToScreen=exports.moveToScreen=function moveToScreen(screen){
+return{
+type:_types.NAVIGATE,
+payload:screen};
+
+};
+
+
+
+var backScreen=exports.backScreen=function backScreen(){
+return{
+type:_types.BACK_SCREEN};
+
+
+};
+}, 650, null, "Zynle/src/actions/navigationActions.js");
+__d(/* Zynle/src/actions/saleActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.deleteSale=exports.updateSale=exports.createSale=undefined;var _types=require(646 /* ./types */);
+
+
+
+var createSale=exports.createSale=function createSale(_ref){var amount=_ref.amount,note=_ref.note;
+return{
+type:_types.SALE_CREATE,
+payload:{amount:amount,note:note}};
+
+};
+
+
+
+var updateSale=exports.updateSale=function updateSale(amount,note,index){
+return{
+type:_types.SALE_UPDATE,
+payload:{amount:amount,note:note,index:index}};
+
+};
+
+var deleteSale=exports.deleteSale=function deleteSale(_ref2){var index=_ref2.index;
+return{
+type:_types.SALE_DELETE,
+payload:index};
+
+};
+}, 651, null, "Zynle/src/actions/saleActions.js");
+__d(/* Zynle/src/actions/selectSaleActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.selectSale=undefined;var _types=require(646 /* ./types */);
+
+var selectSale=exports.selectSale=function selectSale(index){
+return{
+type:_types.SELECTED_ID,
+payload:index};
+
+};
+}, 652, null, "Zynle/src/actions/selectSaleActions.js");
 __d(/* Zynle/src/components/Charge.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 
 
@@ -87051,12 +87079,12 @@ var mapStateToProps=function mapStateToProps(state){
 return{
 
 
-totalSales:state.sale.length,
+totalSales:state.sale.length};
 
 
-totalCharge:state.sale.reduce(function(result,item){
-return result+Number(item.amount);
-},0)};
+
+
+
 
 };exports.default=
 
@@ -88613,7 +88641,7 @@ _reactNative.BackAndroid.removeEventListener('backPress');
 
 
 rowID){
-this.props.selectSale(1);
+this.props.selectSale(rowID);
 this.props.moveToScreen('SalesDetail');
 
 }},{key:'clearSales',value:function clearSales()
@@ -88728,10 +88756,9 @@ marginBottom:170},
 
 textBox:{
 height:50,
-borderTopRightRadius:5,
-borderBottomRightRadius:5,
+borderRadius:5,
 backgroundColor:'#EDEDED',
-color:'#95989A',
+color:'black',
 padding:10,
 fontSize:16},
 
@@ -88755,7 +88782,7 @@ navigate=_this2.props.navigation.navigate;
 
 
 
-_this2.props.moveToScreen('SaleList');
+_this2.props.moveToScreen('SalesList');
 return true;
 
 });
@@ -88764,10 +88791,6 @@ return true;
 
 {
 _reactNative.BackAndroid.removeEventListener('backPress');
-}},{key:'componentWillMount',value:function componentWillMount()
-
-{
-
 }},{key:'clearSale',value:function clearSale()
 
 
@@ -88779,31 +88802,42 @@ _reactNative.BackAndroid.removeEventListener('backPress');
 
 
 
-{
 
+{
+this.props.deleteSale(this.props.index);
+this.props.moveToScreen('SalesList');
 }},{key:'saveSale',value:function saveSale()
 
 
 {
+this.props.updateSale(this.props.currentSale.amount,this.props.currentSale.note,this.props.index);
 
 }},{key:'render',value:function render()
 
 
 {
 
-console.log(this.props.index);
+
 return(
 _react2.default.createElement(_reactNative.View,{style:styles.container},
 _react2.default.createElement(_reactNative.View,{style:styles.contentAea},
 
 _react2.default.createElement(_reactNative.View,{style:{marginBottom:20}},
-_react2.default.createElement(_reactNative.Text,{style:styles.label},'Price - ',this.props.index),
-_react2.default.createElement(_reactNative.TextInput,{style:styles.textBox})),
+_react2.default.createElement(_reactNative.Text,{style:styles.label},'Price'),
+_react2.default.createElement(_reactNative.TextInput,{
+style:styles.textBox,
+value:this.props.currentSale.amount,
+onChangeText:this.saveSale.bind(this)})),
+
 
 
 _react2.default.createElement(_reactNative.View,{style:{marginBottom:20}},
 _react2.default.createElement(_reactNative.Text,{style:styles.label},'Note'),
-_react2.default.createElement(_reactNative.TextInput,{style:styles.textBox}))),
+_react2.default.createElement(_reactNative.TextInput,{
+style:styles.textBox,
+value:this.props.currentSale.note,
+onChangeText:this.saveSale.bind(this)}))),
+
 
 
 
@@ -88837,17 +88871,15 @@ _react2.default.createElement(_reactNative.Text,{style:styles.buttonText},'Save'
 
 var mapStateToProps=function mapStateToProps(state){
 
-
-
 return{
-sale:state.sale,
+currentSale:state.sale[state.selectedSale],
 index:state.selectedSale};
 
 };exports.default=
 
 
 
-(0,_reactRedux.connect)(mapStateToProps,{moveToScreen:_actions.moveToScreen})(SalesDetail);
+(0,_reactRedux.connect)(mapStateToProps,{moveToScreen:_actions.moveToScreen,updateSale:_actions.updateSale,deleteSale:_actions.deleteSale})(SalesDetail);
 }, 745, null, "Zynle/src/components/SalesDetail.js");
 ;require(193);
 ;require(0);

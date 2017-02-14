@@ -6,6 +6,6 @@ import saleSelectReducer from './saleSelectReducer';
 export default combineReducers({
     nav: navigationReducers,
     sale: saleReducers,
-    selectedSale:saleSelectReducer
+    selectedSale: saleSelectReducer
 });
 

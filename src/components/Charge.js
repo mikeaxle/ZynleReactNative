@@ -148,7 +148,7 @@ const mapStateToProps = (state) => {
         //return the sum of all sale items aka total amount
         totalCharge: state.sale.reduce(function(result, item) {
             return result + Number(item.amount);
-        }, 0)
+        }, 0) 
     };
 };
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 /**     import redux  stuff   **/
 import { connect } from 'react-redux';
-import { moveToScreen } from '../actions';
+import { moveToScreen, updateSale, deleteSale } from '../actions';
 
 
 import {
@@ -51,10 +51,9 @@ const styles = {
     },
     textBox: {
         height: 50,
-        borderTopRightRadius: 5,
-        borderBottomRightRadius: 5,
+        borderRadius: 5,
         backgroundColor: '#EDEDED',
-        color: '#95989A',
+        color: 'black',
         padding: 10,
         fontSize:16,
         // marginTop:20,
@@ -78,7 +77,7 @@ class SalesDetail extends  Component {
 
             //  this.nav.goBack(null);
             // if (ChargeCard(nav)) return false
-            this.props.moveToScreen('SaleList');
+            this.props.moveToScreen('SalesList');
             return true
 
         })
@@ -89,9 +88,6 @@ class SalesDetail extends  Component {
         BackAndroid.removeEventListener('backPress')
     }
 
-    componentWillMount() {
-
-    }
 
     //define navigation option - hide header
     static navigationOptions = {
@@ -103,30 +99,40 @@ class SalesDetail extends  Component {
 
     //function to clear sales
     clearSale(){
-
+        this.props.deleteSale(this.props.index)
+        this.props.moveToScreen('SalesList')
     }
 
     //function to save changes
     saveSale(){
-
+        this.props.updateSale(this.props.currentSale.amount, this.props.currentSale.note, this.props.index)
+       // this.props.moveToScreen('SalesList')
     }
 
 
     render() {
 
-        console.log(this.props.index);
+        //console.log(this.props.currentSale);
         return(
             <View style={styles.container}>
                 <View style={styles.contentAea}>
 
                     <View style={{marginBottom: 20}}>
-                        <Text style={styles.label}>Price - {this.props.index}</Text>
-                        <TextInput style={styles.textBox}/>
+                        <Text style={styles.label}>Price</Text>
+                        <TextInput
+                            style={styles.textBox}
+                            value={this.props.currentSale.amount}
+                            
+                        />
                     </View>
 
                     <View style={{marginBottom: 20}}>
                         <Text style={styles.label}>Note</Text>
-                        <TextInput style={styles.textBox}/>
+                        <TextInput
+                            style={styles.textBox}
+                            value={this.props.currentSale.note}
+                            
+                        />
                     </View>
 
                 </View>
@@ -146,6 +152,7 @@ class SalesDetail extends  Component {
                         style={styles.buttonSave}
                         underlayColor="#39B7EF"
                         onPress={this.saveSale.bind(this)}
+                        onChangeText={this.saveSale.bind(this)}
                     >
                         <Text style={styles.buttonText}>Save</Text>
                     </TouchableOpacity>
@@ -160,14 +167,12 @@ class SalesDetail extends  Component {
 //map redux state to local props
  const mapStateToProps = (state) => {
 
-   //  { index } = stat.
-
  return {
-     sale: state.sale,
+     currentSale: state.sale[state.selectedSale],
      index: state.selectedSale
  }
 }
 
 
 //connect reducers and actions
-export default connect(mapStateToProps, { moveToScreen })(SalesDetail);
+export default connect(mapStateToProps, { moveToScreen, updateSale, deleteSale })(SalesDetail);
