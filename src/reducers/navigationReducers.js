@@ -20,7 +20,7 @@ export default (state = INITIAL_NAV_STATE, action) => {
             return AppNavigator.router.getStateForAction(NavigationActions.navigate({ routeName: action.payload }), state);
 
         case BACK_SCREEN:
-            return AppNavigator.router.getStateForAction(NavigationActions.BACK, state);
+            return AppNavigator.router.getStateForAction(NavigationActions.back(), state);
 
         default:
             return state;

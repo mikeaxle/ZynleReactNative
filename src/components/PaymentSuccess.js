@@ -4,7 +4,9 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
-    ToastAndroid
+    ToastAndroid,
+    BackAndroid,
+    Alert
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/EvilIcons'; //import icons
@@ -12,7 +14,7 @@ import { Hideo } from 'react-native-textinput-effects'; //import textinput effec
 
 /**     import redux  stuff   **/
 import { connect } from 'react-redux';
-import { moveToScreen } from '../actions';
+import { moveToScreen, clearSales } from '../actions';
 
 var styles = {
     container: {
@@ -94,7 +96,28 @@ class PaymentSuccess extends Component {
 
   static navigationOptions = {
     title: 'Payment Successful',
-  };
+  }
+
+    //set up back button listener
+    componentDidMount() {
+        BackAndroid.addEventListener('backPress', () => {
+            //show alert
+
+            Alert.alert(
+                'Not allowed...',
+                'You cannot go back to the previous screen. You can start a new transaction by tapping the COMPLETE button.',
+                [{text: 'Exit ZynlePay', onPress: () => BackAndroid.exitApp() },{text: 'Got it'}]
+            );
+
+            return true
+        })
+    }
+
+    //remove back button listener
+    componentWillUnmount() {
+        BackAndroid.removeEventListener('backPress')
+    }
+
 
   //define local state
   state = {
@@ -107,6 +130,9 @@ class PaymentSuccess extends Component {
     static navigationOptions = {
         // Nav options can be defined as a function of the navigation prop:
         title: 'Payment Successful',
+        header: {
+            visible: false
+        }
     };
 
   //function to clear reload app and clear redux state
@@ -125,10 +151,12 @@ class PaymentSuccess extends Component {
         }
 
         //write total sale to Async storage
-        this.props.moveToScreen('Charge');
+
 
         //reload app and navigate home
         //** write function to reset all navigation stack and redux//
+        this.props.clearSales();
+        this.props.moveToScreen('Charge');
 
 
     }
@@ -173,4 +201,4 @@ class PaymentSuccess extends Component {
     }
 }
 
-export default connect(null, { moveToScreen })(PaymentSuccess);
+export default connect(null, { moveToScreen, clearSales })(PaymentSuccess);

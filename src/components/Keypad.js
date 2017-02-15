@@ -122,7 +122,7 @@ class Keypad extends Component {
   //define local state
     state = {
         totalCharge: 0,
-        note: 'Product name',
+        note: '',
         modalVisible: false
     }
 
@@ -156,7 +156,7 @@ class Keypad extends Component {
     //function to clear numbers on screen
     clearScreen(){
         console.log('clear');
-        this.setState({ totalCharge: 0, note: 'Product name'  });
+        this.setState({ totalCharge: 0, note: ''  });
     }
 
     //function to add to total charge - redux
@@ -184,7 +184,7 @@ class Keypad extends Component {
                     </View>
                     <View style={stylesModal.contentArea}>
                       <TextInput style={stylesModal.textBox}
-                                 placeholder= 'Enter your item name(s) here'
+                                 placeholder= 'Enter your product name here'
                                  multiline={true}
                                  maxLength={30}
                                  numberOfLines={2}

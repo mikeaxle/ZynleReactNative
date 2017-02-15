@@ -6,7 +6,8 @@ import {
     TextInput,
     ActivityIndicator,
     Alert,
-    ToastAndroid
+    ToastAndroid,
+    AsyncStorage
 
 } from 'react-native'; //import react native componenets
 
@@ -74,14 +75,25 @@ class LoginForm extends Component {
         }
     };
 
-    //initialize local state
+    /*initialize local state
     state = {
+        'username': '',
+        'password': '',
+        'merchant_id': '',
+        'loading': false,
+        'error': ''
+    }*/
+
+
+    //**************testing*************** initialize local state
+      state = {
         'username': '0977547820',
         'password': '1234',
         'merchant_id': '45',
         'loading': false,
         'error': ''
     }
+
 
     //function to encode sha1
     sha1(msg) {
@@ -246,14 +258,27 @@ class LoginForm extends Component {
 
             if(response.status === 200){
                 console.log("success");
+                //AsyncStorage.setItem('LoggedIn', true);
+
+
+                AsyncStorage.setItem("LoggedIn", "set");
 
                 //show toast
                 ToastAndroid.show('You are now logged in permanently', ToastAndroid.SHORT);
 
+
+
+                /*write to Asych Storage
+                try {
+                 AsyncStorage.setItem('@Login:key', 'Saved');
+                    console.log("asyncstorage saved")
+                } catch (error) {
+                    // Error saving data
+                    console.log("Asnyc Save Failed")
+                }*/
+
                 //navigate to charge screen
                 this.props.moveToScreen('Charge');
-
-                //write to Asych Storage
 
 
             } else {
@@ -262,7 +287,7 @@ class LoginForm extends Component {
                 //alert authentication error
                 Alert.alert(
                     'Something went wrong...',
-                    'Your login details didn\'t work. If you do not have login credentials, please contact Zynle customer care at 0977547820',
+                    'Your login details didn\'t work. If you do not have login credentials, please contact Zynle customer care at 0955000679',
                     [{text: 'Got it', onPress: () => console.log('close error box')}]
                 );
             }

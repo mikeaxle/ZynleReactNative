@@ -1601,6 +1601,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
+
 var _reactNavigation=require(554 /* react-navigation */);
 
 
@@ -1621,14 +1622,14 @@ var _reducers=require(644 /* ./reducers */);var _reducers2=babelHelpers.interopR
 
 
 
-var _LoginForm=require(653 /* ./components/LoginForm */);var _LoginForm2=babelHelpers.interopRequireDefault(_LoginForm);
+var _LoginForm=require(649 /* ./components/LoginForm */);var _LoginForm2=babelHelpers.interopRequireDefault(_LoginForm);
 var _Charge=require(716 /* ./components/Charge */);var _Charge2=babelHelpers.interopRequireDefault(_Charge);
-var _ChargeCard=require(735 /* ./components/ChargeCard */);var _ChargeCard2=babelHelpers.interopRequireDefault(_ChargeCard);
-var _Keypad=require(729 /* ./components/Keypad */);var _Keypad2=babelHelpers.interopRequireDefault(_Keypad);
-var _PastSales=require(733 /* ./components/PastSales */);var _PastSales2=babelHelpers.interopRequireDefault(_PastSales);
-var _PaymentSuccess=require(741 /* ./components/PaymentSuccess */);var _PaymentSuccess2=babelHelpers.interopRequireDefault(_PaymentSuccess);
-var _SaleList=require(744 /* ./components/SaleList */);var _SaleList2=babelHelpers.interopRequireDefault(_SaleList);
-var _SalesDetail=require(745 /* ./components/SalesDetail */);var _SalesDetail2=babelHelpers.interopRequireDefault(_SalesDetail);
+var _ChargeCard=require(724 /* ./components/ChargeCard */);var _ChargeCard2=babelHelpers.interopRequireDefault(_ChargeCard);
+var _Keypad=require(718 /* ./components/Keypad */);var _Keypad2=babelHelpers.interopRequireDefault(_Keypad);
+var _PastSales=require(722 /* ./components/PastSales */);var _PastSales2=babelHelpers.interopRequireDefault(_PastSales);
+var _PaymentSuccess=require(731 /* ./components/PaymentSuccess */);var _PaymentSuccess2=babelHelpers.interopRequireDefault(_PaymentSuccess);
+var _SaleList=require(734 /* ./components/SaleList */);var _SaleList2=babelHelpers.interopRequireDefault(_SaleList);
+var _SalesDetail=require(735 /* ./components/SalesDetail */);var _SalesDetail2=babelHelpers.interopRequireDefault(_SalesDetail);
 
 
 
@@ -1642,6 +1643,7 @@ PastSales:{screen:_PastSales2.default},
 PaymentSuccess:{screen:_PaymentSuccess2.default},
 SalesList:{screen:_SaleList2.default},
 SalesDetail:{screen:_SalesDetail2.default}};
+
 
 
 var AppNavigator=exports.AppNavigator=(0,_reactNavigation.StackNavigator)(AppRouteConfigs);
@@ -82172,7 +82174,7 @@ case _types.NAVIGATE:
 return _App.AppNavigator.router.getStateForAction(_reactNavigation.NavigationActions.navigate({routeName:action.payload}),state);
 
 case _types.BACK_SCREEN:
-return _App.AppNavigator.router.getStateForAction(_reactNavigation.NavigationActions.BACK,state);
+return _App.AppNavigator.router.getStateForAction(_reactNavigation.NavigationActions.back(),state);
 
 default:
 return state;}
@@ -82188,7 +82190,9 @@ var NAVIGATE=exports.NAVIGATE='Navigate';
 var BACK_SCREEN=exports.BACK_SCREEN='back_screen';
 var SALE_CREATE=exports.SALE_CREATE='sale_create';
 var SALE_DELETE=exports.SALE_DELETE='sale_delete';
-var SALE_UPDATE=exports.SALE_UPDATE='sale_update';
+var CLEAR_SALES=exports.CLEAR_SALES='clear_sales';
+var SALE_UPDATE_AMOUNT=exports.SALE_UPDATE_AMOUNT='sale_update_amount';
+var SALE_UPDATE_NOTE=exports.SALE_UPDATE_NOTE='sale_update_note';
 var SELECTED_ID=exports.SELECTED_ID='selected_id';
 }, 646, null, "Zynle/src/actions/types.js");
 __d(/* Zynle/src/reducers/saleReducers.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _types=require(646 /* ../actions/types */);
@@ -82202,30 +82206,57 @@ var INITIAL_NAV_STATE=[];exports.default=
 function(){var state=arguments.length>0&&arguments[0]!==undefined?arguments[0]:INITIAL_NAV_STATE;var action=arguments[1];
 
 
+console.log(action);
+console.log(state);
+
+
 
 switch(action.type){
 
 case _types.SALE_CREATE:
 return[].concat(babelHelpers.toConsumableArray(state),[{amount:action.payload.amount,note:action.payload.note}]);
 
-case _types.SALE_UPDATE:
+case _types.SALE_UPDATE_AMOUNT:
+return[].concat(babelHelpers.toConsumableArray(state.map(function(item,index){
+if(index===Number(action.payload.index)){
 
-return[].concat(babelHelpers.toConsumableArray(state.slice(0,action.payload.index)),[
-state[action.payload.index].amount=action.payload.amount,
-state[action.payload.index].amount=action.payload.note],babelHelpers.toConsumableArray(
-state.slice(action.payload.index+1)));
+return item={
+amount:action.payload.amount,
+note:item.note};
+
+
+}else{
+return item;
+}
+})));
+
+case _types.SALE_UPDATE_NOTE:
+return[].concat(babelHelpers.toConsumableArray(state.map(function(item,index){
+if(index===Number(action.payload.index)){
+
+return item={
+amount:item.amount,
+note:action.payload.note};
+
+
+}else{
+return item;
+}
+})));
+
 
 case _types.SALE_DELETE:
 
-return[].concat(babelHelpers.toConsumableArray(state.slice(0,action.payload.index)),babelHelpers.toConsumableArray(
-state.slice(action.payload.index+1)));
+return[].concat(babelHelpers.toConsumableArray(state)).filter(function(item,index){return index!==Number(action.payload);});
+
+case _types.CLEAR_SALES:
+
+return[];
 
 default:
 return state;}
 
-;
 
-return state;
 };
 }, 647, null, "Zynle/src/reducers/saleReducers.js");
 __d(/* Zynle/src/reducers/saleSelectReducer.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _types=require(646 /* ../actions/types */);
@@ -82265,13 +82296,14 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _reactNativeTextinputEffects=require(654 /* react-native-textinput-effects */);
-var _FontAwesome=require(667 /* react-native-vector-icons/FontAwesome */);var _FontAwesome2=babelHelpers.interopRequireDefault(_FontAwesome);
-var _base=require(715 /* base-64 */);var _base2=babelHelpers.interopRequireDefault(_base);
+
+var _reactNativeTextinputEffects=require(650 /* react-native-textinput-effects */);
+var _FontAwesome=require(663 /* react-native-vector-icons/FontAwesome */);var _FontAwesome2=babelHelpers.interopRequireDefault(_FontAwesome);
+var _base=require(711 /* base-64 */);var _base2=babelHelpers.interopRequireDefault(_base);
 
 
 var _reactRedux=require(616 /* react-redux */);
-var _actions=require(649 /* ../actions */);
+var _actions=require(712 /* ../actions */);
 
 
 
@@ -82330,12 +82362,23 @@ LoginForm=function(_Component){babelHelpers.inherits(LoginForm,_Component);funct
 
 
 
+
+
+
+
+
+
+
+
+
+
 state={
 'username':'0977547820',
 'password':'1234',
 'merchant_id':'45',
 'loading':false,
 'error':''},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelpers.createClass(LoginForm,[{key:'sha1',value:function sha1(
+
 
 
 
@@ -82503,12 +82546,25 @@ if(response.status===200){
 console.log("success");
 
 
+
+_reactNative.AsyncStorage.setItem("LoggedIn","set");
+
+
 _reactNative.ToastAndroid.show('You are now logged in permanently',_reactNative.ToastAndroid.SHORT);
 
 
+
+
+
+
+
+
+
+
+
+
+
 _this2.props.moveToScreen('Charge');
-
-
 
 
 }else{
@@ -82517,7 +82573,7 @@ console.log("failed");
 
 _reactNative.Alert.alert(
 'Something went wrong...',
-'Your login details didn\'t work. If you do not have login credentials, please contact Zynle customer care at 0977547820',
+'Your login details didn\'t work. If you do not have login credentials, please contact Zynle customer care at 0955000679',
 [{text:'Got it',onPress:function onPress(){return console.log('close error box');}}]);
 
 }
@@ -82621,18 +82677,18 @@ this.renderSpinnerOrButton()));
 
 
 (0,_reactRedux.connect)(null,{moveToScreen:_actions.moveToScreen})(LoginForm);
-}, 653, null, "Zynle/src/components/LoginForm.js");
-__d(/* react-native-textinput-effects/lib/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.Fumi=exports.Sae=exports.Makiko=exports.Kohana=exports.Hideo=exports.Akira=exports.Madoka=exports.Isao=exports.Jiro=exports.Hoshi=exports.Kaede=undefined;var _Kaede=require(655 /* ./Kaede */);var _Kaede2=babelHelpers.interopRequireDefault(_Kaede);
-var _Hoshi=require(657 /* ./Hoshi */);var _Hoshi2=babelHelpers.interopRequireDefault(_Hoshi);
-var _Jiro=require(658 /* ./Jiro */);var _Jiro2=babelHelpers.interopRequireDefault(_Jiro);
-var _Isao=require(659 /* ./Isao */);var _Isao2=babelHelpers.interopRequireDefault(_Isao);
-var _Madoka=require(660 /* ./Madoka */);var _Madoka2=babelHelpers.interopRequireDefault(_Madoka);
-var _Akira=require(661 /* ./Akira */);var _Akira2=babelHelpers.interopRequireDefault(_Akira);
-var _Hideo=require(662 /* ./Hideo */);var _Hideo2=babelHelpers.interopRequireDefault(_Hideo);
-var _Kohana=require(663 /* ./Kohana */);var _Kohana2=babelHelpers.interopRequireDefault(_Kohana);
-var _Makiko=require(664 /* ./Makiko */);var _Makiko2=babelHelpers.interopRequireDefault(_Makiko);
-var _Sae=require(665 /* ./Sae */);var _Sae2=babelHelpers.interopRequireDefault(_Sae);
-var _Fumi=require(666 /* ./Fumi */);var _Fumi2=babelHelpers.interopRequireDefault(_Fumi);exports.
+}, 649, null, "Zynle/src/components/LoginForm.js");
+__d(/* react-native-textinput-effects/lib/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.Fumi=exports.Sae=exports.Makiko=exports.Kohana=exports.Hideo=exports.Akira=exports.Madoka=exports.Isao=exports.Jiro=exports.Hoshi=exports.Kaede=undefined;var _Kaede=require(651 /* ./Kaede */);var _Kaede2=babelHelpers.interopRequireDefault(_Kaede);
+var _Hoshi=require(653 /* ./Hoshi */);var _Hoshi2=babelHelpers.interopRequireDefault(_Hoshi);
+var _Jiro=require(654 /* ./Jiro */);var _Jiro2=babelHelpers.interopRequireDefault(_Jiro);
+var _Isao=require(655 /* ./Isao */);var _Isao2=babelHelpers.interopRequireDefault(_Isao);
+var _Madoka=require(656 /* ./Madoka */);var _Madoka2=babelHelpers.interopRequireDefault(_Madoka);
+var _Akira=require(657 /* ./Akira */);var _Akira2=babelHelpers.interopRequireDefault(_Akira);
+var _Hideo=require(658 /* ./Hideo */);var _Hideo2=babelHelpers.interopRequireDefault(_Hideo);
+var _Kohana=require(659 /* ./Kohana */);var _Kohana2=babelHelpers.interopRequireDefault(_Kohana);
+var _Makiko=require(660 /* ./Makiko */);var _Makiko2=babelHelpers.interopRequireDefault(_Makiko);
+var _Sae=require(661 /* ./Sae */);var _Sae2=babelHelpers.interopRequireDefault(_Sae);
+var _Fumi=require(662 /* ./Fumi */);var _Fumi2=babelHelpers.interopRequireDefault(_Fumi);exports.
 
 
 Kaede=_Kaede2.default;exports.
@@ -82646,7 +82702,7 @@ Kohana=_Kohana2.default;exports.
 Makiko=_Makiko2.default;exports.
 Sae=_Sae2.default;exports.
 Fumi=_Fumi2.default;
-}, 654, null, "react-native-textinput-effects/lib/index.js");
+}, 650, null, "react-native-textinput-effects/lib/index.js");
 __d(/* react-native-textinput-effects/lib/Kaede.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -82658,7 +82714,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(656 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
+var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
 
 var PADDING=16;var
 
@@ -82747,7 +82803,7 @@ backgroundColor:'white',
 color:'black',
 fontSize:16,
 fontWeight:'bold'}});
-}, 655, null, "react-native-textinput-effects/lib/Kaede.js");
+}, 651, null, "react-native-textinput-effects/lib/Kaede.js");
 __d(/* react-native-textinput-effects/lib/BaseInput.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 
 
@@ -82884,7 +82940,7 @@ return this.inputRef().isFocused();
 {
 this.inputRef().clear();
 }}]);return BaseInput;}(_react.Component);BaseInput.propTypes={label:_react.PropTypes.string,value:_react.PropTypes.string,defaultValue:_react.PropTypes.string,style:_reactNative.View.propTypes.style,inputStyle:_reactNative.Text.propTypes.style,labelStyle:_reactNative.Text.propTypes.style,easing:_react.PropTypes.func,animationDuration:_react.PropTypes.number,onBlur:_react.PropTypes.func,onFocus:_react.PropTypes.func,onChange:_react.PropTypes.func};exports.default=BaseInput;
-}, 656, null, "react-native-textinput-effects/lib/BaseInput.js");
+}, 652, null, "react-native-textinput-effects/lib/BaseInput.js");
 __d(/* react-native-textinput-effects/lib/Hoshi.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -82895,7 +82951,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(656 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
+var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
 
 var PADDING=16;var
 
@@ -83020,7 +83076,7 @@ bottom:0,
 left:0,
 right:0,
 height:3}});
-}, 657, null, "react-native-textinput-effects/lib/Hoshi.js");
+}, 653, null, "react-native-textinput-effects/lib/Hoshi.js");
 __d(/* react-native-textinput-effects/lib/Jiro.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -83032,7 +83088,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(656 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
+var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
 
 var PADDING=16;var
 
@@ -83185,7 +83241,7 @@ position:'absolute',
 bottom:0,
 left:0,
 right:0}});
-}, 658, null, "react-native-textinput-effects/lib/Jiro.js");
+}, 654, null, "react-native-textinput-effects/lib/Jiro.js");
 __d(/* react-native-textinput-effects/lib/Isao.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -83196,7 +83252,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(656 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
+var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
 
 var LABEL_HEIGHT=24;
 var PADDING=16;var
@@ -83344,7 +83400,7 @@ position:'absolute',
 bottom:LABEL_HEIGHT,
 left:0,
 right:0}});
-}, 659, null, "react-native-textinput-effects/lib/Isao.js");
+}, 655, null, "react-native-textinput-effects/lib/Isao.js");
 __d(/* react-native-textinput-effects/lib/Madoka.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -83354,7 +83410,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(656 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
+var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
 
 var LABEL_HEIGHT=24;
 var PADDING=16;var
@@ -83496,7 +83552,7 @@ paddingVertical:0,
 color:'black',
 fontSize:18,
 fontWeight:'bold'}});
-}, 660, null, "react-native-textinput-effects/lib/Madoka.js");
+}, 656, null, "react-native-textinput-effects/lib/Madoka.js");
 __d(/* react-native-textinput-effects/lib/Akira.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -83507,7 +83563,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(656 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
+var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
 
 var LABEL_HEIGHT=24;
 var PADDING=16;var
@@ -83648,7 +83704,7 @@ padding:0,
 color:'black',
 fontSize:18,
 textAlign:'center'}});
-}, 661, null, "react-native-textinput-effects/lib/Akira.js");
+}, 657, null, "react-native-textinput-effects/lib/Akira.js");
 __d(/* react-native-textinput-effects/lib/Hideo.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -83658,7 +83714,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(656 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);var
+var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);var
 
 Hideo=function(_BaseInput){babelHelpers.inherits(Hideo,_BaseInput);function Hideo(){babelHelpers.classCallCheck(this,Hideo);return babelHelpers.possibleConstructorReturn(this,(Hideo.__proto__||Object.getPrototypeOf(Hideo)).apply(this,arguments));}babelHelpers.createClass(Hideo,[{key:'render',value:function render()
 
@@ -83759,7 +83815,7 @@ paddingVertical:0,
 color:'black',
 backgroundColor:'white',
 fontSize:18}});
-}, 662, null, "react-native-textinput-effects/lib/Hideo.js");
+}, 658, null, "react-native-textinput-effects/lib/Hideo.js");
 __d(/* react-native-textinput-effects/lib/Kohana.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -83771,7 +83827,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(656 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
+var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
 
 var PADDING=16;var
 
@@ -83880,7 +83936,7 @@ paddingHorizontal:PADDING,
 paddingVertical:0,
 color:'black',
 fontSize:18}});
-}, 663, null, "react-native-textinput-effects/lib/Kohana.js");
+}, 659, null, "react-native-textinput-effects/lib/Kohana.js");
 __d(/* react-native-textinput-effects/lib/Makiko.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -83892,7 +83948,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(656 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
+var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
 
 var ICON_WIDTH=60;
 var ICON_SIZE=30;
@@ -84034,7 +84090,7 @@ paddingHorizontal:PADDING,
 paddingVertical:0,
 color:'black',
 fontSize:18}});
-}, 664, null, "react-native-textinput-effects/lib/Makiko.js");
+}, 660, null, "react-native-textinput-effects/lib/Makiko.js");
 __d(/* react-native-textinput-effects/lib/Sae.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -84044,7 +84100,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(656 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
+var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
 
 var LABEL_HEIGHT=24;
 var PADDING=16;var
@@ -84190,7 +84246,7 @@ paddingTop:PADDING/2,
 paddingLeft:0,
 color:'white',
 fontSize:18}});
-}, 665, null, "react-native-textinput-effects/lib/Sae.js");
+}, 661, null, "react-native-textinput-effects/lib/Sae.js");
 __d(/* react-native-textinput-effects/lib/Fumi.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -84201,7 +84257,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(656 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
+var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
 
 var PADDING=16;
 var ICON_WIDTH=40;var
@@ -84344,14 +84400,14 @@ position:'absolute',
 width:1,
 backgroundColor:'#f0f0f0',
 marginTop:-8}});
-}, 666, null, "react-native-textinput-effects/lib/Fumi.js");
+}, 662, null, "react-native-textinput-effects/lib/Fumi.js");
 __d(/* react-native-vector-icons/FontAwesome.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.getImageSource=exports.ToolbarAndroid=exports.TabBarItemIOS=exports.TabBarItem=exports.Button=undefined;
 
 
 
 
-var _createIconSet=require(668 /* ./lib/create-icon-set */);var _createIconSet2=babelHelpers.interopRequireDefault(_createIconSet);
-var _FontAwesome=require(714 /* ./glyphmaps/FontAwesome.json */);var _FontAwesome2=babelHelpers.interopRequireDefault(_FontAwesome);
+var _createIconSet=require(664 /* ./lib/create-icon-set */);var _createIconSet2=babelHelpers.interopRequireDefault(_createIconSet);
+var _FontAwesome=require(710 /* ./glyphmaps/FontAwesome.json */);var _FontAwesome2=babelHelpers.interopRequireDefault(_FontAwesome);
 
 var iconSet=(0,_createIconSet2.default)(_FontAwesome2.default,'FontAwesome','FontAwesome.ttf');exports.default=
 
@@ -84362,7 +84418,7 @@ var TabBarItem=exports.TabBarItem=iconSet.TabBarItem;
 var TabBarItemIOS=exports.TabBarItemIOS=iconSet.TabBarItemIOS;
 var ToolbarAndroid=exports.ToolbarAndroid=iconSet.ToolbarAndroid;
 var getImageSource=exports.getImageSource=iconSet.getImageSource;
-}, 667, null, "react-native-vector-icons/FontAwesome.js");
+}, 663, null, "react-native-vector-icons/FontAwesome.js");
 __d(/* react-native-vector-icons/lib/create-icon-set.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
@@ -84385,7 +84441,7 @@ __d(/* react-native-vector-icons/lib/create-icon-set.js */function(global, requi
 
 
 
-createIconSet;var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(669 /* ./react-native */);var _iconButton=require(670 /* ./icon-button */);var _iconButton2=babelHelpers.interopRequireDefault(_iconButton);var _tabBarItemIos=require(711 /* ./tab-bar-item-ios */);var _tabBarItemIos2=babelHelpers.interopRequireDefault(_tabBarItemIos);var _toolbarAndroid=require(713 /* ./toolbar-android */);var _toolbarAndroid2=babelHelpers.interopRequireDefault(_toolbarAndroid);var NativeIconAPI=_reactNative.NativeModules.RNVectorIconsManager||_reactNative.NativeModules.RNVectorIconsModule;var DEFAULT_ICON_SIZE=12;var DEFAULT_ICON_COLOR='black';function createIconSet(glyphMap,fontFamily,fontFile){
+createIconSet;var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(665 /* ./react-native */);var _iconButton=require(666 /* ./icon-button */);var _iconButton2=babelHelpers.interopRequireDefault(_iconButton);var _tabBarItemIos=require(707 /* ./tab-bar-item-ios */);var _tabBarItemIos2=babelHelpers.interopRequireDefault(_tabBarItemIos);var _toolbarAndroid=require(709 /* ./toolbar-android */);var _toolbarAndroid2=babelHelpers.interopRequireDefault(_toolbarAndroid);var NativeIconAPI=_reactNative.NativeModules.RNVectorIconsManager||_reactNative.NativeModules.RNVectorIconsModule;var DEFAULT_ICON_SIZE=12;var DEFAULT_ICON_COLOR='black';function createIconSet(glyphMap,fontFamily,fontFile){
 var fontReference=fontFamily;
 
 if(_reactNative.Platform.OS==='android'&&fontFile){
@@ -84497,9 +84553,9 @@ Icon.getImageSource=getImageSource;
 
 return Icon;
 }
-}, 668, null, "react-native-vector-icons/lib/create-icon-set.js");
+}, 664, null, "react-native-vector-icons/lib/create-icon-set.js");
 __d(/* react-native-vector-icons/lib/react-native.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _reactNative=require(43 /* react-native */);Object.keys(_reactNative).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _reactNative[key];}});});
-}, 669, null, "react-native-vector-icons/lib/react-native.js");
+}, 665, null, "react-native-vector-icons/lib/react-native.js");
 __d(/* react-native-vector-icons/lib/icon-button.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
@@ -84537,7 +84593,7 @@ __d(/* react-native-vector-icons/lib/icon-button.js */function(global, require, 
 
 
 
-createIconButtonComponent;var _isString=require(671 /* lodash/isString */);var _isString2=babelHelpers.interopRequireDefault(_isString);var _omit=require(672 /* lodash/omit */);var _omit2=babelHelpers.interopRequireDefault(_omit);var _pick=require(707 /* lodash/pick */);var _pick2=babelHelpers.interopRequireDefault(_pick);var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(669 /* ./react-native */);var styles=_reactNative.StyleSheet.create({container:{flexDirection:'row',justifyContent:'flex-start',alignItems:'center',padding:8},touchable:{overflow:'hidden'},icon:{marginRight:10},text:{fontWeight:'600',backgroundColor:'transparent'}});var IOS7_BLUE='#007AFF';function createIconButtonComponent(Icon){var _class,_temp;
+createIconButtonComponent;var _isString=require(667 /* lodash/isString */);var _isString2=babelHelpers.interopRequireDefault(_isString);var _omit=require(668 /* lodash/omit */);var _omit2=babelHelpers.interopRequireDefault(_omit);var _pick=require(703 /* lodash/pick */);var _pick2=babelHelpers.interopRequireDefault(_pick);var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(665 /* ./react-native */);var styles=_reactNative.StyleSheet.create({container:{flexDirection:'row',justifyContent:'flex-start',alignItems:'center',padding:8},touchable:{overflow:'hidden'},icon:{marginRight:10},text:{fontWeight:'600',backgroundColor:'transparent'}});var IOS7_BLUE='#007AFF';function createIconButtonComponent(Icon){var _class,_temp;
 return _temp=_class=function(_Component){babelHelpers.inherits(IconButton,_Component);function IconButton(){babelHelpers.classCallCheck(this,IconButton);return babelHelpers.possibleConstructorReturn(this,(IconButton.__proto__||Object.getPrototypeOf(IconButton)).apply(this,arguments));}babelHelpers.createClass(IconButton,[{key:'render',value:function render()
 
 
@@ -84589,7 +84645,7 @@ children)));
 }}]);return IconButton;}(_react.Component),_class.propTypes=babelHelpers.extends({},_reactNative.View.propTypes,{backgroundColor:_react.PropTypes.string,borderRadius:_react.PropTypes.number,color:_react.PropTypes.string,size:_react.PropTypes.number}),_class.defaultProps={backgroundColor:IOS7_BLUE,borderRadius:5,color:'white',size:20},_temp;
 
 }
-}, 670, null, "react-native-vector-icons/lib/icon-button.js");
+}, 666, null, "react-native-vector-icons/lib/icon-button.js");
 __d(/* lodash/isString.js */function(global, require, module, exports) {var baseGetTag=require(251 /* ./_baseGetTag */),
 isArray=require(293 /* ./isArray */),
 isObjectLike=require(302 /* ./isObjectLike */);
@@ -84620,15 +84676,15 @@ return typeof value=='string'||
 }
 
 module.exports=isString;
-}, 671, null, "lodash/isString.js");
+}, 667, null, "lodash/isString.js");
 __d(/* lodash/omit.js */function(global, require, module, exports) {var arrayMap=require(335 /* ./_arrayMap */),
-baseClone=require(673 /* ./_baseClone */),
-baseUnset=require(700 /* ./_baseUnset */),
+baseClone=require(669 /* ./_baseClone */),
+baseUnset=require(696 /* ./_baseUnset */),
 castPath=require(327 /* ./_castPath */),
 copyObject=require(354 /* ./_copyObject */),
-customOmitClone=require(704 /* ./_customOmitClone */),
-flatRest=require(705 /* ./_flatRest */),
-getAllKeysIn=require(685 /* ./_getAllKeysIn */);
+customOmitClone=require(700 /* ./_customOmitClone */),
+flatRest=require(701 /* ./_flatRest */),
+getAllKeysIn=require(681 /* ./_getAllKeysIn */);
 
 
 var CLONE_DEEP_FLAG=1,
@@ -84678,22 +84734,22 @@ return result;
 });
 
 module.exports=omit;
-}, 672, null, "lodash/omit.js");
+}, 668, null, "lodash/omit.js");
 __d(/* lodash/_baseClone.js */function(global, require, module, exports) {var Stack=require(233 /* ./_Stack */),
-arrayEach=require(674 /* ./_arrayEach */),
+arrayEach=require(670 /* ./_arrayEach */),
 assignValue=require(351 /* ./_assignValue */),
-baseAssign=require(675 /* ./_baseAssign */),
-baseAssignIn=require(676 /* ./_baseAssignIn */),
-cloneBuffer=require(680 /* ./_cloneBuffer */),
-copyArray=require(681 /* ./_copyArray */),
-copySymbols=require(682 /* ./_copySymbols */),
-copySymbolsIn=require(683 /* ./_copySymbolsIn */),
+baseAssign=require(671 /* ./_baseAssign */),
+baseAssignIn=require(672 /* ./_baseAssignIn */),
+cloneBuffer=require(676 /* ./_cloneBuffer */),
+copyArray=require(677 /* ./_copyArray */),
+copySymbols=require(678 /* ./_copySymbols */),
+copySymbolsIn=require(679 /* ./_copySymbolsIn */),
 getAllKeys=require(290 /* ./_getAllKeys */),
-getAllKeysIn=require(685 /* ./_getAllKeysIn */),
+getAllKeysIn=require(681 /* ./_getAllKeysIn */),
 getTag=require(316 /* ./_getTag */),
-initCloneArray=require(686 /* ./_initCloneArray */),
-initCloneByTag=require(687 /* ./_initCloneByTag */),
-initCloneObject=require(698 /* ./_initCloneObject */),
+initCloneArray=require(682 /* ./_initCloneArray */),
+initCloneByTag=require(683 /* ./_initCloneByTag */),
+initCloneObject=require(694 /* ./_initCloneObject */),
 isArray=require(293 /* ./isArray */),
 isBuffer=require(303 /* ./isBuffer */),
 isObject=require(257 /* ./isObject */),
@@ -84832,7 +84888,7 @@ return result;
 }
 
 module.exports=baseClone;
-}, 673, null, "lodash/_baseClone.js");
+}, 669, null, "lodash/_baseClone.js");
 __d(/* lodash/_arrayEach.js */function(global, require, module, exports) {
 
 
@@ -84855,7 +84911,7 @@ return array;
 }
 
 module.exports=arrayEach;
-}, 674, null, "lodash/_arrayEach.js");
+}, 670, null, "lodash/_arrayEach.js");
 __d(/* lodash/_baseAssign.js */function(global, require, module, exports) {var copyObject=require(354 /* ./_copyObject */),
 keys=require(297 /* ./keys */);
 
@@ -84873,9 +84929,9 @@ return object&&copyObject(source,keys(source),object);
 }
 
 module.exports=baseAssign;
-}, 675, null, "lodash/_baseAssign.js");
+}, 671, null, "lodash/_baseAssign.js");
 __d(/* lodash/_baseAssignIn.js */function(global, require, module, exports) {var copyObject=require(354 /* ./_copyObject */),
-keysIn=require(677 /* ./keysIn */);
+keysIn=require(673 /* ./keysIn */);
 
 
 
@@ -84891,9 +84947,9 @@ return object&&copyObject(source,keysIn(source),object);
 }
 
 module.exports=baseAssignIn;
-}, 676, null, "lodash/_baseAssignIn.js");
+}, 672, null, "lodash/_baseAssignIn.js");
 __d(/* lodash/keysIn.js */function(global, require, module, exports) {var arrayLikeKeys=require(298 /* ./_arrayLikeKeys */),
-baseKeysIn=require(678 /* ./_baseKeysIn */),
+baseKeysIn=require(674 /* ./_baseKeysIn */),
 isArrayLike=require(315 /* ./isArrayLike */);
 
 
@@ -84924,10 +84980,10 @@ return isArrayLike(object)?arrayLikeKeys(object,true):baseKeysIn(object);
 }
 
 module.exports=keysIn;
-}, 677, null, "lodash/keysIn.js");
+}, 673, null, "lodash/keysIn.js");
 __d(/* lodash/_baseKeysIn.js */function(global, require, module, exports) {var isObject=require(257 /* ./isObject */),
 isPrototype=require(312 /* ./_isPrototype */),
-nativeKeysIn=require(679 /* ./_nativeKeysIn */);
+nativeKeysIn=require(675 /* ./_nativeKeysIn */);
 
 
 var objectProto=Object.prototype;
@@ -84958,7 +85014,7 @@ return result;
 }
 
 module.exports=baseKeysIn;
-}, 678, null, "lodash/_baseKeysIn.js");
+}, 674, null, "lodash/_baseKeysIn.js");
 __d(/* lodash/_nativeKeysIn.js */function(global, require, module, exports) {
 
 
@@ -84979,7 +85035,7 @@ return result;
 }
 
 module.exports=nativeKeysIn;
-}, 679, null, "lodash/_nativeKeysIn.js");
+}, 675, null, "lodash/_nativeKeysIn.js");
 __d(/* lodash/_cloneBuffer.js */function(global, require, module, exports) {var root=require(253 /* ./_root */);
 
 
@@ -85015,7 +85071,7 @@ return result;
 }
 
 module.exports=cloneBuffer;
-}, 680, null, "lodash/_cloneBuffer.js");
+}, 676, null, "lodash/_cloneBuffer.js");
 __d(/* lodash/_copyArray.js */function(global, require, module, exports) {
 
 
@@ -85036,7 +85092,7 @@ return array;
 }
 
 module.exports=copyArray;
-}, 681, null, "lodash/_copyArray.js");
+}, 677, null, "lodash/_copyArray.js");
 __d(/* lodash/_copySymbols.js */function(global, require, module, exports) {var copyObject=require(354 /* ./_copyObject */),
 getSymbols=require(294 /* ./_getSymbols */);
 
@@ -85053,9 +85109,9 @@ return copyObject(source,getSymbols(source),object);
 }
 
 module.exports=copySymbols;
-}, 682, null, "lodash/_copySymbols.js");
+}, 678, null, "lodash/_copySymbols.js");
 __d(/* lodash/_copySymbolsIn.js */function(global, require, module, exports) {var copyObject=require(354 /* ./_copyObject */),
-getSymbolsIn=require(684 /* ./_getSymbolsIn */);
+getSymbolsIn=require(680 /* ./_getSymbolsIn */);
 
 
 
@@ -85070,7 +85126,7 @@ return copyObject(source,getSymbolsIn(source),object);
 }
 
 module.exports=copySymbolsIn;
-}, 683, null, "lodash/_copySymbolsIn.js");
+}, 679, null, "lodash/_copySymbolsIn.js");
 __d(/* lodash/_getSymbolsIn.js */function(global, require, module, exports) {var arrayPush=require(292 /* ./_arrayPush */),
 getPrototype=require(629 /* ./_getPrototype */),
 getSymbols=require(294 /* ./_getSymbols */),
@@ -85096,10 +85152,10 @@ return result;
 };
 
 module.exports=getSymbolsIn;
-}, 684, null, "lodash/_getSymbolsIn.js");
+}, 680, null, "lodash/_getSymbolsIn.js");
 __d(/* lodash/_getAllKeysIn.js */function(global, require, module, exports) {var baseGetAllKeys=require(291 /* ./_baseGetAllKeys */),
-getSymbolsIn=require(684 /* ./_getSymbolsIn */),
-keysIn=require(677 /* ./keysIn */);
+getSymbolsIn=require(680 /* ./_getSymbolsIn */),
+keysIn=require(673 /* ./keysIn */);
 
 
 
@@ -85114,7 +85170,7 @@ return baseGetAllKeys(object,keysIn,getSymbolsIn);
 }
 
 module.exports=getAllKeysIn;
-}, 685, null, "lodash/_getAllKeysIn.js");
+}, 681, null, "lodash/_getAllKeysIn.js");
 __d(/* lodash/_initCloneArray.js */function(global, require, module, exports) {
 var objectProto=Object.prototype;
 
@@ -85141,14 +85197,14 @@ return result;
 }
 
 module.exports=initCloneArray;
-}, 686, null, "lodash/_initCloneArray.js");
-__d(/* lodash/_initCloneByTag.js */function(global, require, module, exports) {var cloneArrayBuffer=require(688 /* ./_cloneArrayBuffer */),
-cloneDataView=require(689 /* ./_cloneDataView */),
-cloneMap=require(690 /* ./_cloneMap */),
-cloneRegExp=require(693 /* ./_cloneRegExp */),
-cloneSet=require(694 /* ./_cloneSet */),
-cloneSymbol=require(696 /* ./_cloneSymbol */),
-cloneTypedArray=require(697 /* ./_cloneTypedArray */);
+}, 682, null, "lodash/_initCloneArray.js");
+__d(/* lodash/_initCloneByTag.js */function(global, require, module, exports) {var cloneArrayBuffer=require(684 /* ./_cloneArrayBuffer */),
+cloneDataView=require(685 /* ./_cloneDataView */),
+cloneMap=require(686 /* ./_cloneMap */),
+cloneRegExp=require(689 /* ./_cloneRegExp */),
+cloneSet=require(690 /* ./_cloneSet */),
+cloneSymbol=require(692 /* ./_cloneSymbol */),
+cloneTypedArray=require(693 /* ./_cloneTypedArray */);
 
 
 var boolTag='[object Boolean]',
@@ -85222,7 +85278,7 @@ return cloneSymbol(object);}
 }
 
 module.exports=initCloneByTag;
-}, 687, null, "lodash/_initCloneByTag.js");
+}, 683, null, "lodash/_initCloneByTag.js");
 __d(/* lodash/_cloneArrayBuffer.js */function(global, require, module, exports) {var Uint8Array=require(286 /* ./_Uint8Array */);
 
 
@@ -85239,8 +85295,8 @@ return result;
 }
 
 module.exports=cloneArrayBuffer;
-}, 688, null, "lodash/_cloneArrayBuffer.js");
-__d(/* lodash/_cloneDataView.js */function(global, require, module, exports) {var cloneArrayBuffer=require(688 /* ./_cloneArrayBuffer */);
+}, 684, null, "lodash/_cloneArrayBuffer.js");
+__d(/* lodash/_cloneDataView.js */function(global, require, module, exports) {var cloneArrayBuffer=require(684 /* ./_cloneArrayBuffer */);
 
 
 
@@ -85256,9 +85312,9 @@ return new dataView.constructor(buffer,dataView.byteOffset,dataView.byteLength);
 }
 
 module.exports=cloneDataView;
-}, 689, null, "lodash/_cloneDataView.js");
-__d(/* lodash/_cloneMap.js */function(global, require, module, exports) {var addMapEntry=require(691 /* ./_addMapEntry */),
-arrayReduce=require(692 /* ./_arrayReduce */),
+}, 685, null, "lodash/_cloneDataView.js");
+__d(/* lodash/_cloneMap.js */function(global, require, module, exports) {var addMapEntry=require(687 /* ./_addMapEntry */),
+arrayReduce=require(688 /* ./_arrayReduce */),
 mapToArray=require(287 /* ./_mapToArray */);
 
 
@@ -85279,7 +85335,7 @@ return arrayReduce(array,addMapEntry,new map.constructor());
 }
 
 module.exports=cloneMap;
-}, 690, null, "lodash/_cloneMap.js");
+}, 686, null, "lodash/_cloneMap.js");
 __d(/* lodash/_addMapEntry.js */function(global, require, module, exports) {
 
 
@@ -85295,7 +85351,7 @@ return map;
 }
 
 module.exports=addMapEntry;
-}, 691, null, "lodash/_addMapEntry.js");
+}, 687, null, "lodash/_addMapEntry.js");
 __d(/* lodash/_arrayReduce.js */function(global, require, module, exports) {
 
 
@@ -85322,7 +85378,7 @@ return accumulator;
 }
 
 module.exports=arrayReduce;
-}, 692, null, "lodash/_arrayReduce.js");
+}, 688, null, "lodash/_arrayReduce.js");
 __d(/* lodash/_cloneRegExp.js */function(global, require, module, exports) {
 var reFlags=/\w*$/;
 
@@ -85340,9 +85396,9 @@ return result;
 }
 
 module.exports=cloneRegExp;
-}, 693, null, "lodash/_cloneRegExp.js");
-__d(/* lodash/_cloneSet.js */function(global, require, module, exports) {var addSetEntry=require(695 /* ./_addSetEntry */),
-arrayReduce=require(692 /* ./_arrayReduce */),
+}, 689, null, "lodash/_cloneRegExp.js");
+__d(/* lodash/_cloneSet.js */function(global, require, module, exports) {var addSetEntry=require(691 /* ./_addSetEntry */),
+arrayReduce=require(688 /* ./_arrayReduce */),
 setToArray=require(288 /* ./_setToArray */);
 
 
@@ -85363,7 +85419,7 @@ return arrayReduce(array,addSetEntry,new set.constructor());
 }
 
 module.exports=cloneSet;
-}, 694, null, "lodash/_cloneSet.js");
+}, 690, null, "lodash/_cloneSet.js");
 __d(/* lodash/_addSetEntry.js */function(global, require, module, exports) {
 
 
@@ -85379,7 +85435,7 @@ return set;
 }
 
 module.exports=addSetEntry;
-}, 695, null, "lodash/_addSetEntry.js");
+}, 691, null, "lodash/_addSetEntry.js");
 __d(/* lodash/_cloneSymbol.js */function(global, require, module, exports) {var Symbol=require(252 /* ./_Symbol */);
 
 
@@ -85398,8 +85454,8 @@ return symbolValueOf?Object(symbolValueOf.call(symbol)):{};
 }
 
 module.exports=cloneSymbol;
-}, 696, null, "lodash/_cloneSymbol.js");
-__d(/* lodash/_cloneTypedArray.js */function(global, require, module, exports) {var cloneArrayBuffer=require(688 /* ./_cloneArrayBuffer */);
+}, 692, null, "lodash/_cloneSymbol.js");
+__d(/* lodash/_cloneTypedArray.js */function(global, require, module, exports) {var cloneArrayBuffer=require(684 /* ./_cloneArrayBuffer */);
 
 
 
@@ -85415,8 +85471,8 @@ return new typedArray.constructor(buffer,typedArray.byteOffset,typedArray.length
 }
 
 module.exports=cloneTypedArray;
-}, 697, null, "lodash/_cloneTypedArray.js");
-__d(/* lodash/_initCloneObject.js */function(global, require, module, exports) {var baseCreate=require(699 /* ./_baseCreate */),
+}, 693, null, "lodash/_cloneTypedArray.js");
+__d(/* lodash/_initCloneObject.js */function(global, require, module, exports) {var baseCreate=require(695 /* ./_baseCreate */),
 getPrototype=require(629 /* ./_getPrototype */),
 isPrototype=require(312 /* ./_isPrototype */);
 
@@ -85434,7 +85490,7 @@ baseCreate(getPrototype(object)):
 }
 
 module.exports=initCloneObject;
-}, 698, null, "lodash/_initCloneObject.js");
+}, 694, null, "lodash/_initCloneObject.js");
 __d(/* lodash/_baseCreate.js */function(global, require, module, exports) {var isObject=require(257 /* ./isObject */);
 
 
@@ -85465,10 +85521,10 @@ return result;
 }();
 
 module.exports=baseCreate;
-}, 699, null, "lodash/_baseCreate.js");
+}, 695, null, "lodash/_baseCreate.js");
 __d(/* lodash/_baseUnset.js */function(global, require, module, exports) {var castPath=require(327 /* ./_castPath */),
-last=require(701 /* ./last */),
-parent=require(702 /* ./_parent */),
+last=require(697 /* ./last */),
+parent=require(698 /* ./_parent */),
 toKey=require(336 /* ./_toKey */);
 
 
@@ -85486,7 +85542,7 @@ return object==null||delete object[toKey(last(path))];
 }
 
 module.exports=baseUnset;
-}, 700, null, "lodash/_baseUnset.js");
+}, 696, null, "lodash/_baseUnset.js");
 __d(/* lodash/last.js */function(global, require, module, exports) {
 
 
@@ -85507,9 +85563,9 @@ return length?array[length-1]:undefined;
 }
 
 module.exports=last;
-}, 701, null, "lodash/last.js");
+}, 697, null, "lodash/last.js");
 __d(/* lodash/_parent.js */function(global, require, module, exports) {var baseGet=require(326 /* ./_baseGet */),
-baseSlice=require(703 /* ./_baseSlice */);
+baseSlice=require(699 /* ./_baseSlice */);
 
 
 
@@ -85524,7 +85580,7 @@ return path.length<2?object:baseGet(object,baseSlice(path,0,-1));
 }
 
 module.exports=parent;
-}, 702, null, "lodash/_parent.js");
+}, 698, null, "lodash/_parent.js");
 __d(/* lodash/_baseSlice.js */function(global, require, module, exports) {
 
 
@@ -85556,7 +85612,7 @@ return result;
 }
 
 module.exports=baseSlice;
-}, 703, null, "lodash/_baseSlice.js");
+}, 699, null, "lodash/_baseSlice.js");
 __d(/* lodash/_customOmitClone.js */function(global, require, module, exports) {var isPlainObject=require(628 /* ./isPlainObject */);
 
 
@@ -85573,8 +85629,8 @@ return isPlainObject(value)?undefined:value;
 }
 
 module.exports=customOmitClone;
-}, 704, null, "lodash/_customOmitClone.js");
-__d(/* lodash/_flatRest.js */function(global, require, module, exports) {var flatten=require(706 /* ./flatten */),
+}, 700, null, "lodash/_customOmitClone.js");
+__d(/* lodash/_flatRest.js */function(global, require, module, exports) {var flatten=require(702 /* ./flatten */),
 overRest=require(357 /* ./_overRest */),
 setToString=require(359 /* ./_setToString */);
 
@@ -85590,7 +85646,7 @@ return setToString(overRest(func,undefined,flatten),func+'');
 }
 
 module.exports=flatRest;
-}, 705, null, "lodash/_flatRest.js");
+}, 701, null, "lodash/_flatRest.js");
 __d(/* lodash/flatten.js */function(global, require, module, exports) {var baseFlatten=require(371 /* ./_baseFlatten */);
 
 
@@ -85613,9 +85669,9 @@ return length?baseFlatten(array,1):[];
 }
 
 module.exports=flatten;
-}, 706, null, "lodash/flatten.js");
-__d(/* lodash/pick.js */function(global, require, module, exports) {var basePick=require(708 /* ./_basePick */),
-flatRest=require(705 /* ./_flatRest */);
+}, 702, null, "lodash/flatten.js");
+__d(/* lodash/pick.js */function(global, require, module, exports) {var basePick=require(704 /* ./_basePick */),
+flatRest=require(701 /* ./_flatRest */);
 
 
 
@@ -85639,8 +85695,8 @@ return object==null?{}:basePick(object,paths);
 });
 
 module.exports=pick;
-}, 707, null, "lodash/pick.js");
-__d(/* lodash/_basePick.js */function(global, require, module, exports) {var basePickBy=require(709 /* ./_basePickBy */),
+}, 703, null, "lodash/pick.js");
+__d(/* lodash/_basePick.js */function(global, require, module, exports) {var basePickBy=require(705 /* ./_basePickBy */),
 hasIn=require(337 /* ./hasIn */);
 
 
@@ -85659,9 +85715,9 @@ return hasIn(object,path);
 }
 
 module.exports=basePick;
-}, 708, null, "lodash/_basePick.js");
+}, 704, null, "lodash/_basePick.js");
 __d(/* lodash/_basePickBy.js */function(global, require, module, exports) {var baseGet=require(326 /* ./_baseGet */),
-baseSet=require(710 /* ./_baseSet */),
+baseSet=require(706 /* ./_baseSet */),
 castPath=require(327 /* ./_castPath */);
 
 
@@ -85690,7 +85746,7 @@ return result;
 }
 
 module.exports=basePickBy;
-}, 709, null, "lodash/_basePickBy.js");
+}, 705, null, "lodash/_basePickBy.js");
 __d(/* lodash/_baseSet.js */function(global, require, module, exports) {var assignValue=require(351 /* ./_assignValue */),
 castPath=require(327 /* ./_castPath */),
 isIndex=require(305 /* ./_isIndex */),
@@ -85738,7 +85794,7 @@ return object;
 }
 
 module.exports=baseSet;
-}, 710, null, "lodash/_baseSet.js");
+}, 706, null, "lodash/_baseSet.js");
 __d(/* react-native-vector-icons/lib/tab-bar-item-ios.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
@@ -85751,7 +85807,7 @@ __d(/* react-native-vector-icons/lib/tab-bar-item-ios.js */function(global, requ
 
 
 
-createTabBarItemIOSComponent;var _isEqual=require(712 /* lodash/isEqual */);var _isEqual2=babelHelpers.interopRequireDefault(_isEqual);var _pick=require(707 /* lodash/pick */);var _pick2=babelHelpers.interopRequireDefault(_pick);var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(669 /* ./react-native */);function createTabBarItemIOSComponent(IconNamePropType,getImageSource){var _class,_temp;
+createTabBarItemIOSComponent;var _isEqual=require(708 /* lodash/isEqual */);var _isEqual2=babelHelpers.interopRequireDefault(_isEqual);var _pick=require(703 /* lodash/pick */);var _pick2=babelHelpers.interopRequireDefault(_pick);var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(665 /* ./react-native */);function createTabBarItemIOSComponent(IconNamePropType,getImageSource){var _class,_temp;
 return _temp=_class=function(_Component){babelHelpers.inherits(TabBarItemIOS,_Component);function TabBarItemIOS(){babelHelpers.classCallCheck(this,TabBarItemIOS);return babelHelpers.possibleConstructorReturn(this,(TabBarItemIOS.__proto__||Object.getPrototypeOf(TabBarItemIOS)).apply(this,arguments));}babelHelpers.createClass(TabBarItemIOS,[{key:'updateIconSources',value:function updateIconSources(
 
 
@@ -85794,7 +85850,7 @@ return _react2.default.createElement(_reactNative.TabBarIOS.Item,babelHelpers.ex
 }}]);return TabBarItemIOS;}(_react.Component),_class.propTypes={iconName:IconNamePropType.isRequired,selectedIconName:IconNamePropType,iconSize:_react.PropTypes.number,iconColor:_react.PropTypes.string,selectedIconColor:_react.PropTypes.string},_class.defaultProps={iconSize:30},_temp;
 
 }
-}, 711, null, "react-native-vector-icons/lib/tab-bar-item-ios.js");
+}, 707, null, "react-native-vector-icons/lib/tab-bar-item-ios.js");
 __d(/* lodash/isEqual.js */function(global, require, module, exports) {var baseIsEqual=require(277 /* ./_baseIsEqual */);
 
 
@@ -85830,7 +85886,7 @@ return baseIsEqual(value,other);
 }
 
 module.exports=isEqual;
-}, 712, null, "lodash/isEqual.js");
+}, 708, null, "lodash/isEqual.js");
 __d(/* react-native-vector-icons/lib/toolbar-android.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
@@ -85843,7 +85899,7 @@ __d(/* react-native-vector-icons/lib/toolbar-android.js */function(global, requi
 
 
 
-createToolbarAndroidComponent;var _isEqual=require(712 /* lodash/isEqual */);var _isEqual2=babelHelpers.interopRequireDefault(_isEqual);var _pick=require(707 /* lodash/pick */);var _pick2=babelHelpers.interopRequireDefault(_pick);var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(669 /* ./react-native */);function createToolbarAndroidComponent(IconNamePropType,getImageSource){var _class,_temp;
+createToolbarAndroidComponent;var _isEqual=require(708 /* lodash/isEqual */);var _isEqual2=babelHelpers.interopRequireDefault(_isEqual);var _pick=require(703 /* lodash/pick */);var _pick2=babelHelpers.interopRequireDefault(_pick);var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(665 /* ./react-native */);function createToolbarAndroidComponent(IconNamePropType,getImageSource){var _class,_temp;
 return _temp=_class=function(_Component){babelHelpers.inherits(IconToolbarAndroid,_Component);function IconToolbarAndroid(){babelHelpers.classCallCheck(this,IconToolbarAndroid);return babelHelpers.possibleConstructorReturn(this,(IconToolbarAndroid.__proto__||Object.getPrototypeOf(IconToolbarAndroid)).apply(this,arguments));}babelHelpers.createClass(IconToolbarAndroid,[{key:'updateIconSources',value:function updateIconSources(
 
 
@@ -85920,7 +85976,7 @@ return _react2.default.createElement(_reactNative.ToolbarAndroid,babelHelpers.ex
 }}]);return IconToolbarAndroid;}(_react.Component),_class.propTypes={logoIconName:IconNamePropType,navIconName:IconNamePropType,overflowIconName:IconNamePropType,actions:_react.PropTypes.arrayOf(_react.PropTypes.shape({title:_react.PropTypes.string.isRequired,iconName:IconNamePropType,iconSize:_react.PropTypes.number,iconColor:_react.PropTypes.string,show:_react.PropTypes.oneOf(['always','ifRoom','never']),showWithText:_react.PropTypes.bool})),iconSize:_react.PropTypes.number,iconColor:_react.PropTypes.string},_class.defaultProps={iconSize:24},_temp;
 
 }
-}, 713, null, "react-native-vector-icons/lib/toolbar-android.js");
+}, 709, null, "react-native-vector-icons/lib/toolbar-android.js");
 __d(/* react-native-vector-icons/glyphmaps/FontAwesome.json */function(global, require, module, exports) {module.exports = {
 "glass":61440,
 "music":61441,
@@ -86708,7 +86764,7 @@ __d(/* react-native-vector-icons/glyphmaps/FontAwesome.json */function(global, r
 "superpowers":62173,
 "wpexplorer":62174,
 "meetup":62176};
-}, 714, null, "react-native-vector-icons/glyphmaps/FontAwesome.json");
+}, 710, null, "react-native-vector-icons/glyphmaps/FontAwesome.json");
 __d(/* base-64/base64.js */function(global, require, module, exports) {
 ;(function(root){
 
@@ -86874,11 +86930,11 @@ root.base64=base64;
 }
 
 })(this);
-}, 715, null, "base-64/base64.js");
-__d(/* Zynle/src/actions/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _navigationActions=require(650 /* ./navigationActions */);Object.keys(_navigationActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _navigationActions[key];}});});var _saleActions=require(651 /* ./saleActions */);
-Object.keys(_saleActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _saleActions[key];}});});var _selectSaleActions=require(652 /* ./selectSaleActions */);
+}, 711, null, "base-64/base64.js");
+__d(/* Zynle/src/actions/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _navigationActions=require(713 /* ./navigationActions */);Object.keys(_navigationActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _navigationActions[key];}});});var _saleActions=require(714 /* ./saleActions */);
+Object.keys(_saleActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _saleActions[key];}});});var _selectSaleActions=require(715 /* ./selectSaleActions */);
 Object.keys(_selectSaleActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _selectSaleActions[key];}});});
-}, 649, null, "Zynle/src/actions/index.js");
+}, 712, null, "Zynle/src/actions/index.js");
 __d(/* Zynle/src/actions/navigationActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.backScreen=exports.moveToScreen=undefined;var _types=require(646 /* ./types */);
 
 
@@ -86897,8 +86953,8 @@ type:_types.BACK_SCREEN};
 
 
 };
-}, 650, null, "Zynle/src/actions/navigationActions.js");
-__d(/* Zynle/src/actions/saleActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.deleteSale=exports.updateSale=exports.createSale=undefined;var _types=require(646 /* ./types */);
+}, 713, null, "Zynle/src/actions/navigationActions.js");
+__d(/* Zynle/src/actions/saleActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.clearSales=exports.deleteSale=exports.updateSaleNote=exports.updateSaleAmount=exports.createSale=undefined;var _types=require(646 /* ./types */);
 
 
 
@@ -86911,20 +86967,37 @@ payload:{amount:amount,note:note}};
 
 
 
-var updateSale=exports.updateSale=function updateSale(amount,note,index){
+var updateSaleAmount=exports.updateSaleAmount=function updateSaleAmount(amount,index){
 return{
-type:_types.SALE_UPDATE,
-payload:{amount:amount,note:note,index:index}};
+type:_types.SALE_UPDATE_AMOUNT,
+payload:{amount:amount,index:index}};
 
 };
 
-var deleteSale=exports.deleteSale=function deleteSale(_ref2){var index=_ref2.index;
+
+var updateSaleNote=exports.updateSaleNote=function updateSaleNote(note,index){
+return{
+type:_types.SALE_UPDATE_NOTE,
+payload:{note:note,index:index}};
+
+};
+
+
+
+
+var deleteSale=exports.deleteSale=function deleteSale(index){
 return{
 type:_types.SALE_DELETE,
 payload:index};
 
 };
-}, 651, null, "Zynle/src/actions/saleActions.js");
+
+var clearSales=exports.clearSales=function clearSales(){
+return{
+type:_types.CLEAR_SALES};
+
+};
+}, 714, null, "Zynle/src/actions/saleActions.js");
 __d(/* Zynle/src/actions/selectSaleActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.selectSale=undefined;var _types=require(646 /* ./types */);
 
 var selectSale=exports.selectSale=function selectSale(index){
@@ -86933,16 +87006,19 @@ type:_types.SELECTED_ID,
 payload:index};
 
 };
-}, 652, null, "Zynle/src/actions/selectSaleActions.js");
+}, 715, null, "Zynle/src/actions/selectSaleActions.js");
 __d(/* Zynle/src/components/Charge.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 
 
 var _reactRedux=require(616 /* react-redux */);
-var _actions=require(649 /* ../actions */);
+var _actions=require(712 /* ../actions */);
 
 var _Tabs=require(717 /* ./Tabs */);var _Tabs2=babelHelpers.interopRequireDefault(_Tabs);
 
 var _reactNative=require(43 /* react-native */);
+
+
+
 
 
 
@@ -87009,47 +87085,59 @@ Charge=function(_Component){babelHelpers.inherits(Charge,_Component);function Ch
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 state={
-toolTipText:'this is a tool tip'},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelpers.createClass(Charge,[{key:'goToCharge',value:function goToCharge()
+toolTipText:'this is a tool tip'},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelpers.createClass(Charge,[{key:'componentDidMount',value:function componentDidMount(){var _this2=this;_reactNative.BackAndroid.addEventListener('backPress',function(){_reactNative.Alert.alert('Caution','Would You like to exit ZynlePay?',[{text:'Exit ZynlePay',onPress:function onPress(){return _reactNative.BackAndroid.exitApp();}},{text:'Cancel'}]);return true;});_reactNative.AsyncStorage.getItem("LoggedIn").then(function(value){_this2.setState({"LoggedIn":value});}).done();}},{key:'goToCharge',value:function goToCharge()
 
 
 
 {
 
 
+if(this.props.totalCharge===0){
+
+_reactNative.Alert.alert(
+'Invalid Amount',
+'You must enter a value more than zero to charge a card.',[
+{text:'Correct this'}]);
 
 
-
-
-
-
-
-
-
-
-
-
+}else{
 
 this.props.moveToScreen('ChargeCard');
-
-
+}
 }},{key:'render',value:function render()
 
+{var _this3=this;
 
-{var _this2=this;
-
-console.log(this.props);
-
+console.log("this is the key: "+this.state.myKey);
 return(
 _react2.default.createElement(_reactNative.View,{style:styles.container},
 
 _react2.default.createElement(_reactNative.View,{style:styles.header},
 
 _react2.default.createElement(_reactNative.TouchableOpacity,{
-onPress:function onPress(){return _this2.props.moveToScreen('SalesList');},
+onPress:function onPress(){return _this3.props.moveToScreen('SalesList');},
 style:{flexDirection:'row'}},
-_react2.default.createElement(_reactNative.Text,{style:styles.headerText},'Current Sale'),
-_react2.default.createElement(_reactNative.Image,{style:styles.saleImage,source:require(734 /* ../images/salesDock.png */)},
+_react2.default.createElement(_reactNative.Text,{style:styles.headerText},'Current Sale '),
+_react2.default.createElement(_reactNative.Image,{style:styles.saleImage,source:require(723 /* ../images/salesDock.png */)},
 _react2.default.createElement(_reactNative.Text,{style:{color:"#95989A",fontSize:15,fontWeight:"bold"}},this.props.totalSales)))),
 
 
@@ -87079,12 +87167,12 @@ var mapStateToProps=function mapStateToProps(state){
 return{
 
 
-totalSales:state.sale.length};
+totalSales:state.sale.length,
 
 
-
-
-
+totalCharge:state.sale.reduce(function(result,item){
+return result+Number(item.amount);
+},0)};
 
 };exports.default=
 
@@ -87095,8 +87183,8 @@ totalSales:state.sale.length};
 __d(/* Zynle/src/components/Tabs.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
-var _Keypad=require(729 /* ./Keypad */);var _Keypad2=babelHelpers.interopRequireDefault(_Keypad);
-var _PastSales=require(733 /* ./PastSales */);var _PastSales2=babelHelpers.interopRequireDefault(_PastSales);
+var _Keypad=require(718 /* ./Keypad */);var _Keypad2=babelHelpers.interopRequireDefault(_Keypad);
+var _PastSales=require(722 /* ./PastSales */);var _PastSales2=babelHelpers.interopRequireDefault(_PastSales);
 
 var _reactNavigation=require(554 /* react-navigation */);
 
@@ -87168,12 +87256,12 @@ _react2.default.createElement(BasicApp,null));
 __d(/* Zynle/src/components/Keypad.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 
 
-var _NumPad=require(730 /* ../utils/NumPad */);var _NumPad2=babelHelpers.interopRequireDefault(_NumPad);
-var _SimpleLineIcons=require(731 /* react-native-vector-icons/SimpleLineIcons */);var _SimpleLineIcons2=babelHelpers.interopRequireDefault(_SimpleLineIcons);
+var _NumPad=require(719 /* ../utils/NumPad */);var _NumPad2=babelHelpers.interopRequireDefault(_NumPad);
+var _SimpleLineIcons=require(720 /* react-native-vector-icons/SimpleLineIcons */);var _SimpleLineIcons2=babelHelpers.interopRequireDefault(_SimpleLineIcons);
 
 
 var _reactRedux=require(616 /* react-redux */);
-var _actions=require(649 /* ../actions */);
+var _actions=require(712 /* ../actions */);
 
 
 var _reactNative=require(43 /* react-native */);
@@ -87289,7 +87377,7 @@ Keypad=function(_Component){babelHelpers.inherits(Keypad,_Component);function Ke
 
 state={
 totalCharge:0,
-note:'Product name',
+note:'',
 modalVisible:false},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelpers.createClass(Keypad,[{key:'setModalVisible',value:function setModalVisible(
 
 
@@ -87323,7 +87411,7 @@ this.setState({totalCharge:this.state.totalCharge+num});
 
 {
 console.log('clear');
-this.setState({totalCharge:0,note:'Product name'});
+this.setState({totalCharge:0,note:''});
 }},{key:'addtoTotal',value:function addtoTotal()
 
 
@@ -87351,7 +87439,7 @@ _react2.default.createElement(_reactNative.Text,{style:stylesModal.headerText},'
 
 _react2.default.createElement(_reactNative.View,{style:stylesModal.contentArea},
 _react2.default.createElement(_reactNative.TextInput,{style:stylesModal.textBox,
-placeholder:'Enter your item name(s) here',
+placeholder:'Enter your product name here',
 multiline:true,
 maxLength:30,
 numberOfLines:2,
@@ -87421,7 +87509,7 @@ _react2.default.createElement(_NumPad2.default,{num:'+',onPress:this.addtoTotal.
 
 
 (0,_reactRedux.connect)(null,{createSale:_actions.createSale})(Keypad);
-}, 729, null, "Zynle/src/components/Keypad.js");
+}, 718, null, "Zynle/src/components/Keypad.js");
 __d(/* Zynle/src/utils/NumPad.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -87467,14 +87555,14 @@ this.props.num))));
 
 
 }}]);return NumPad;}(_react.Component);exports.default=NumPad;
-}, 730, null, "Zynle/src/utils/NumPad.js");
+}, 719, null, "Zynle/src/utils/NumPad.js");
 __d(/* react-native-vector-icons/SimpleLineIcons.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.getImageSource=exports.ToolbarAndroid=exports.TabBarItemIOS=exports.TabBarItem=exports.Button=undefined;
 
 
 
 
-var _createIconSet=require(668 /* ./lib/create-icon-set */);var _createIconSet2=babelHelpers.interopRequireDefault(_createIconSet);
-var _SimpleLineIcons=require(732 /* ./glyphmaps/SimpleLineIcons.json */);var _SimpleLineIcons2=babelHelpers.interopRequireDefault(_SimpleLineIcons);
+var _createIconSet=require(664 /* ./lib/create-icon-set */);var _createIconSet2=babelHelpers.interopRequireDefault(_createIconSet);
+var _SimpleLineIcons=require(721 /* ./glyphmaps/SimpleLineIcons.json */);var _SimpleLineIcons2=babelHelpers.interopRequireDefault(_SimpleLineIcons);
 
 var iconSet=(0,_createIconSet2.default)(_SimpleLineIcons2.default,'simple-line-icons','SimpleLineIcons.ttf');exports.default=
 
@@ -87485,7 +87573,7 @@ var TabBarItem=exports.TabBarItem=iconSet.TabBarItem;
 var TabBarItemIOS=exports.TabBarItemIOS=iconSet.TabBarItemIOS;
 var ToolbarAndroid=exports.ToolbarAndroid=iconSet.ToolbarAndroid;
 var getImageSource=exports.getImageSource=iconSet.getImageSource;
-}, 731, null, "react-native-vector-icons/SimpleLineIcons.js");
+}, 720, null, "react-native-vector-icons/SimpleLineIcons.js");
 __d(/* react-native-vector-icons/glyphmaps/SimpleLineIcons.json */function(global, require, module, exports) {module.exports = {
 "user":57349,
 "people":57345,
@@ -87676,11 +87764,11 @@ __d(/* react-native-vector-icons/glyphmaps/SimpleLineIcons.json */function(globa
 "social-dropbox":57356,
 "social-vkontakte":58904,
 "social-steam":58912};
-}, 732, null, "react-native-vector-icons/glyphmaps/SimpleLineIcons.json");
+}, 721, null, "react-native-vector-icons/glyphmaps/SimpleLineIcons.json");
 __d(/* Zynle/src/components/PastSales.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 
 
-var _SimpleLineIcons=require(731 /* react-native-vector-icons/SimpleLineIcons */);var _SimpleLineIcons2=babelHelpers.interopRequireDefault(_SimpleLineIcons);
+var _SimpleLineIcons=require(720 /* react-native-vector-icons/SimpleLineIcons */);var _SimpleLineIcons2=babelHelpers.interopRequireDefault(_SimpleLineIcons);
 
 
 var _reactNative=require(43 /* react-native */);
@@ -87708,9 +87796,9 @@ _react2.default.createElement(_reactNative.Text,null,'History Here')));
 
 
 }}]);return PastSales;}(_react.Component);exports.default=PastSales;
-}, 733, null, "Zynle/src/components/PastSales.js");
+}, 722, null, "Zynle/src/components/PastSales.js");
 __d(/* Zynle/src/images/salesDock.png */function(global, require, module, exports) {module.exports = require(173 /* react-native/Libraries/Image/AssetRegistry */).registerAsset({"__packager_asset":true,"httpServerLocation":"/assets/src/images","width":121,"height":118,"scales":[1],"hash":"b4803bb435e529a626621ae230eb08de","name":"salesDock","type":"png"});
-}, 734, null, "Zynle/src/images/salesDock.png");
+}, 723, null, "Zynle/src/images/salesDock.png");
 __d(/* Zynle/src/components/ChargeCard.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -87723,15 +87811,16 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _Api=require(736 /* ../utils/Api */);var _Api2=babelHelpers.interopRequireDefault(_Api);
-var _FontAwesome=require(667 /* react-native-vector-icons/FontAwesome */);var _FontAwesome2=babelHelpers.interopRequireDefault(_FontAwesome);
-var _reactNativeTextinputEffects=require(654 /* react-native-textinput-effects */);
-var _reactNativeAwesomeCardIo=require(737 /* react-native-awesome-card-io */);
+
+var _Api=require(725 /* ../utils/Api */);var _Api2=babelHelpers.interopRequireDefault(_Api);
+var _FontAwesome=require(663 /* react-native-vector-icons/FontAwesome */);var _FontAwesome2=babelHelpers.interopRequireDefault(_FontAwesome);
+var _reactNativeTextinputEffects=require(650 /* react-native-textinput-effects */);
+var _reactNativeAwesomeCardIo=require(726 /* react-native-awesome-card-io */);
+
 
 
 var _reactRedux=require(616 /* react-redux */);
-var _actions=require(649 /* ../actions */);
-
+var _actions=require(712 /* ../actions */);
 
 
 var styles={
@@ -87813,6 +87902,13 @@ ChargeCard=function(_Component){babelHelpers.inherits(ChargeCard,_Component);fun
 
 
 
+
+
+
+
+
+
+
 state={
 cardReaderConnected:false,
 
@@ -87821,7 +87917,22 @@ nameOnCard:'Michael Lungu',
 cardNumber:'4383755000927515',
 expiryMonth:'04',
 expiryYear:'22',
-cvv:'549'},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelpers.createClass(ChargeCard,[{key:'componentDidMount',value:function componentDidMount(){var _this2=this;_reactNative.BackAndroid.addEventListener('backPress',function(){var navigate=_this2.props.navigation.navigate;_this2.props.moveToScreen('Charge');return true;});}},{key:'componentWillUnmount',value:function componentWillUnmount(){_reactNative.BackAndroid.removeEventListener('backPress');}},{key:'chargeCard',value:function chargeCard()
+cvv:'549',
+
+res:null},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelpers.createClass(ChargeCard,[{key:'componentDidMount',value:function componentDidMount(){var _this2=this;_reactNative.BackAndroid.addEventListener('backPress',function(){_this2.props.backScreen();return true;});}},{key:'componentWillUnmount',value:function componentWillUnmount(){_reactNative.BackAndroid.removeEventListener('backPress');}},{key:'chargeCard',value:function chargeCard()
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -87843,10 +87954,12 @@ cvv:'549'},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelpe
 
 
 
+this.state.res=_Api2.default.CallWebAPI(this.props.totalCharge,this.state.cardNumber,this.state.expiryMonth,this.state.expiryYear,this.state.cvv,'Sales From ZynlePay App',this.state.nameOnCard);
+
+console.log("this is the response: "+this.state.res);
 
 
 
-this.props.moveToScreen('PaymentSuccess');
 }},{key:'scanCard',value:function scanCard()
 
 
@@ -87899,12 +88012,11 @@ return statusIcon;
 }},{key:'render',value:function render()
 
 {var _this4=this;
-
-
 return(
 _react2.default.createElement(_reactNative.View,{style:styles.container},
 _react2.default.createElement(_reactNative.View,null,
-this.checkCardReader()),
+this.checkCardReader(),
+_react2.default.createElement(_reactNative.Text,null,'Charging K',this.props.totalCharge)),
 
 
 _react2.default.createElement(_reactNativeTextinputEffects.Hideo,{
@@ -88006,12 +88118,25 @@ _react2.default.createElement(_reactNative.Text,{style:styles.buttonText},'Charg
 
 
 
-}}]);return ChargeCard;}(_react.Component);ChargeCard.navigationOptions={title:'Charge K',header:{visible:true,right:_react2.default.createElement(_FontAwesome2.default,{name:'question-circle',size:25,color:'#95989A',style:{marginRight:20}})}};exports.default=
+}}]);return ChargeCard;}(_react.Component);ChargeCard.navigationOptions={title:'Charge K',header:function header(navigation){return{left:_react2.default.createElement(_reactNative.TouchableOpacity,{style:{marginLeft:20},onPress:function onPress(){return navigation.dispatch({type:'back_screen'});}},_react2.default.createElement(_reactNative.Image,{style:{width:25,height:25},source:require(730 /* ../images/Undo-100.png */)})),tintColor:'#95989A',style:{backgroundColor:'#EDEDED'}};}};
 
 
-(0,_reactRedux.connect)(null,{moveToScreen:_actions.moveToScreen})(ChargeCard);
-}, 735, null, "Zynle/src/components/ChargeCard.js");
-__d(/* Zynle/src/utils/Api.js */function(global, require, module, exports) {var _base=require(715 /* base-64 */);var _base2=babelHelpers.interopRequireDefault(_base);
+
+
+var mapStateToProps=function mapStateToProps(state){
+
+return{
+
+totalCharge:state.sale.reduce(function(result,item){
+return result+Number(item.amount);
+},0)};
+
+};exports.default=
+
+
+(0,_reactRedux.connect)(mapStateToProps,{moveToScreen:_actions.moveToScreen,backScreen:_actions.backScreen})(ChargeCard);
+}, 724, null, "Zynle/src/components/ChargeCard.js");
+__d(/* Zynle/src/utils/Api.js */function(global, require, module, exports) {var _base=require(711 /* base-64 */);var _base2=babelHelpers.interopRequireDefault(_base);
 
 var Api={
 authenticateUser:function authenticateUser(){
@@ -88033,28 +88158,33 @@ var url=encodeURI("http://www.zynlepay.com:8070/zynlepay/zpay/api/runCardReader?
 
 
 
-
-
-
-
-
-
-
-
-
-
 console.log(url);
 
-return fetch(url).
+var test=null;
+console.log("this is test: "+test);
+
+
+fetch(url,{
+headers:{
+'Accept':'application/json',
+'Content-Type':'application/json'}}).
+
+
 then(function(response){return response.json();}).
 then(function(responseJson){
 
+console.log(responseJson.transactionId);
+test=responseJson.transactionId;
 
-return responseJson;
 }).
 catch(function(error){
 console.log(error);
 });
+
+
+console.log("this is test: "+test);
+
+
 
 },
 
@@ -88200,13 +88330,13 @@ return temp.toLowerCase();
 
 
 module.exports=Api;
-}, 736, null, "Zynle/src/utils/Api.js");
-__d(/* react-native-awesome-card-io/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.CardIOUtilities=exports.CardIOModule=exports.CardIOView=undefined;var _CardIOView=require(738 /* ./CardIOView */);var _CardIOView2=babelHelpers.interopRequireDefault(_CardIOView);
-var _CardIOModule=require(739 /* ./CardIOModule */);var _CardIOModule2=babelHelpers.interopRequireDefault(_CardIOModule);
-var _CardIOUtilities=require(740 /* ./CardIOUtilities */);var _CardIOUtilities2=babelHelpers.interopRequireDefault(_CardIOUtilities);exports.
+}, 725, null, "Zynle/src/utils/Api.js");
+__d(/* react-native-awesome-card-io/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.CardIOUtilities=exports.CardIOModule=exports.CardIOView=undefined;var _CardIOView=require(727 /* ./CardIOView */);var _CardIOView2=babelHelpers.interopRequireDefault(_CardIOView);
+var _CardIOModule=require(728 /* ./CardIOModule */);var _CardIOModule2=babelHelpers.interopRequireDefault(_CardIOModule);
+var _CardIOUtilities=require(729 /* ./CardIOUtilities */);var _CardIOUtilities2=babelHelpers.interopRequireDefault(_CardIOUtilities);exports.
 
 CardIOView=_CardIOView2.default;exports.CardIOModule=_CardIOModule2.default;exports.CardIOUtilities=_CardIOUtilities2.default;
-}, 737, null, "react-native-awesome-card-io/index.js");
+}, 726, null, "react-native-awesome-card-io/index.js");
 __d(/* react-native-awesome-card-io/CardIOView.android.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);var
 
@@ -88241,7 +88371,7 @@ fontSize:10}});exports.default=
 
 
 CardIOView;
-}, 738, null, "react-native-awesome-card-io/CardIOView.android.js");
+}, 727, null, "react-native-awesome-card-io/CardIOView.android.js");
 __d(/* react-native-awesome-card-io/CardIOModule.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _reactNative=require(43 /* react-native */);
 
 var RNCardIOModule=_reactNative.NativeModules.CardIOModule;
@@ -88253,13 +88383,15 @@ return RNCardIOModule.scanCard(config);
 
 
 CardIOModule;
-}, 739, null, "react-native-awesome-card-io/CardIOModule.js");
+}, 728, null, "react-native-awesome-card-io/CardIOModule.js");
 __d(/* react-native-awesome-card-io/CardIOUtilities.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _reactNative=require(43 /* react-native */);var
 
 CardIOUtilities=_reactNative.NativeModules.CardIOUtilities;exports.default=
 
 CardIOUtilities;
-}, 740, null, "react-native-awesome-card-io/CardIOUtilities.js");
+}, 729, null, "react-native-awesome-card-io/CardIOUtilities.js");
+__d(/* Zynle/src/images/Undo-100.png */function(global, require, module, exports) {module.exports = require(173 /* react-native/Libraries/Image/AssetRegistry */).registerAsset({"__packager_asset":true,"httpServerLocation":"/assets/src/images","width":100,"height":100,"scales":[1],"hash":"b5d4835ab111137f50535bf80b97de83","name":"Undo-100","type":"png"});
+}, 730, null, "Zynle/src/images/Undo-100.png");
 __d(/* Zynle/src/components/PaymentSuccess.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -88269,12 +88401,14 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _EvilIcons=require(742 /* react-native-vector-icons/EvilIcons */);var _EvilIcons2=babelHelpers.interopRequireDefault(_EvilIcons);
-var _reactNativeTextinputEffects=require(654 /* react-native-textinput-effects */);
+
+
+var _EvilIcons=require(732 /* react-native-vector-icons/EvilIcons */);var _EvilIcons2=babelHelpers.interopRequireDefault(_EvilIcons);
+var _reactNativeTextinputEffects=require(650 /* react-native-textinput-effects */);
 
 
 var _reactRedux=require(616 /* react-redux */);
-var _actions=require(649 /* ../actions */);
+var _actions=require(712 /* ../actions */);
 
 var styles={
 container:{
@@ -88359,10 +88493,34 @@ PaymentSuccess=function(_Component){babelHelpers.inherits(PaymentSuccess,_Compon
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 state={
 phoneNumber:null,
 refrenceNumber:'12356',
-totalCharge:null},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelpers.createClass(PaymentSuccess,[{key:'goHome',value:function goHome()
+totalCharge:null},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelpers.createClass(PaymentSuccess,[{key:'componentDidMount',value:function componentDidMount(){_reactNative.BackAndroid.addEventListener('backPress',function(){_reactNative.Alert.alert('Not allowed...','You cannot go back to the previous screen. You can start a new transaction by tapping the COMPLETE button.',[{text:'Exit ZynlePay',onPress:function onPress(){return _reactNative.BackAndroid.exitApp();}},{text:'Got it'}]);return true;});}},{key:'componentWillUnmount',value:function componentWillUnmount(){_reactNative.BackAndroid.removeEventListener('backPress');}},{key:'goHome',value:function goHome()
+
+
+
 
 
 
@@ -88387,10 +88545,12 @@ _reactNative.ToastAndroid.show('Receipt Sent to '+this.state.phoneNumber,_reactN
 }
 
 
+
+
+
+
+this.props.clearSales();
 this.props.moveToScreen('Charge');
-
-
-
 
 
 }},{key:'render',value:function render()
@@ -88432,18 +88592,18 @@ _react2.default.createElement(_reactNative.Text,{style:styles.buttonText},'Compl
 
 
 
-}}]);return PaymentSuccess;}(_react.Component);PaymentSuccess.navigationOptions={title:'Payment Successful'};PaymentSuccess.navigationOptions={title:'Payment Successful'};exports.default=
+}}]);return PaymentSuccess;}(_react.Component);PaymentSuccess.navigationOptions={title:'Payment Successful'};PaymentSuccess.navigationOptions={title:'Payment Successful',header:{visible:false}};exports.default=
 
 
-(0,_reactRedux.connect)(null,{moveToScreen:_actions.moveToScreen})(PaymentSuccess);
-}, 741, null, "Zynle/src/components/PaymentSuccess.js");
+(0,_reactRedux.connect)(null,{moveToScreen:_actions.moveToScreen,clearSales:_actions.clearSales})(PaymentSuccess);
+}, 731, null, "Zynle/src/components/PaymentSuccess.js");
 __d(/* react-native-vector-icons/EvilIcons.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.getImageSource=exports.ToolbarAndroid=exports.TabBarItemIOS=exports.TabBarItem=exports.Button=undefined;
 
 
 
 
-var _createIconSet=require(668 /* ./lib/create-icon-set */);var _createIconSet2=babelHelpers.interopRequireDefault(_createIconSet);
-var _EvilIcons=require(743 /* ./glyphmaps/EvilIcons.json */);var _EvilIcons2=babelHelpers.interopRequireDefault(_EvilIcons);
+var _createIconSet=require(664 /* ./lib/create-icon-set */);var _createIconSet2=babelHelpers.interopRequireDefault(_createIconSet);
+var _EvilIcons=require(733 /* ./glyphmaps/EvilIcons.json */);var _EvilIcons2=babelHelpers.interopRequireDefault(_EvilIcons);
 
 var iconSet=(0,_createIconSet2.default)(_EvilIcons2.default,'EvilIcons','EvilIcons.ttf');exports.default=
 
@@ -88454,7 +88614,7 @@ var TabBarItem=exports.TabBarItem=iconSet.TabBarItem;
 var TabBarItemIOS=exports.TabBarItemIOS=iconSet.TabBarItemIOS;
 var ToolbarAndroid=exports.ToolbarAndroid=iconSet.ToolbarAndroid;
 var getImageSource=exports.getImageSource=iconSet.getImageSource;
-}, 742, null, "react-native-vector-icons/EvilIcons.js");
+}, 732, null, "react-native-vector-icons/EvilIcons.js");
 __d(/* react-native-vector-icons/glyphmaps/EvilIcons.json */function(global, require, module, exports) {module.exports = {
 "archive":61696,
 "arrow-down":61697,
@@ -88526,12 +88686,12 @@ __d(/* react-native-vector-icons/glyphmaps/EvilIcons.json */function(global, req
 "undo":61763,
 "unlock":61764,
 "user":61765};
-}, 743, null, "react-native-vector-icons/glyphmaps/EvilIcons.json");
+}, 733, null, "react-native-vector-icons/glyphmaps/EvilIcons.json");
 __d(/* Zynle/src/components/SaleList.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 
 
 var _reactRedux=require(616 /* react-redux */);
-var _actions=require(649 /* ../actions */);
+var _actions=require(712 /* ../actions */);
 
 
 var _reactNative=require(43 /* react-native */);
@@ -88546,6 +88706,8 @@ var _reactNative=require(43 /* react-native */);
 
 
 
+
+var _reactNavigation=require(554 /* react-navigation */);
 
 
 var styles={
@@ -88589,7 +88751,8 @@ color:'#95989A'}};var
 
 
 
-SalesList=function(_Component){babelHelpers.inherits(SalesList,_Component);
+
+SalesList=function(_Component){babelHelpers.inherits(SalesList,_Component);function SalesList(){babelHelpers.classCallCheck(this,SalesList);return babelHelpers.possibleConstructorReturn(this,(SalesList.__proto__||Object.getPrototypeOf(SalesList)).apply(this,arguments));}babelHelpers.createClass(SalesList,[{key:'componentDidMount',value:function componentDidMount()
 
 
 
@@ -88601,23 +88764,22 @@ SalesList=function(_Component){babelHelpers.inherits(SalesList,_Component);
 
 
 
-function SalesList(props){babelHelpers.classCallCheck(this,SalesList);var _this=babelHelpers.possibleConstructorReturn(this,(SalesList.__proto__||Object.getPrototypeOf(SalesList)).call(this,
-props));
-_this.state={
-red:'ass'};return _this;
 
-}babelHelpers.createClass(SalesList,[{key:'componentDidMount',value:function componentDidMount()
+
+
+
+
+
+
+
+
 
 
 {var _this2=this;
-_reactNative.BackAndroid.addEventListener('backPress',function(){var
-navigate=_this2.props.navigation.navigate;
+_reactNative.BackAndroid.addEventListener('backPress',function(){
 
-
-
-_this2.props.moveToScreen('Charge');
+_this2.props.backScreen();
 return true;
-
 });
 }},{key:'componentWillMount',value:function componentWillMount()
 
@@ -88641,13 +88803,20 @@ _reactNative.BackAndroid.removeEventListener('backPress');
 
 
 rowID){
-this.props.selectSale(rowID);
-this.props.moveToScreen('SalesDetail');
 
+this.props.selectSale(rowID);
+
+
+this.props.moveToScreen('SalesDetail');
 }},{key:'clearSales',value:function clearSales()
 
 
 {
+
+this.props.clearSales();
+
+
+this.props.backScreen();
 
 }},{key:'render',value:function render()
 
@@ -88664,8 +88833,7 @@ renderRow:function renderRow(rowData,sectionID,rowID){return(
 _react2.default.createElement(_reactNative.TouchableNativeFeedback,{onPress:_this3.openSaleItem.bind(_this3,rowID)},
 _react2.default.createElement(_reactNative.View,{style:stylesItem.container},
 _react2.default.createElement(_reactNative.Text,{style:stylesItem.text},'K',rowData.amount),
-_react2.default.createElement(_reactNative.Text,{style:stylesItem.text},rowData.note),
-_react2.default.createElement(_reactNative.Text,{style:stylesItem.text},rowID))));}}),
+_react2.default.createElement(_reactNative.Text,{style:stylesItem.text},rowData.note))));}}),
 
 
 
@@ -88674,14 +88842,14 @@ _react2.default.createElement(_reactNative.View,{style:{padding:10}},
 _react2.default.createElement(_reactNative.TouchableOpacity,{
 style:styles.button,
 underlayColor:'#39B7EF',
-onPress:function onPress(){return _this3.props.moveToScreen('SalesDetail');}},
+onPress:this.clearSales.bind(this)},
 _react2.default.createElement(_reactNative.Text,{style:styles.buttonText},'Clear Sale')))));
 
 
 
 
 
-}}]);return SalesList;}(_react.Component);SalesList.navigationOptions={title:'Total K',header:{visible:true}};
+}}]);return SalesList;}(_react.Component);SalesList.navigationOptions={title:'Total K',header:function header(navigation){return{left:_react2.default.createElement(_reactNative.TouchableOpacity,{style:{marginLeft:20},onPress:function onPress(){return navigation.dispatch({type:'back_screen'});}},_react2.default.createElement(_reactNative.Image,{style:{width:25,height:25},source:require(730 /* ../images/Undo-100.png */)})),tintColor:'#95989A',style:{backgroundColor:'#EDEDED'}};}};
 
 
 
@@ -88701,13 +88869,13 @@ sale:state.sale};
 
 
 
-(0,_reactRedux.connect)(mapStateToProps,{moveToScreen:_actions.moveToScreen,selectSale:_actions.selectSale})(SalesList);
-}, 744, null, "Zynle/src/components/SaleList.js");
+(0,_reactRedux.connect)(mapStateToProps,{moveToScreen:_actions.moveToScreen,selectSale:_actions.selectSale,backScreen:_actions.backScreen,clearSales:_actions.clearSales})(SalesList);
+}, 734, null, "Zynle/src/components/SaleList.js");
 __d(/* Zynle/src/components/SalesDetail.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 
 
 var _reactRedux=require(616 /* react-redux */);
-var _actions=require(649 /* ../actions */);
+var _actions=require(712 /* ../actions */);
 
 
 var _reactNative=require(43 /* react-native */);
@@ -88720,6 +88888,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
+var _reactNavigation=require(554 /* react-navigation */);
 
 
 var styles={
@@ -88752,7 +88921,7 @@ color:'white',
 fontSize:28},
 
 contentAea:{
-marginBottom:170},
+marginBottom:100},
 
 textBox:{
 height:50,
@@ -88773,18 +88942,15 @@ marginBottom:5}};var
 
 
 
+
 SalesDetail=function(_Component){babelHelpers.inherits(SalesDetail,_Component);function SalesDetail(){babelHelpers.classCallCheck(this,SalesDetail);return babelHelpers.possibleConstructorReturn(this,(SalesDetail.__proto__||Object.getPrototypeOf(SalesDetail)).apply(this,arguments));}babelHelpers.createClass(SalesDetail,[{key:'componentDidMount',value:function componentDidMount()
 
 
 {var _this2=this;
-_reactNative.BackAndroid.addEventListener('backPress',function(){var
-navigate=_this2.props.navigation.navigate;
+_reactNative.BackAndroid.addEventListener('backPress',function(){
 
-
-
-_this2.props.moveToScreen('SalesList');
+_this2.props.backScreen();
 return true;
-
 });
 }},{key:'componentWillUnmount',value:function componentWillUnmount()
 
@@ -88803,20 +88969,55 @@ _reactNative.BackAndroid.removeEventListener('backPress');
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {
+
 this.props.deleteSale(this.props.index);
-this.props.moveToScreen('SalesList');
+
+
+this.props.backScreen();
 }},{key:'saveSale',value:function saveSale()
 
 
 {
-this.props.updateSale(this.props.currentSale.amount,this.props.currentSale.note,this.props.index);
+
+this.props.backScreen();
+}},{key:'onAmountChanged',value:function onAmountChanged(
+
+
+
+amount){
+
+this.props.updateSaleAmount(amount,this.props.index);
+
+}},{key:'onNoteChanged',value:function onNoteChanged(
+
+
+note){
+
+this.props.updateSaleNote(note,this.props.index);
 
 }},{key:'render',value:function render()
 
 
 {
-
 
 return(
 _react2.default.createElement(_reactNative.View,{style:styles.container},
@@ -88827,7 +89028,8 @@ _react2.default.createElement(_reactNative.Text,{style:styles.label},'Price'),
 _react2.default.createElement(_reactNative.TextInput,{
 style:styles.textBox,
 value:this.props.currentSale.amount,
-onChangeText:this.saveSale.bind(this)})),
+onChangeText:this.onAmountChanged.bind(this)})),
+
 
 
 
@@ -88836,7 +89038,8 @@ _react2.default.createElement(_reactNative.Text,{style:styles.label},'Note'),
 _react2.default.createElement(_reactNative.TextInput,{
 style:styles.textBox,
 value:this.props.currentSale.note,
-onChangeText:this.saveSale.bind(this)}))),
+onChangeText:this.onNoteChanged.bind(this)}))),
+
 
 
 
@@ -88858,29 +89061,41 @@ style:styles.buttonSave,
 underlayColor:'#39B7EF',
 onPress:this.saveSale.bind(this)},
 
+
 _react2.default.createElement(_reactNative.Text,{style:styles.buttonText},'Save')))));
 
 
 
 
 
-}}]);return SalesDetail;}(_react.Component);SalesDetail.navigationOptions={title:'Amount: K',header:{visible:true}};
+}}]);return SalesDetail;}(_react.Component);SalesDetail.navigationOptions={title:'Amount K',header:function header(navigation){return{left:_react2.default.createElement(_reactNative.TouchableOpacity,{style:{marginLeft:20},onPress:function onPress(){return navigation.dispatch({type:'back_screen'});}},_react2.default.createElement(_reactNative.Image,{style:{width:25,height:25},source:require(730 /* ../images/Undo-100.png */)})),tintColor:'#95989A',style:{backgroundColor:'#EDEDED'}};}};
 
 
 
 
 var mapStateToProps=function mapStateToProps(state){
 
+
+
+
+
+
+
+
+
+
+
 return{
 currentSale:state.sale[state.selectedSale],
 index:state.selectedSale};
+
 
 };exports.default=
 
 
 
-(0,_reactRedux.connect)(mapStateToProps,{moveToScreen:_actions.moveToScreen,updateSale:_actions.updateSale,deleteSale:_actions.deleteSale})(SalesDetail);
-}, 745, null, "Zynle/src/components/SalesDetail.js");
+(0,_reactRedux.connect)(mapStateToProps,{updateSaleAmount:_actions.updateSaleAmount,updateSaleNote:_actions.updateSaleNote,deleteSale:_actions.deleteSale,backScreen:_actions.backScreen,moveToScreen:_actions.moveToScreen})(SalesDetail);
+}, 735, null, "Zynle/src/components/SalesDetail.js");
 ;require(193);
 ;require(0);
 //# sourceMappingURL=index.android.map

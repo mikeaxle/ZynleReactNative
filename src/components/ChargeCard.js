@@ -5,7 +5,8 @@ import {
     TextInput,
     TouchableOpacity,
     Alert,
-    BackAndroid
+    BackAndroid,
+    Image
 
 } from 'react-native';
 
@@ -15,10 +16,10 @@ import Icon from 'react-native-vector-icons/FontAwesome'; //import icons
 import { Hideo } from 'react-native-textinput-effects'; //import textinput effects
 import { CardIOModule, CardIOUtilities } from 'react-native-awesome-card-io'; //import carIO
 
+
 /**     import redux  stuff   **/
 import { connect } from 'react-redux';
-import { moveToScreen } from '../actions';
-
+import { moveToScreen, backScreen } from '../actions';
 
 //define screen styes
 var styles = {
@@ -72,32 +73,39 @@ var statusIcon = null;
 
 class ChargeCard extends Component {
 
+    //set up back button listener
     componentDidMount() {
-
-
         BackAndroid.addEventListener('backPress', () => {
-            const { navigate } = this.props.navigation
-
-          //  this.nav.goBack(null);
-           // if (ChargeCard(nav)) return false
-            this.props.moveToScreen('Charge');
+            //dispatch back action
+            this.props.backScreen();
             return true
-
         })
-    }
-
-    componentWillUnmount() {
-        BackAndroid.removeEventListener('backPress')
     }
 
     static navigationOptions = {
         // Nav options can be defined as a function of the navigation prop:
         title: `Charge K`,  //use redux for charge total
-        header: {
-            visible: true,
-            right:<Icon name="question-circle" size={25} color='#95989A'style={{marginRight:20}}/>
-        }
+        header: (navigation) => ({
+            left: (
+                <TouchableOpacity
+                    style={{marginLeft: 20}}
+                    onPress={() => navigation.dispatch({type: 'back_screen'})}>
+                    <Image style={{width:25, height:25}} source={require('../images/Undo-100.png')}/>
+                </TouchableOpacity>
+            ),
+            tintColor: '#95989A',
+            style: {
+                backgroundColor: '#EDEDED'
+            }
+        }),
     };
+
+
+    componentWillUnmount() {
+        BackAndroid.removeEventListener('backPress')
+    }
+
+
 
     //define local state
     state = {
@@ -108,7 +116,22 @@ class ChargeCard extends Component {
         cardNumber: '4383755000927515',
         expiryMonth: '04',
         expiryYear: '22',
-        cvv: '549'
+        cvv: '549',
+        
+        res: null
+
+
+
+        /**     card details
+        nameOnCard: '',
+        cardNumber: '',
+        expiryMonth: '',
+        expiryYear: '',
+        cvv: '' */
+
+
+
+
         }
 
 
@@ -130,10 +153,12 @@ class ChargeCard extends Component {
          }*/
 
         //Call zynle api and attempt to make payment
-        //var requestResponse = Api.CallWebAPI(sale.totalCharge, this.state.cardNumber, this.state.expiryMonth, this.state.expiryYear, this.state.cvv, sale.note, this.state.nameOnCard);
+        this.state.res = Api.CallWebAPI(this.props.totalCharge, this.state.cardNumber, this.state.expiryMonth, this.state.expiryYear, this.state.cvv,'Sales From ZynlePay App',this.state.nameOnCard);
+
+        console.log("this is the response: " + this.state.res);
 
         //navigate to charge screen
-        this.props.moveToScreen('PaymentSuccess');
+       // this.props.moveToScreen('PaymentSuccess');
     }
 
 //scan card method
@@ -186,12 +211,11 @@ class ChargeCard extends Component {
     }
 
     render(){
-
-
         return(
             <View style={styles.container}>
                 <View>
                     {this.checkCardReader()}
+                    <Text>Charging K{this.props.totalCharge}</Text>
                 </View>
 
                 <Hideo
@@ -296,4 +320,17 @@ class ChargeCard extends Component {
     }
 }
 
-export default connect(null,{ moveToScreen })(ChargeCard);
+
+//map redux state to local props
+const mapStateToProps = (state) => {
+
+    return {
+        //return the sum of all sale items aka total amount
+        totalCharge: state.sale.reduce(function(result, item) {
+            return result + Number(item.amount);
+        }, 0)
+    };
+};
+
+
+export default connect(mapStateToProps,{ moveToScreen, backScreen })(ChargeCard);

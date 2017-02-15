@@ -18,30 +18,35 @@ var Api ={
         var generate_key = base64.encode(this.sha1(secret + request_id));
         var url = encodeURI(`http://www.zynlepay.com:8070/zynlepay/zpay/api/runCardReader?api_id=0977547820&merchant_id=45&request_id=${request_id}&key=${generate_key}&amount=${amount}&cardnumber=${cardnumber}&expirymonth=${expirymonth}&expiryyear=${expiryyear}&cvv=${cvv}&product=${product}&nameoncard=${nameoncard}`);
 
-        /*var url = url + "api_id=0977547820&";
-         var url = url + "merchant_id=" + ("45") + "&";
-         var url = url + "request_id=" + (request_id) + "&";
-         var url = url + "key=" + (generate_key) + "&";
-         var url = url + "amount=" + (amount) + "&";
-         var url = url + "cardnumber=" + (cardnumber) + "&";
-         var url = url + "expirymonth=" + (expirymonth) + "&";
-         var url = url + "expiryyear=" + (expiryyear) + "&";
-         var url = url + "cvv=" + (cvv) + "&";
-         var url = url + "product=" + (product) + "&";
-         var url = url + "nameoncard=" + (nameoncard);*/
+
 
         console.log(url);
 
-        return fetch(url)
+        let test = null;
+        console.log("this is test: " + test)
+
+
+        fetch(url,{
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
             .then((response) => response.json())
             .then((responseJson) => {
 
-                //console.log(responseJson);
-                return responseJson;
+                console.log(responseJson.transactionId);
+                test = responseJson.transactionId
+
             })
             .catch((error) =>{
                 console.log(error);
-            });
+            })
+
+
+        console.log("this is test: " + test)
+        //return test;
+
 
     },
 

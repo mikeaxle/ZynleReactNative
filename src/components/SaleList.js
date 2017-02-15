@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 /**     import redux  stuff   **/
 import { connect } from 'react-redux';
-import { moveToScreen, selectSale } from '../actions';
+import { moveToScreen, selectSale, backScreen, clearSales } from '../actions';
 
 
 import {
@@ -12,11 +12,13 @@ import {
     TouchableOpacity,
     ListView,
     TouchableNativeFeedback,
-    BackAndroid
+    BackAndroid,
+    Button
 } from 'react-native';
 
 //import ListItem from './ListItem'; //import list item
 
+import { CardStack, } from 'react-navigation';
 
 //define scene styles
 const styles = {
@@ -59,36 +61,36 @@ const stylesItem = {
 
 
 
+
 //create SalesList Screen
 class SalesList extends  Component {
 
-    //define navigation option - show header
     static navigationOptions = {
-
-        title:'Total K',
-        header: {
-            visible: true,
-        }
+        // Nav options can be defined as a function of the navigation prop:
+        title: `Total K`,  //use redux for charge total
+        header: (navigation) => ({
+            left: (
+                <TouchableOpacity
+                    style={{marginLeft: 20}}
+                    onPress={() => navigation.dispatch({type: 'back_screen'})}>
+                    <Image style={{width:25, height:25}} source={require('../images/Undo-100.png')}/>
+                </TouchableOpacity>
+            ),
+            tintColor: '#95989A',
+            style: {
+                backgroundColor: '#EDEDED'
+            }
+        }),
     };
 
 
-    constructor(props){
-        super(props);
-        this.state = {
-            red: 'ass'
-        }
-    }
 
     //set up back button listener
     componentDidMount() {
         BackAndroid.addEventListener('backPress', () => {
-            const { navigate } = this.props.navigation
-
-            //  this.nav.goBack(null);
-            // if (ChargeCard(nav)) return false
-            this.props.moveToScreen('Charge');
+            //dispatch back action
+            this.props.backScreen();
             return true
-
         })
     }
 
@@ -112,13 +114,20 @@ class SalesList extends  Component {
 
     //call actions
     openSaleItem(rowID){
+        //select row index
         this.props.selectSale(rowID);
-        this.props.moveToScreen('SalesDetail');
 
+        //navigate to sale details
+        this.props.moveToScreen('SalesDetail');
     }
 
     //function to clear sales
     clearSales(){
+
+        this.props.clearSales();
+
+        //back to previous screen
+        this.props.backScreen();
 
     }
 
@@ -136,7 +145,6 @@ class SalesList extends  Component {
                     <View style={stylesItem.container}>
                      <Text style={stylesItem.text}>K{rowData.amount}</Text>
                      <Text style={stylesItem.text}>{rowData.note}</Text>
-                     <Text style={stylesItem.text}>{rowID}</Text>
                      </View>
                      </TouchableNativeFeedback>}
                     />
@@ -145,7 +153,7 @@ class SalesList extends  Component {
                     <TouchableOpacity
                         style={styles.button}
                         underlayColor="#39B7EF"
-                        onPress={() => this.props.moveToScreen('SalesDetail')}>
+                        onPress={this.clearSales.bind(this)}>
                         <Text style={styles.buttonText}>Clear Sale</Text>
                     </TouchableOpacity>
                 </View>
@@ -172,4 +180,4 @@ const mapStateToProps = (state) => {
 
 
 //connect reducers and actions
-export default connect(mapStateToProps, { moveToScreen, selectSale })(SalesList);
+export default connect(mapStateToProps, { moveToScreen, selectSale, backScreen, clearSales })(SalesList);

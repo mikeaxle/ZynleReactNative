@@ -7,12 +7,15 @@ import { moveToScreen, createSale } from '../actions';
 import Tabs from './Tabs';
 
 import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-} from 'react-native'; 
+    View,
+    Text,
+    Image,
+    TouchableOpacity,
+    BackAndroid,
+    Alert,
+    AsyncStorage
 
+} from 'react-native';
 
 
 var styles = {
@@ -62,16 +65,34 @@ var styles = {
 
 class Charge extends Component {
 
-
-
-
     //define navigation option - hide header
     static navigationOptions = {
         title: 'Login Form',
         header: {
-            visible: false,
+            visible: false
         }
-    };
+    }
+
+    //set up back button listener
+    componentDidMount() {
+        BackAndroid.addEventListener('backPress', () => {
+            //show alert
+
+            Alert.alert(
+                'Caution',
+                'Would You like to exit ZynlePay?',
+                [{text: 'Exit ZynlePay', onPress: () => BackAndroid.exitApp() },{text: 'Cancel'}]
+            );
+
+            return true
+        })
+
+        AsyncStorage.getItem("LoggedIn").then((value) => {
+            this.setState({"LoggedIn": value});
+        }).done();
+    }
+
+
 
     state = {
       toolTipText: 'this is a tool tip',
@@ -81,29 +102,23 @@ class Charge extends Component {
     goToCharge(){
 
       //check if totalCharge is more than zero
-      /*  if(this.state.totalCharge === 0 ){
+        if(this.props.totalCharge === 0 ){
           //display alert
             Alert.alert(
-                '...Sorry',
-                'You must enter a value to charge a card.',[
+                'Invalid Amount',
+                'You must enter a value more than zero to charge a card.',[
                     {text: 'Correct this'},
                 ]
             );
         } else{
            //navigate to chargeCard
-        }*/
-
-
-        this.props.moveToScreen('ChargeCard');
-
-
+            this.props.moveToScreen('ChargeCard');
+        }
     }
-  
   
   render(){
 
-      console.log(this.props);
-
+        console.log("this is the key: " + this.state.myKey)
     return (
       <View style={styles.container}>
 
@@ -112,7 +127,7 @@ class Charge extends Component {
             <TouchableOpacity
                 onPress={() => this.props.moveToScreen('SalesList')}
                 style={{flexDirection:'row'}}>
-                <Text style={styles.headerText}>Current Sale</Text>
+                <Text style={styles.headerText}>Current Sale </Text>
                 <Image style={styles.saleImage} source={require('../images/salesDock.png')} >
                     <Text style={{color:"#95989A", fontSize:15, fontWeight:"bold"}}>{this.props.totalSales}</Text>
                 </Image>
@@ -155,3 +170,4 @@ const mapStateToProps = (state) => {
 
 //connect reducers and actions
 export default connect(mapStateToProps,{ moveToScreen })(Charge);
+

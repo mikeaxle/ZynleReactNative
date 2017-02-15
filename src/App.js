@@ -2,7 +2,8 @@ import React from 'react';
 
 import {
     AppRegistry,
-    BackAndroid
+    BackAndroid,
+    Button
 } from 'react-native';
 
 import {
@@ -47,6 +48,7 @@ const AppRouteConfigs = {
     SalesList: { screen: SalesList },
     SalesDetail: { screen: SalesDetail },
 }
+
 
 export const AppNavigator = StackNavigator(AppRouteConfigs);
 

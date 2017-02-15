@@ -1,4 +1,4 @@
-import { SALE_CREATE, SALE_DELETE, SALE_UPDATE } from './types';
+import { SALE_CREATE, SALE_DELETE, SALE_UPDATE_AMOUNT,SALE_UPDATE_NOTE, CLEAR_SALES } from './types';
 
 
 //action to create sale
@@ -10,17 +10,34 @@ export const createSale =  ({amount, note}) => {
 };
 
 
-//action to edit sale
-export const updateSale = (amount, note, index) => {
+//action to edit sale amount
+export const updateSaleAmount = (amount, index) => {
     return {
-        type: SALE_UPDATE,
-        payload: { amount, note, index }
+        type: SALE_UPDATE_AMOUNT,
+        payload: { amount, index }
     };
 };
 
-export const deleteSale = ({index}) => {
+//action to edit sale note
+export const updateSaleNote = (note, index) => {
+    return {
+        type: SALE_UPDATE_NOTE,
+        payload: { note, index }
+    };
+};
+
+
+
+
+export const deleteSale = (index) => {
     return {
         type: SALE_DELETE,
         payload: index
     };
 };
+
+export const clearSales = () => {
+    return {
+        type: CLEAR_SALES
+    }
+}

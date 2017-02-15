@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 /**     import redux  stuff   **/
 import { connect } from 'react-redux';
-import { moveToScreen, updateSale, deleteSale } from '../actions';
+import { moveToScreen, updateSaleAmount, updateSaleNote , deleteSale, backScreen } from '../actions';
 
 
 import {
@@ -15,6 +15,7 @@ import {
     BackAndroid
 } from 'react-native';
 
+import { CardStack, } from 'react-navigation';
 
 //define scene styles
 const styles = {
@@ -47,7 +48,7 @@ const styles = {
         fontSize: 28,
     },
     contentAea: {
-        marginBottom: 170
+        marginBottom: 100
     },
     textBox: {
         height: 50,
@@ -67,19 +68,16 @@ const styles = {
 };
 
 
+
 //create SaleDetail Screen
 class SalesDetail extends  Component {
 
     //set up back button listener
     componentDidMount() {
         BackAndroid.addEventListener('backPress', () => {
-            const { navigate } = this.props.navigation
-
-            //  this.nav.goBack(null);
-            // if (ChargeCard(nav)) return false
-            this.props.moveToScreen('SalesList');
+            //dispatch back action
+            this.props.backScreen();
             return true
-
         })
     }
 
@@ -89,30 +87,65 @@ class SalesDetail extends  Component {
     }
 
 
-    //define navigation option - hide header
     static navigationOptions = {
-        title: 'Amount: K',  //add variable from redux
-        header: {
-            visible: true,
-        }
+        // Nav options can be defined as a function of the navigation prop:
+        title: `Amount K`,  //use redux for charge total
+        header: (navigation) => ({
+            left: (
+                <TouchableOpacity
+                    style={{marginLeft: 20}}
+                    onPress={() => navigation.dispatch({type: 'back_screen'})}>
+                    <Image style={{width:25, height:25}} source={require('../images/Undo-100.png')}/>
+                </TouchableOpacity>
+            ),
+            tintColor: '#95989A',
+            style: {
+                backgroundColor: '#EDEDED'
+            }
+        }),
     };
+
+    //define local state
+
+  /*  state = {
+        index: this.props.index,
+        amount: this.props.currentSale.amount,
+        note: this.props.currentSale.note
+    }*/
 
     //function to clear sales
     clearSale(){
-        this.props.deleteSale(this.props.index)
-        this.props.moveToScreen('SalesList')
+        //delete sale at index of
+        this.props.deleteSale(this.props.index);
+
+        //dispatch back action
+        this.props.backScreen();
     }
 
     //function to save changes
     saveSale(){
-        this.props.updateSale(this.props.currentSale.amount, this.props.currentSale.note, this.props.index)
-       // this.props.moveToScreen('SalesList')
+
+        this.props.backScreen();
+    }
+
+
+    //update amount redux state
+    onAmountChanged(amount){
+
+        this.props.updateSaleAmount(amount,this.props.index)
+
+    }
+
+    //update note redux state
+    onNoteChanged(note){
+
+        this.props.updateSaleNote(note,this.props.index)
+
     }
 
 
     render() {
 
-        //console.log(this.props.currentSale);
         return(
             <View style={styles.container}>
                 <View style={styles.contentAea}>
@@ -122,7 +155,8 @@ class SalesDetail extends  Component {
                         <TextInput
                             style={styles.textBox}
                             value={this.props.currentSale.amount}
-                            
+                            onChangeText={this.onAmountChanged.bind(this)}
+
                         />
                     </View>
 
@@ -131,7 +165,8 @@ class SalesDetail extends  Component {
                         <TextInput
                             style={styles.textBox}
                             value={this.props.currentSale.note}
-                            
+                            onChangeText={this.onNoteChanged.bind(this)}
+
                         />
                     </View>
 
@@ -152,7 +187,7 @@ class SalesDetail extends  Component {
                         style={styles.buttonSave}
                         underlayColor="#39B7EF"
                         onPress={this.saveSale.bind(this)}
-                        onChangeText={this.saveSale.bind(this)}
+
                     >
                         <Text style={styles.buttonText}>Save</Text>
                     </TouchableOpacity>
@@ -165,14 +200,25 @@ class SalesDetail extends  Component {
 }
 
 //map redux state to local props
- const mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
 
- return {
+
+    /*    if(state.sale !== []){
+     return {
      currentSale: state.sale[state.selectedSale],
      index: state.selectedSale
- }
+     }
+     } else {
+     return null
+     }*/
+
+    return {
+        currentSale: state.sale[state.selectedSale],
+        index: state.selectedSale
+    }
+
 }
 
 
 //connect reducers and actions
-export default connect(mapStateToProps, { moveToScreen, updateSale, deleteSale })(SalesDetail);
+export default connect(mapStateToProps, { updateSaleAmount, updateSaleNote, deleteSale, backScreen, moveToScreen })(SalesDetail);
