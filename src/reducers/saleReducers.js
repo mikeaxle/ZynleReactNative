@@ -9,9 +9,6 @@ const INITIAL_NAV_STATE = [];
 export default (state = INITIAL_NAV_STATE, action) => {
 
 
-    console.log(action);
-    console.log(state);
-
 
     //check action type
     switch (action.type){

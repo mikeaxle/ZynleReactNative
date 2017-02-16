@@ -22,30 +22,17 @@ var Api ={
 
         console.log(url);
 
-        let test = null;
-        console.log("this is test: " + test)
-
-
-        fetch(url,{
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        })
+        return fetch(url)
             .then((response) => response.json())
             .then((responseJson) => {
 
-                console.log(responseJson.transactionId);
-                test = responseJson.transactionId
+                console.log(responseJson);
+               return responseJson
 
             })
             .catch((error) =>{
                 console.log(error);
             })
-
-
-        console.log("this is test: " + test)
-        //return test;
 
 
     },

@@ -82145,12 +82145,14 @@ verify(mergeProps,'mergeProps',displayName);
 __d(/* Zynle/src/reducers/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _redux=require(626 /* redux */);
 var _navigationReducers=require(645 /* ./navigationReducers */);var _navigationReducers2=babelHelpers.interopRequireDefault(_navigationReducers);
 var _saleReducers=require(647 /* ./saleReducers */);var _saleReducers2=babelHelpers.interopRequireDefault(_saleReducers);
-var _saleSelectReducer=require(648 /* ./saleSelectReducer */);var _saleSelectReducer2=babelHelpers.interopRequireDefault(_saleSelectReducer);exports.default=
+var _saleSelectReducer=require(648 /* ./saleSelectReducer */);var _saleSelectReducer2=babelHelpers.interopRequireDefault(_saleSelectReducer);
+var _transactionReducers=require(736 /* ./transactionReducers */);var _transactionReducers2=babelHelpers.interopRequireDefault(_transactionReducers);exports.default=
 
 (0,_redux.combineReducers)({
 nav:_navigationReducers2.default,
 sale:_saleReducers2.default,
-selectedSale:_saleSelectReducer2.default});
+selectedSale:_saleSelectReducer2.default,
+transaction:_transactionReducers2.default});
 }, 644, null, "Zynle/src/reducers/index.js");
 __d(/* Zynle/src/reducers/navigationReducers.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _types=require(646 /* ../actions/types */);
 var _App=require(12 /* ../App */);
@@ -82194,6 +82196,7 @@ var CLEAR_SALES=exports.CLEAR_SALES='clear_sales';
 var SALE_UPDATE_AMOUNT=exports.SALE_UPDATE_AMOUNT='sale_update_amount';
 var SALE_UPDATE_NOTE=exports.SALE_UPDATE_NOTE='sale_update_note';
 var SELECTED_ID=exports.SELECTED_ID='selected_id';
+var TRANSACTION_ID_SAVE=exports.TRANSACTION_ID_SAVE='transaction_id';
 }, 646, null, "Zynle/src/actions/types.js");
 __d(/* Zynle/src/reducers/saleReducers.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _types=require(646 /* ../actions/types */);
 var _reactNavigation=require(554 /* react-navigation */);
@@ -82205,9 +82208,6 @@ var INITIAL_NAV_STATE=[];exports.default=
 
 function(){var state=arguments.length>0&&arguments[0]!==undefined?arguments[0]:INITIAL_NAV_STATE;var action=arguments[1];
 
-
-console.log(action);
-console.log(state);
 
 
 
@@ -82284,6 +82284,25 @@ return state;}
 return state;
 };
 }, 648, null, "Zynle/src/reducers/saleSelectReducer.js");
+__d(/* Zynle/src/reducers/transactionReducers.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _types=require(646 /* ../actions/types */);exports.default=
+
+function(){var state=arguments.length>0&&arguments[0]!==undefined?arguments[0]:null;var action=arguments[1];
+
+console.log(action);
+console.log(state);
+
+
+switch(action.type){
+
+case _types.TRANSACTION_ID_SAVE:
+return action.payload;
+
+default:
+return state;}
+
+;
+};
+}, 736, null, "Zynle/src/reducers/transactionReducers.js");
 __d(/* Zynle/src/components/LoginForm.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -86933,7 +86952,8 @@ root.base64=base64;
 }, 711, null, "base-64/base64.js");
 __d(/* Zynle/src/actions/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _navigationActions=require(713 /* ./navigationActions */);Object.keys(_navigationActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _navigationActions[key];}});});var _saleActions=require(714 /* ./saleActions */);
 Object.keys(_saleActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _saleActions[key];}});});var _selectSaleActions=require(715 /* ./selectSaleActions */);
-Object.keys(_selectSaleActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _selectSaleActions[key];}});});
+Object.keys(_selectSaleActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _selectSaleActions[key];}});});var _transactionActions=require(737 /* ./transactionActions */);
+Object.keys(_transactionActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _transactionActions[key];}});});
 }, 712, null, "Zynle/src/actions/index.js");
 __d(/* Zynle/src/actions/navigationActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.backScreen=exports.moveToScreen=undefined;var _types=require(646 /* ./types */);
 
@@ -87007,6 +87027,16 @@ payload:index};
 
 };
 }, 715, null, "Zynle/src/actions/selectSaleActions.js");
+__d(/* Zynle/src/actions/transactionActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.getTrasnactionId=undefined;var _types=require(646 /* ./types */);
+
+
+var getTrasnactionId=exports.getTrasnactionId=function getTrasnactionId(id){
+return{
+type:_types.TRANSACTION_ID_SAVE,
+payload:id};
+
+};
+}, 737, null, "Zynle/src/actions/transactionActions.js");
 __d(/* Zynle/src/components/Charge.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 
 
@@ -87940,7 +87970,7 @@ res:null},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelper
 
 
 
-{
+{var _this3=this;
 
 
 
@@ -87954,23 +87984,47 @@ res:null},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelper
 
 
 
-this.state.res=_Api2.default.CallWebAPI(this.props.totalCharge,this.state.cardNumber,this.state.expiryMonth,this.state.expiryYear,this.state.cvv,'Sales From ZynlePay App',this.state.nameOnCard);
+this.state.res=_Api2.default.CallWebAPI(this.props.totalCharge,this.state.cardNumber,this.state.expiryMonth,this.state.expiryYear,this.state.cvv,'Sales From ZynlePay App',this.state.nameOnCard).
+then(function(response){
+console.log(response);
 
-console.log("this is the response: "+this.state.res);
+if(response.responseDescription==='Success'){
+
+
+
+_this3.props.getTrasnactionId(response.transactionId);
+
+
+_this3.props.moveToScreen('PaymentSuccess');
+
+}else{
+
+_reactNative.Alert.alert(
+'Transaction Failed',
+'The card was not charged.',
+[{text:'Ok'}]);
+
+}
+
+}).
+catch(function(err){
+aler(err);
+});
+
 
 
 
 }},{key:'scanCard',value:function scanCard()
 
 
-{var _this3=this;
+{var _this4=this;
 _reactNativeAwesomeCardIo.CardIOModule.
 scanCard().
 then(function(card){
 
 console.log(card);
 
-_this3.setState({
+_this4.setState({
 nameOnCard:card.cardholderName,
 cardNumber:card.cardNumber,
 expiryMonth:card.expiryMonth.toString(),
@@ -87978,8 +88032,7 @@ expiryYear:card.expiryYear.toString(),
 cvv:card.cvv});
 
 
-
-console.log(_this3.state);
+;
 
 }).
 catch(function(error){
@@ -88011,7 +88064,7 @@ _react2.default.createElement(_reactNative.Text,{style:{color:'#95989A',fontSize
 return statusIcon;
 }},{key:'render',value:function render()
 
-{var _this4=this;
+{var _this5=this;
 return(
 _react2.default.createElement(_reactNative.View,{style:styles.container},
 _react2.default.createElement(_reactNative.View,null,
@@ -88029,7 +88082,7 @@ inputStyle:styles.textBox,
 style:{marginBottom:5},
 placeholder:'Name of card holder',
 multiline:true,
-onChangeText:function onChangeText(nameOnCard){return _this4.setState({nameOnCard:nameOnCard});},
+onChangeText:function onChangeText(nameOnCard){return _this5.setState({nameOnCard:nameOnCard});},
 value:this.state.nameOnCard}),
 
 
@@ -88045,7 +88098,7 @@ style:{marginBottom:5},
 placeholder:'Debit or credit card number',
 multiline:true,
 keyboardType:'numeric',
-onChangeText:function onChangeText(cardNumber){return _this4.setState({cardNumber:cardNumber});},
+onChangeText:function onChangeText(cardNumber){return _this5.setState({cardNumber:cardNumber});},
 value:this.state.cardNumber}),
 
 
@@ -88060,7 +88113,7 @@ style:{marginBottom:5},
 placeholder:'CVV',
 multiline:true,
 keyboardType:'numeric',
-onChangeText:function onChangeText(cvv){return _this4.setState({cvv:cvv});},
+onChangeText:function onChangeText(cvv){return _this5.setState({cvv:cvv});},
 value:this.state.cvv,
 secureTextEntry:true}),
 
@@ -88080,7 +88133,7 @@ placeholder:'MM',
 multiline:true,
 keyboardType:'numeric',
 
-onChangeText:function onChangeText(expiryMonth){return _this4.setState({expiryMonth:expiryMonth});},
+onChangeText:function onChangeText(expiryMonth){return _this5.setState({expiryMonth:expiryMonth});},
 value:this.state.expiryMonth}),
 
 
@@ -88096,7 +88149,7 @@ placeholder:'YY',
 multiline:true,
 keyboardType:'numeric',
 
-onChangeText:function onChangeText(expiryYear){return _this4.setState({expiryYear:expiryYear});},
+onChangeText:function onChangeText(expiryYear){return _this5.setState({expiryYear:expiryYear});},
 value:this.state.expiryYear})),
 
 
@@ -88134,7 +88187,7 @@ return result+Number(item.amount);
 };exports.default=
 
 
-(0,_reactRedux.connect)(mapStateToProps,{moveToScreen:_actions.moveToScreen,backScreen:_actions.backScreen})(ChargeCard);
+(0,_reactRedux.connect)(mapStateToProps,{moveToScreen:_actions.moveToScreen,backScreen:_actions.backScreen,getTrasnactionId:_actions.getTrasnactionId})(ChargeCard);
 }, 724, null, "Zynle/src/components/ChargeCard.js");
 __d(/* Zynle/src/utils/Api.js */function(global, require, module, exports) {var _base=require(711 /* base-64 */);var _base2=babelHelpers.interopRequireDefault(_base);
 
@@ -88160,30 +88213,17 @@ var url=encodeURI("http://www.zynlepay.com:8070/zynlepay/zpay/api/runCardReader?
 
 console.log(url);
 
-var test=null;
-console.log("this is test: "+test);
-
-
-fetch(url,{
-headers:{
-'Accept':'application/json',
-'Content-Type':'application/json'}}).
-
-
+return fetch(url).
 then(function(response){return response.json();}).
 then(function(responseJson){
 
-console.log(responseJson.transactionId);
-test=responseJson.transactionId;
+console.log(responseJson);
+return responseJson;
 
 }).
 catch(function(error){
 console.log(error);
 });
-
-
-console.log("this is test: "+test);
-
 
 
 },
@@ -88563,7 +88603,8 @@ _react2.default.createElement(_reactNative.View,{style:styles.container},
 _react2.default.createElement(_reactNative.View,{style:styles.greyContainer},
 _react2.default.createElement(_reactNative.Text,{style:styles.heading3},'Payment Successful'),
 _react2.default.createElement(_EvilIcons2.default,{name:'check',size:150,color:'#95989A'}),
-_react2.default.createElement(_reactNative.Text,{style:styles.heading2},'Payment for K',this.state.totalCharge,' was successful'),
+_react2.default.createElement(_reactNative.Text,{style:styles.heading2},'Payment for K',this.props.totalCharge,' was successful'),
+_react2.default.createElement(_reactNative.Text,null,'Reference #: ',this.props.transactionId),
 _react2.default.createElement(_reactNative.Text,{style:styles.heading1},'How would u like your reciept?')),
 
 _react2.default.createElement(_reactNative.View,{style:styles.whiteContainer},
@@ -88592,10 +88633,25 @@ _react2.default.createElement(_reactNative.Text,{style:styles.buttonText},'Compl
 
 
 
-}}]);return PaymentSuccess;}(_react.Component);PaymentSuccess.navigationOptions={title:'Payment Successful'};PaymentSuccess.navigationOptions={title:'Payment Successful',header:{visible:false}};exports.default=
+}}]);return PaymentSuccess;}(_react.Component);PaymentSuccess.navigationOptions={title:'Payment Successful'};PaymentSuccess.navigationOptions={title:'Payment Successful',header:{visible:false}};
 
 
-(0,_reactRedux.connect)(null,{moveToScreen:_actions.moveToScreen,clearSales:_actions.clearSales})(PaymentSuccess);
+
+
+var mapStateToProps=function mapStateToProps(state){
+
+return{
+
+transactionId:state.transaction,
+
+
+totalCharge:state.sale.reduce(function(result,item){
+return result+Number(item.amount);
+},0)};
+
+};exports.default=
+
+(0,_reactRedux.connect)(mapStateToProps,{moveToScreen:_actions.moveToScreen,clearSales:_actions.clearSales})(PaymentSuccess);
 }, 731, null, "Zynle/src/components/PaymentSuccess.js");
 __d(/* react-native-vector-icons/EvilIcons.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.getImageSource=exports.ToolbarAndroid=exports.TabBarItemIOS=exports.TabBarItem=exports.Button=undefined;
 

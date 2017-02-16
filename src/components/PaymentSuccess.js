@@ -169,7 +169,8 @@ class PaymentSuccess extends Component {
               <View style={styles.greyContainer}>
                 <Text style={styles.heading3}>Payment Successful</Text>
                 <Icon name="check" size={150} color='#95989A'/>
-                <Text style={styles.heading2}>Payment for K{this.state.totalCharge} was successful</Text>
+                <Text style={styles.heading2}>Payment for K{this.props.totalCharge} was successful</Text>
+                  <Text>Reference #: {this.props.transactionId}</Text>
                 <Text style={styles.heading1}>How would u like your reciept?</Text>
               </View>
               <View style={styles.whiteContainer}>
@@ -201,4 +202,19 @@ class PaymentSuccess extends Component {
     }
 }
 
-export default connect(null, { moveToScreen, clearSales })(PaymentSuccess);
+
+//map redux state to local props
+const mapStateToProps = (state) => {
+
+    return {
+
+        transactionId: state.transaction,
+
+        //return the sum of all sale items aka total amount
+        totalCharge: state.sale.reduce(function(result, item) {
+            return result + Number(item.amount);
+        }, 0)
+    };
+};
+
+export default connect(mapStateToProps, { moveToScreen, clearSales })(PaymentSuccess);

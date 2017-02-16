@@ -8,3 +8,4 @@ export const CLEAR_SALES = 'clear_sales';
 export const SALE_UPDATE_AMOUNT = 'sale_update_amount';
 export const SALE_UPDATE_NOTE = 'sale_update_note';
 export const SELECTED_ID = 'selected_id';
+export const TRANSACTION_ID_SAVE = 'transaction_id';

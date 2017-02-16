@@ -19,7 +19,7 @@ import { CardIOModule, CardIOUtilities } from 'react-native-awesome-card-io'; //
 
 /**     import redux  stuff   **/
 import { connect } from 'react-redux';
-import { moveToScreen, backScreen } from '../actions';
+import { moveToScreen, backScreen, getTrasnactionId } from '../actions';
 
 //define screen styes
 var styles = {
@@ -153,12 +153,36 @@ class ChargeCard extends Component {
          }*/
 
         //Call zynle api and attempt to make payment
-        this.state.res = Api.CallWebAPI(this.props.totalCharge, this.state.cardNumber, this.state.expiryMonth, this.state.expiryYear, this.state.cvv,'Sales From ZynlePay App',this.state.nameOnCard);
+        this.state.res = Api.CallWebAPI(this.props.totalCharge, this.state.cardNumber, this.state.expiryMonth, this.state.expiryYear, this.state.cvv,'Sales From ZynlePay App',this.state.nameOnCard)
+            .then((response) => {
+                console.log(response)
 
-        console.log("this is the response: " + this.state.res);
+                if(response.responseDescription === 'Success'){
 
-        //navigate to charge screen
-       // this.props.moveToScreen('PaymentSuccess');
+                    //save transaction id in redux state
+
+                    this.props.getTrasnactionId(response.transactionId);
+
+                    //navigate to charge screen
+                    this.props.moveToScreen('PaymentSuccess');
+
+                } else {
+
+                    Alert.alert(
+                        'Transaction Failed',
+                        'The card was not charged.',
+                        [{text: 'Ok'}]
+                    );
+                }
+
+            })
+            .catch((err) => {
+            aler(err);
+            })
+
+
+
+
     }
 
 //scan card method
@@ -177,8 +201,7 @@ class ChargeCard extends Component {
                     cvv: card.cvv
 
                 });
-
-                console.log(this.state);
+                ;
 
             })
             .catch((error) => {
@@ -333,4 +356,4 @@ const mapStateToProps = (state) => {
 };
 
 
-export default connect(mapStateToProps,{ moveToScreen, backScreen })(ChargeCard);
+export default connect(mapStateToProps,{ moveToScreen, backScreen, getTrasnactionId })(ChargeCard);
