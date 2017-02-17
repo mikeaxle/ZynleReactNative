@@ -6,13 +6,14 @@ import {
     TouchableOpacity,
     Alert,
     BackAndroid,
-    Image
+    Image,
+    ActivityIndicator
 
 } from 'react-native';
 
 
 import Api from '../utils/Api'; //import zynle api
-import Icon from 'react-native-vector-icons/FontAwesome'; //import icons
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; //import icons
 import { Hideo } from 'react-native-textinput-effects'; //import textinput effects
 import { CardIOModule, CardIOUtilities } from 'react-native-awesome-card-io'; //import carIO
 
@@ -111,23 +112,23 @@ class ChargeCard extends Component {
     state = {
         cardReaderConnected: false, //card swipe flag
 
-        /**     card details        **/
+        /**     card details
         nameOnCard: 'Michael Lungu',
         cardNumber: '4383755000927515',
         expiryMonth: '04',
         expiryYear: '22',
         cvv: '549',
-        
-        res: null
+        **/
+        res: null,
 
 
 
-        /**     card details
+        //     card details
         nameOnCard: '',
         cardNumber: '',
         expiryMonth: '',
         expiryYear: '',
-        cvv: '' */
+        cvv: ''
 
 
 
@@ -151,10 +152,14 @@ class ChargeCard extends Component {
          //navigate to success screen
 
          }*/
+        this.setState({ 'loading': true});
 
         //Call zynle api and attempt to make payment
         this.state.res = Api.CallWebAPI(this.props.totalCharge, this.state.cardNumber, this.state.expiryMonth, this.state.expiryYear, this.state.cvv,'Sales From ZynlePay App',this.state.nameOnCard)
             .then((response) => {
+
+                //set loading to true
+
                 console.log(response)
 
                 if(response.responseDescription === 'Success'){
@@ -167,7 +172,8 @@ class ChargeCard extends Component {
                     this.props.moveToScreen('PaymentSuccess');
 
                 } else {
-
+                    //set loading to false
+                    this.setState({ 'loading': false})
                     Alert.alert(
                         'Transaction Failed',
                         'The card was not charged.',
@@ -177,7 +183,9 @@ class ChargeCard extends Component {
 
             })
             .catch((err) => {
-            aler(err);
+                this.setState({ 'loading': false})
+                alert(err)
+
             })
 
 
@@ -198,7 +206,8 @@ class ChargeCard extends Component {
                     cardNumber: card.cardNumber,
                     expiryMonth: card.expiryMonth.toString(),
                     expiryYear: card.expiryYear.toString(),
-                    cvv: card.cvv
+                    cvv: card.cvv,
+                    loading: false
 
                 });
                 ;
@@ -226,11 +235,32 @@ class ChargeCard extends Component {
         } else {
             //if false: render red icon
             statusIcon = <View style={styles.subContainer}>
-                <Icon name="times-circle" size={25} color='red'/>
+                <Icon name="close-circle" size={25} color='red'/>
                 <Text style={{color:'#95989A', fontSize:16}}>  The card reader is NOT connected!</Text>
             </View>;
         }
         return statusIcon;
+    }
+
+
+    //function to render spinner or button
+    renderSpinnerOrButton(){
+
+        //check state value of loading varibale
+        if(this.state.loading){
+
+            //render spinner
+            return <ActivityIndicator size= "large" style={{height: 55, margin:20}}/>
+
+        } else {
+            //render button
+            return                 <TouchableOpacity style={styles.button} underlayColor="#39B7EF"
+                                                     onPress={this.chargeCard.bind(this)}>
+                <Text style={styles.buttonText}>Charge Card</Text>
+            </TouchableOpacity>
+        }
+
+
     }
 
     render(){
@@ -243,7 +273,7 @@ class ChargeCard extends Component {
 
                 <Hideo
                     iconClass={Icon}
-                    iconName={'smile-o'}
+                    iconName={'account-settings'}
                     iconColor={'white'}
                     // this is used as backgroundColor of icon container view.
                     iconBackgroundColor={'#39B7EF'}
@@ -292,7 +322,7 @@ class ChargeCard extends Component {
                 <View style={{flexDirection: 'row', flex: 1, }}>
                     <Hideo
                         iconClass={Icon}
-                        iconName={'calendar-o'}
+                        iconName={'calendar'}
                         iconColor={'white'}
                         // this is used as backgroundColor of icon container view.
                         iconBackgroundColor={'#39B7EF'}
@@ -308,7 +338,7 @@ class ChargeCard extends Component {
 
                     <Hideo
                         iconClass={Icon}
-                        iconName={'calendar-o'}
+                        iconName={'calendar-range'}
                         iconColor={'white'}
                         // this is used as backgroundColor of icon container view.
                         iconBackgroundColor={'#39B7EF'}
@@ -327,16 +357,13 @@ class ChargeCard extends Component {
                 <View style={{alignItems: 'center', marginTop:10}}>
                     <TouchableOpacity
                         onPress={this.scanCard.bind(this)}>
-                        <Icon name="camera" size={50} color="#39B7EF"/>
+                        <Icon name="credit-card-scan" size={70} color="#39B7EF"/>
                         <Text style={{fontSize:18, fontWeight: '600', alignSelf: 'center'}}>Scan</Text>
                     </TouchableOpacity>
 
                 </View>
 
-                <TouchableOpacity style={styles.button} underlayColor="#39B7EF"
-                                  onPress={this.chargeCard.bind(this)}>
-                    <Text style={styles.buttonText}>Charge Card</Text>
-                </TouchableOpacity>
+                {this.renderSpinnerOrButton()}
 
             </View>
         );

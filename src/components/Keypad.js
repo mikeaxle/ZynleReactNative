@@ -19,6 +19,7 @@ import {
     Alert
 } from 'react-native';
 
+import FormatMoney from '../utils/FormatMoney' //import number formatting function
 
 //define screen styles
 const styles = {
@@ -184,7 +185,7 @@ class Keypad extends Component {
                     </View>
                     <View style={stylesModal.contentArea}>
                       <TextInput style={stylesModal.textBox}
-                                 placeholder= 'Enter your product name here'
+                                 placeholder= '+ add product/service name'
                                  multiline={true}
                                  maxLength={30}
                                  numberOfLines={2}
@@ -211,7 +212,7 @@ class Keypad extends Component {
                 </View>
 
                 <View style={styles.itemCharge}>
-                  <Text style={styles.itemChargeText}>K{this.state.totalCharge}</Text>
+                  <Text style={styles.itemChargeText}>{FormatMoney(this.state.totalCharge,'K','',',','.',2,2)}</Text>
                 </View>
               </View>
 

@@ -6,7 +6,8 @@ import {
     TouchableOpacity,
     ToastAndroid,
     BackAndroid,
-    Alert
+    Alert,
+    AsyncStorage
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/EvilIcons'; //import icons
@@ -15,6 +16,8 @@ import { Hideo } from 'react-native-textinput-effects'; //import textinput effec
 /**     import redux  stuff   **/
 import { connect } from 'react-redux';
 import { moveToScreen, clearSales } from '../actions';
+
+import FormatMoney from '../utils/FormatMoney' //import number formatting function
 
 var styles = {
     container: {
@@ -98,6 +101,67 @@ class PaymentSuccess extends Component {
     title: 'Payment Successful',
   }
 
+    componentWillMount(){
+        this.onLoad()
+    }
+
+    //function to check async storage for history storage key
+    onLoad = async () => {
+        try {
+
+            //look for key at local storage
+            let storedValue = await AsyncStorage.getItem('@MyApp:history')
+
+            console.log("stored value is: " + storedValue)
+
+            //if key does not exist, call save method
+            if(storedValue === null){
+
+                //create transaction details array with one object being current sale total
+                let transactionDetails = JSON.stringify([{amount: this.props.totalCharge, time: Date.now()}])
+
+                console.log("the current value looks like this: "  + transactionDetails)
+
+                //call onSave() method to create object and store
+                this.onSave(transactionDetails)
+
+            } else {
+
+                let transactionDetails = {amount: this.props.totalCharge, time: Date()}
+
+                //parse stored value
+                storedValue = JSON.parse(storedValue)
+
+                //pop new transaction details into array
+                storedValue.push(transactionDetails)
+
+                console.log("the TOTAL array looks like this: "  + storedValue)
+
+                //convert to json
+                storedValue = JSON.stringify(storedValue)
+
+                //call onSave() method to create object and store
+                this.onSave(storedValue)
+            }
+        } catch (err) {
+            console.log('there was an error loading the data ' + err)
+        }
+    }
+
+    //function to save to async storage
+    onSave = async (text) => {
+
+        try {
+
+            await AsyncStorage.setItem('@MyApp:history', text)
+            console.log('saved: successfully on device')
+
+
+        } catch (err) {
+            console.log('Error: there was an error saving data ' + err)
+        }
+    }
+
     //set up back button listener
     componentDidMount() {
         BackAndroid.addEventListener('backPress', () => {
@@ -124,6 +188,7 @@ class PaymentSuccess extends Component {
       phoneNumber: null,
       refrenceNumber: '12356', //replace with redux item
       totalCharge: null, //replace with redux item
+      transactionIdShort: null
   }
 
   //define navigation options for screen
@@ -140,8 +205,12 @@ class PaymentSuccess extends Component {
 
 
         if(this.state.phoneNumber != null){
+
+            //truncate transaction ID
+            this.state.transactionIdShort = this.props.transactionId.slice(0,6)
+
             //send text
-            sms = `Thank you for your order. You receipt number is ${this.state.refrenceNumber} for the amount K${this.state.totalCharge}`;
+            sms = `Thank you for your order. You receipt number is ${this.state.transactionIdShort} for the amount ${FormatMoney(this.props.totalCharge,'K','',',','.',2,2)}`;
             fetch(`http://www.bulksms.co.zm/smsservice/httpapi?username=zynlepay&password=zynle12&msg=${sms}&shortcode=2343&sender_id=0955000679&phone=${this.state.phoneNumber}&api_key=121231313213123123`)
                 .catch((error) => {
                     alert(error);
@@ -151,12 +220,16 @@ class PaymentSuccess extends Component {
         }
 
         //write total sale to Async storage
+        //code here
 
-
-        //reload app and navigate home
-        //** write function to reset all navigation stack and redux//
+        //clear sales stack
         this.props.clearSales();
-        this.props.moveToScreen('Charge');
+
+        //clear navigation stack
+        //code here
+
+        //back to home
+       this.props.moveToScreen('Charge');
 
 
     }
@@ -169,7 +242,7 @@ class PaymentSuccess extends Component {
               <View style={styles.greyContainer}>
                 <Text style={styles.heading3}>Payment Successful</Text>
                 <Icon name="check" size={150} color='#95989A'/>
-                <Text style={styles.heading2}>Payment for K{this.props.totalCharge} was successful</Text>
+                <Text style={styles.heading2}>Payment for {FormatMoney(this.props.totalCharge,'K','',',','.',2,2)} was successful</Text>
                   <Text>Reference #: {this.props.transactionId}</Text>
                 <Text style={styles.heading1}>How would u like your reciept?</Text>
               </View>

@@ -1,19 +1,22 @@
 import { NAVIGATE, BACK_SCREEN } from '../actions/types'; //import action types
 import { AppNavigator } from '../App'; //import stack navigator from App entry point
 import { NavigationActions } from 'react-navigation';
+import { AsyncStorage } from 'react-native'
+
+
+
 
 //define initial navigation state
 const INITIAL_NAV_STATE = {
+
     index: 0,
     routes: [
-       //{ key: 'LoginForm', routeName: 'LoginForm' },
-       { key: 'Charge', routeName: 'Charge' },
+        { key: 'LoginForm', routeName: 'LoginForm' },
+        //{ key: 'Charge', routeName: 'Charge' },
     ],
-};
+}
 
 export default (state = INITIAL_NAV_STATE, action) => {
-
-
 
     switch (action.type){
         case NAVIGATE:

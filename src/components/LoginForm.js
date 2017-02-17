@@ -63,9 +63,43 @@ const styles = {
     }
 };
 
+//define login key
+//const key = '@MyApp:key';
 
 //define login form screen
 class LoginForm extends Component {
+
+    componentWillMount(){
+        this.onLoad()
+    }
+
+    onSave = async () => {
+
+        try {
+            await AsyncStorage.setItem('@MyApp:key',"loggedIn")
+           // alert('saved: successfully on device')
+            this.props.moveToScreen('Charge');
+
+
+        } catch (err) {
+            alert('Error: there was an error saving data ' + err)
+        }
+    }
+
+    onLoad = async () => {
+        try {
+
+            const storedValue = await AsyncStorage.getItem('@MyApp:key')
+            if(storedValue === 'loggedIn'){
+
+                //console.log("this is a storage test: " + storedValue)
+                this.props.moveToScreen('Charge');
+            }
+
+        } catch (err) {
+            alert('error there was an error loading the data ' + err)
+        }
+    }
 
     //define navigation option - hide header
     static navigationOptions = {
@@ -75,24 +109,25 @@ class LoginForm extends Component {
         }
     };
 
-    /*initialize local state
+    //initialize local state
     state = {
         'username': '',
         'password': '',
         'merchant_id': '',
         'loading': false,
         'error': ''
-    }*/
+    }
 
 
-    //**************testing*************** initialize local state
+    /**************testing*************** initialize local state
+
       state = {
         'username': '0977547820',
         'password': '1234',
         'merchant_id': '45',
         'loading': false,
         'error': ''
-    }
+    }*/
 
 
     //function to encode sha1
@@ -258,27 +293,15 @@ class LoginForm extends Component {
 
             if(response.status === 200){
                 console.log("success");
-                //AsyncStorage.setItem('LoggedIn', true);
-
-
-                AsyncStorage.setItem("LoggedIn", "set");
 
                 //show toast
-                ToastAndroid.show('You are now logged in permanently', ToastAndroid.SHORT);
+                ToastAndroid.show('You are logged in', ToastAndroid.SHORT);
 
 
 
-                /*write to Asych Storage
-                try {
-                 AsyncStorage.setItem('@Login:key', 'Saved');
-                    console.log("asyncstorage saved")
-                } catch (error) {
-                    // Error saving data
-                    console.log("Asnyc Save Failed")
-                }*/
+                //write to Asych Storage
+                this.onSave()
 
-                //navigate to charge screen
-                this.props.moveToScreen('Charge');
 
 
             } else {

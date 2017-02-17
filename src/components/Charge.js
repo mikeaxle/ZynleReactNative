@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 /**     import redux  stuff   **/
-import { connect } from 'react-redux';
-import { moveToScreen, createSale } from '../actions';
+import { connect } from 'react-redux'
+import { moveToScreen, createSale } from '../actions'
 
-import Tabs from './Tabs';
+import Tabs from './Tabs'
+
+import FormatMoney from '../utils/FormatMoney' //import number formatting function
 
 import {
     View,
@@ -87,16 +89,14 @@ class Charge extends Component {
             return true
         })
 
-        AsyncStorage.getItem("LoggedIn").then((value) => {
-            this.setState({"LoggedIn": value});
-        }).done();
+
     }
 
 
 
     state = {
       toolTipText: 'this is a tool tip',
-    };
+    }
 
     //function to go to charge screen
     goToCharge(){
@@ -109,7 +109,7 @@ class Charge extends Component {
                 'You must enter a value more than zero to charge a card.',[
                     {text: 'Correct this'},
                 ]
-            );
+            )
         } else{
            //navigate to chargeCard
             this.props.moveToScreen('ChargeCard');
@@ -118,7 +118,7 @@ class Charge extends Component {
   
   render(){
 
-        console.log("this is the key: " + this.state.myKey)
+       // console.log("this is the key: " + this.state.storedValue)
     return (
       <View style={styles.container}>
 
@@ -141,7 +141,9 @@ class Charge extends Component {
               onPress={this.goToCharge.bind(this)}
           >
             <Text style={styles.buttonText}>Charge </Text>
-            <Text style={styles.buttonText}>K{this.props.totalCharge}</Text>
+            <Text style={styles.buttonText}>
+                {FormatMoney(this.props.totalCharge,'K','',',','.',2,2)}
+                </Text>
           </TouchableOpacity>
         </View>
 

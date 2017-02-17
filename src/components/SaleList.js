@@ -16,9 +16,10 @@ import {
     Button
 } from 'react-native';
 
-//import ListItem from './ListItem'; //import list item
 
-import { CardStack, } from 'react-navigation';
+import FormatMoney from '../utils/FormatMoney' //import number formatting function
+
+
 
 //define scene styles
 const styles = {
@@ -143,7 +144,7 @@ class SalesList extends  Component {
                     renderRow={(rowData, sectionID, rowID) =>
                     <TouchableNativeFeedback onPress={this.openSaleItem.bind(this,rowID)}>
                     <View style={stylesItem.container}>
-                     <Text style={stylesItem.text}>K{rowData.amount}</Text>
+                     <Text style={stylesItem.text}>{FormatMoney(rowData.amount,'K','',',','.',2,2)}</Text>
                      <Text style={stylesItem.text}>{rowData.note}</Text>
                      </View>
                      </TouchableNativeFeedback>}

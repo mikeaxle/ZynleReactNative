@@ -1622,14 +1622,14 @@ var _reducers=require(644 /* ./reducers */);var _reducers2=babelHelpers.interopR
 
 
 
-var _LoginForm=require(649 /* ./components/LoginForm */);var _LoginForm2=babelHelpers.interopRequireDefault(_LoginForm);
-var _Charge=require(716 /* ./components/Charge */);var _Charge2=babelHelpers.interopRequireDefault(_Charge);
-var _ChargeCard=require(724 /* ./components/ChargeCard */);var _ChargeCard2=babelHelpers.interopRequireDefault(_ChargeCard);
-var _Keypad=require(718 /* ./components/Keypad */);var _Keypad2=babelHelpers.interopRequireDefault(_Keypad);
-var _PastSales=require(722 /* ./components/PastSales */);var _PastSales2=babelHelpers.interopRequireDefault(_PastSales);
-var _PaymentSuccess=require(731 /* ./components/PaymentSuccess */);var _PaymentSuccess2=babelHelpers.interopRequireDefault(_PaymentSuccess);
-var _SaleList=require(734 /* ./components/SaleList */);var _SaleList2=babelHelpers.interopRequireDefault(_SaleList);
-var _SalesDetail=require(735 /* ./components/SalesDetail */);var _SalesDetail2=babelHelpers.interopRequireDefault(_SalesDetail);
+var _LoginForm=require(650 /* ./components/LoginForm */);var _LoginForm2=babelHelpers.interopRequireDefault(_LoginForm);
+var _Charge=require(718 /* ./components/Charge */);var _Charge2=babelHelpers.interopRequireDefault(_Charge);
+var _ChargeCard=require(728 /* ./components/ChargeCard */);var _ChargeCard2=babelHelpers.interopRequireDefault(_ChargeCard);
+var _Keypad=require(720 /* ./components/Keypad */);var _Keypad2=babelHelpers.interopRequireDefault(_Keypad);
+var _PastSales=require(725 /* ./components/PastSales */);var _PastSales2=babelHelpers.interopRequireDefault(_PastSales);
+var _PaymentSuccess=require(737 /* ./components/PaymentSuccess */);var _PaymentSuccess2=babelHelpers.interopRequireDefault(_PaymentSuccess);
+var _SaleList=require(740 /* ./components/SaleList */);var _SaleList2=babelHelpers.interopRequireDefault(_SaleList);
+var _SalesDetail=require(741 /* ./components/SalesDetail */);var _SalesDetail2=babelHelpers.interopRequireDefault(_SalesDetail);
 
 
 
@@ -82146,7 +82146,7 @@ __d(/* Zynle/src/reducers/index.js */function(global, require, module, exports) 
 var _navigationReducers=require(645 /* ./navigationReducers */);var _navigationReducers2=babelHelpers.interopRequireDefault(_navigationReducers);
 var _saleReducers=require(647 /* ./saleReducers */);var _saleReducers2=babelHelpers.interopRequireDefault(_saleReducers);
 var _saleSelectReducer=require(648 /* ./saleSelectReducer */);var _saleSelectReducer2=babelHelpers.interopRequireDefault(_saleSelectReducer);
-var _transactionReducers=require(736 /* ./transactionReducers */);var _transactionReducers2=babelHelpers.interopRequireDefault(_transactionReducers);exports.default=
+var _transactionReducers=require(649 /* ./transactionReducers */);var _transactionReducers2=babelHelpers.interopRequireDefault(_transactionReducers);exports.default=
 
 (0,_redux.combineReducers)({
 nav:_navigationReducers2.default,
@@ -82157,19 +82157,22 @@ transaction:_transactionReducers2.default});
 __d(/* Zynle/src/reducers/navigationReducers.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _types=require(646 /* ../actions/types */);
 var _App=require(12 /* ../App */);
 var _reactNavigation=require(554 /* react-navigation */);
+var _reactNative=require(43 /* react-native */);
+
+
+
 
 
 var INITIAL_NAV_STATE={
+
 index:0,
 routes:[
+{key:'LoginForm',routeName:'LoginForm'}]};exports.default=
 
-{key:'Charge',routeName:'Charge'}]};exports.default=
 
 
 
 function(){var state=arguments.length>0&&arguments[0]!==undefined?arguments[0]:INITIAL_NAV_STATE;var action=arguments[1];
-
-
 
 switch(action.type){
 case _types.NAVIGATE:
@@ -82302,7 +82305,7 @@ return state;}
 
 ;
 };
-}, 736, null, "Zynle/src/reducers/transactionReducers.js");
+}, 649, null, "Zynle/src/reducers/transactionReducers.js");
 __d(/* Zynle/src/components/LoginForm.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -82316,13 +82319,13 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _reactNativeTextinputEffects=require(650 /* react-native-textinput-effects */);
-var _FontAwesome=require(663 /* react-native-vector-icons/FontAwesome */);var _FontAwesome2=babelHelpers.interopRequireDefault(_FontAwesome);
-var _base=require(711 /* base-64 */);var _base2=babelHelpers.interopRequireDefault(_base);
+var _reactNativeTextinputEffects=require(651 /* react-native-textinput-effects */);
+var _FontAwesome=require(664 /* react-native-vector-icons/FontAwesome */);var _FontAwesome2=babelHelpers.interopRequireDefault(_FontAwesome);
+var _base=require(712 /* base-64 */);var _base2=babelHelpers.interopRequireDefault(_base);
 
 
 var _reactRedux=require(616 /* react-redux */);
-var _actions=require(712 /* ../actions */);
+var _actions=require(713 /* ../actions */);
 
 
 
@@ -82370,7 +82373,41 @@ fontSize:28}};var
 
 
 
-LoginForm=function(_Component){babelHelpers.inherits(LoginForm,_Component);function LoginForm(){var _ref;var _temp,_this,_ret;babelHelpers.classCallCheck(this,LoginForm);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}return _ret=(_temp=(_this=babelHelpers.possibleConstructorReturn(this,(_ref=LoginForm.__proto__||Object.getPrototypeOf(LoginForm)).call.apply(_ref,[this].concat(args))),_this),_this.
+
+
+LoginForm=function(_Component){babelHelpers.inherits(LoginForm,_Component);function LoginForm(){var _ref,_this2=this;var _temp,_this,_ret;babelHelpers.classCallCheck(this,LoginForm);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}return _ret=(_temp=(_this=babelHelpers.possibleConstructorReturn(this,(_ref=LoginForm.__proto__||Object.getPrototypeOf(LoginForm)).call.apply(_ref,[this].concat(args))),_this),_this.
+
+
+
+
+
+onSave=function _callee(){return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_context.prev=0;_context.next=3;return regeneratorRuntime.awrap(
+
+
+_reactNative.AsyncStorage.setItem('@MyApp:key',"loggedIn"));case 3:
+
+_this.props.moveToScreen('Charge');_context.next=9;break;case 6:_context.prev=6;_context.t0=_context['catch'](0);
+
+
+
+alert('Error: there was an error saving data '+_context.t0);case 9:case'end':return _context.stop();}}},null,_this2,[[0,6]]);},_this.
+
+
+
+onLoad=function _callee2(){var storedValue;return regeneratorRuntime.async(function _callee2$(_context2){while(1){switch(_context2.prev=_context2.next){case 0:_context2.prev=0;_context2.next=3;return regeneratorRuntime.awrap(
+
+
+_reactNative.AsyncStorage.getItem('@MyApp:key'));case 3:storedValue=_context2.sent;
+if(storedValue==='loggedIn'){
+
+
+_this.props.moveToScreen('Charge');
+}_context2.next=10;break;case 7:_context2.prev=7;_context2.t0=_context2['catch'](0);
+
+
+alert('error there was an error loading the data '+_context2.t0);case 10:case'end':return _context2.stop();}}},null,_this2,[[0,7]]);},_this.
+
+
 
 
 
@@ -82396,7 +82433,7 @@ state={
 'password':'1234',
 'merchant_id':'45',
 'loading':false,
-'error':''},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelpers.createClass(LoginForm,[{key:'sha1',value:function sha1(
+'error':''},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelpers.createClass(LoginForm,[{key:'componentWillMount',value:function componentWillMount(){this.onLoad();}},{key:'sha1',value:function sha1(
 
 
 
@@ -82542,7 +82579,7 @@ return temp.toLowerCase();
 
 
 
-{var _this2=this;
+{var _this3=this;
 
 
 this.setState({
@@ -82559,31 +82596,19 @@ var url='http://www.zynlepay.com:8070/zynlepay/zpay/api/userLogin?api_id=0977547
 fetch(url).then(function(response){
 
 
-_this2.setState({'loading':false});
+_this3.setState({'loading':false});
 
 if(response.status===200){
 console.log("success");
 
 
-
-_reactNative.AsyncStorage.setItem("LoggedIn","set");
-
-
-_reactNative.ToastAndroid.show('You are now logged in permanently',_reactNative.ToastAndroid.SHORT);
+_reactNative.ToastAndroid.show('You are logged in',_reactNative.ToastAndroid.SHORT);
 
 
 
 
+_this3.onSave();
 
-
-
-
-
-
-
-
-
-_this2.props.moveToScreen('Charge');
 
 
 }else{
@@ -82599,7 +82624,7 @@ _reactNative.Alert.alert(
 }).
 catch(function(error){
 
-_this2.setState({'loading':false});
+_this3.setState({'loading':false});
 
 
 _reactNative.Alert.alert(
@@ -82632,7 +82657,7 @@ _react2.default.createElement(_reactNative.Text,{style:styles.buttonText},'Login
 
 }},{key:'render',value:function render()
 
-{var _this3=this;
+{var _this4=this;
 
 return(
 _react2.default.createElement(_reactNative.View,{style:styles.container},
@@ -82656,7 +82681,7 @@ inputStyle:styles.textBox,
 style:{marginBottom:5},
 placeholder:'phone number',
 multiline:true,
-onChangeText:function onChangeText(username){return _this3.setState({username:username});},
+onChangeText:function onChangeText(username){return _this4.setState({username:username});},
 value:this.state.username}),
 
 
@@ -82671,7 +82696,7 @@ inputStyle:styles.textBox,
 style:{marginBottom:5},
 placeholder:'password',
 multiline:true,
-onChangeText:function onChangeText(password){return _this3.setState({password:password});},
+onChangeText:function onChangeText(password){return _this4.setState({password:password});},
 value:this.state.password,
 secureTextEntry:true}),
 
@@ -82685,7 +82710,7 @@ inputStyle:styles.textBox,
 style:{marginBottom:5},
 placeholder:'Agent ID',
 multiline:true,
-onChangeText:function onChangeText(merchant_id){return _this3.setState({merchant_id:merchant_id});},
+onChangeText:function onChangeText(merchant_id){return _this4.setState({merchant_id:merchant_id});},
 value:this.state.merchant_id}),
 
 
@@ -82696,18 +82721,18 @@ this.renderSpinnerOrButton()));
 
 
 (0,_reactRedux.connect)(null,{moveToScreen:_actions.moveToScreen})(LoginForm);
-}, 649, null, "Zynle/src/components/LoginForm.js");
-__d(/* react-native-textinput-effects/lib/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.Fumi=exports.Sae=exports.Makiko=exports.Kohana=exports.Hideo=exports.Akira=exports.Madoka=exports.Isao=exports.Jiro=exports.Hoshi=exports.Kaede=undefined;var _Kaede=require(651 /* ./Kaede */);var _Kaede2=babelHelpers.interopRequireDefault(_Kaede);
-var _Hoshi=require(653 /* ./Hoshi */);var _Hoshi2=babelHelpers.interopRequireDefault(_Hoshi);
-var _Jiro=require(654 /* ./Jiro */);var _Jiro2=babelHelpers.interopRequireDefault(_Jiro);
-var _Isao=require(655 /* ./Isao */);var _Isao2=babelHelpers.interopRequireDefault(_Isao);
-var _Madoka=require(656 /* ./Madoka */);var _Madoka2=babelHelpers.interopRequireDefault(_Madoka);
-var _Akira=require(657 /* ./Akira */);var _Akira2=babelHelpers.interopRequireDefault(_Akira);
-var _Hideo=require(658 /* ./Hideo */);var _Hideo2=babelHelpers.interopRequireDefault(_Hideo);
-var _Kohana=require(659 /* ./Kohana */);var _Kohana2=babelHelpers.interopRequireDefault(_Kohana);
-var _Makiko=require(660 /* ./Makiko */);var _Makiko2=babelHelpers.interopRequireDefault(_Makiko);
-var _Sae=require(661 /* ./Sae */);var _Sae2=babelHelpers.interopRequireDefault(_Sae);
-var _Fumi=require(662 /* ./Fumi */);var _Fumi2=babelHelpers.interopRequireDefault(_Fumi);exports.
+}, 650, null, "Zynle/src/components/LoginForm.js");
+__d(/* react-native-textinput-effects/lib/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.Fumi=exports.Sae=exports.Makiko=exports.Kohana=exports.Hideo=exports.Akira=exports.Madoka=exports.Isao=exports.Jiro=exports.Hoshi=exports.Kaede=undefined;var _Kaede=require(652 /* ./Kaede */);var _Kaede2=babelHelpers.interopRequireDefault(_Kaede);
+var _Hoshi=require(654 /* ./Hoshi */);var _Hoshi2=babelHelpers.interopRequireDefault(_Hoshi);
+var _Jiro=require(655 /* ./Jiro */);var _Jiro2=babelHelpers.interopRequireDefault(_Jiro);
+var _Isao=require(656 /* ./Isao */);var _Isao2=babelHelpers.interopRequireDefault(_Isao);
+var _Madoka=require(657 /* ./Madoka */);var _Madoka2=babelHelpers.interopRequireDefault(_Madoka);
+var _Akira=require(658 /* ./Akira */);var _Akira2=babelHelpers.interopRequireDefault(_Akira);
+var _Hideo=require(659 /* ./Hideo */);var _Hideo2=babelHelpers.interopRequireDefault(_Hideo);
+var _Kohana=require(660 /* ./Kohana */);var _Kohana2=babelHelpers.interopRequireDefault(_Kohana);
+var _Makiko=require(661 /* ./Makiko */);var _Makiko2=babelHelpers.interopRequireDefault(_Makiko);
+var _Sae=require(662 /* ./Sae */);var _Sae2=babelHelpers.interopRequireDefault(_Sae);
+var _Fumi=require(663 /* ./Fumi */);var _Fumi2=babelHelpers.interopRequireDefault(_Fumi);exports.
 
 
 Kaede=_Kaede2.default;exports.
@@ -82721,7 +82746,7 @@ Kohana=_Kohana2.default;exports.
 Makiko=_Makiko2.default;exports.
 Sae=_Sae2.default;exports.
 Fumi=_Fumi2.default;
-}, 650, null, "react-native-textinput-effects/lib/index.js");
+}, 651, null, "react-native-textinput-effects/lib/index.js");
 __d(/* react-native-textinput-effects/lib/Kaede.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -82733,7 +82758,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
+var _BaseInput2=require(653 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
 
 var PADDING=16;var
 
@@ -82822,7 +82847,7 @@ backgroundColor:'white',
 color:'black',
 fontSize:16,
 fontWeight:'bold'}});
-}, 651, null, "react-native-textinput-effects/lib/Kaede.js");
+}, 652, null, "react-native-textinput-effects/lib/Kaede.js");
 __d(/* react-native-textinput-effects/lib/BaseInput.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 
 
@@ -82959,7 +82984,7 @@ return this.inputRef().isFocused();
 {
 this.inputRef().clear();
 }}]);return BaseInput;}(_react.Component);BaseInput.propTypes={label:_react.PropTypes.string,value:_react.PropTypes.string,defaultValue:_react.PropTypes.string,style:_reactNative.View.propTypes.style,inputStyle:_reactNative.Text.propTypes.style,labelStyle:_reactNative.Text.propTypes.style,easing:_react.PropTypes.func,animationDuration:_react.PropTypes.number,onBlur:_react.PropTypes.func,onFocus:_react.PropTypes.func,onChange:_react.PropTypes.func};exports.default=BaseInput;
-}, 652, null, "react-native-textinput-effects/lib/BaseInput.js");
+}, 653, null, "react-native-textinput-effects/lib/BaseInput.js");
 __d(/* react-native-textinput-effects/lib/Hoshi.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -82970,7 +82995,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
+var _BaseInput2=require(653 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
 
 var PADDING=16;var
 
@@ -83095,7 +83120,7 @@ bottom:0,
 left:0,
 right:0,
 height:3}});
-}, 653, null, "react-native-textinput-effects/lib/Hoshi.js");
+}, 654, null, "react-native-textinput-effects/lib/Hoshi.js");
 __d(/* react-native-textinput-effects/lib/Jiro.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -83107,7 +83132,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
+var _BaseInput2=require(653 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
 
 var PADDING=16;var
 
@@ -83260,7 +83285,7 @@ position:'absolute',
 bottom:0,
 left:0,
 right:0}});
-}, 654, null, "react-native-textinput-effects/lib/Jiro.js");
+}, 655, null, "react-native-textinput-effects/lib/Jiro.js");
 __d(/* react-native-textinput-effects/lib/Isao.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -83271,7 +83296,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
+var _BaseInput2=require(653 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
 
 var LABEL_HEIGHT=24;
 var PADDING=16;var
@@ -83419,7 +83444,7 @@ position:'absolute',
 bottom:LABEL_HEIGHT,
 left:0,
 right:0}});
-}, 655, null, "react-native-textinput-effects/lib/Isao.js");
+}, 656, null, "react-native-textinput-effects/lib/Isao.js");
 __d(/* react-native-textinput-effects/lib/Madoka.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -83429,7 +83454,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
+var _BaseInput2=require(653 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
 
 var LABEL_HEIGHT=24;
 var PADDING=16;var
@@ -83571,7 +83596,7 @@ paddingVertical:0,
 color:'black',
 fontSize:18,
 fontWeight:'bold'}});
-}, 656, null, "react-native-textinput-effects/lib/Madoka.js");
+}, 657, null, "react-native-textinput-effects/lib/Madoka.js");
 __d(/* react-native-textinput-effects/lib/Akira.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -83582,7 +83607,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
+var _BaseInput2=require(653 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
 
 var LABEL_HEIGHT=24;
 var PADDING=16;var
@@ -83723,7 +83748,7 @@ padding:0,
 color:'black',
 fontSize:18,
 textAlign:'center'}});
-}, 657, null, "react-native-textinput-effects/lib/Akira.js");
+}, 658, null, "react-native-textinput-effects/lib/Akira.js");
 __d(/* react-native-textinput-effects/lib/Hideo.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -83733,7 +83758,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);var
+var _BaseInput2=require(653 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);var
 
 Hideo=function(_BaseInput){babelHelpers.inherits(Hideo,_BaseInput);function Hideo(){babelHelpers.classCallCheck(this,Hideo);return babelHelpers.possibleConstructorReturn(this,(Hideo.__proto__||Object.getPrototypeOf(Hideo)).apply(this,arguments));}babelHelpers.createClass(Hideo,[{key:'render',value:function render()
 
@@ -83834,7 +83859,7 @@ paddingVertical:0,
 color:'black',
 backgroundColor:'white',
 fontSize:18}});
-}, 658, null, "react-native-textinput-effects/lib/Hideo.js");
+}, 659, null, "react-native-textinput-effects/lib/Hideo.js");
 __d(/* react-native-textinput-effects/lib/Kohana.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -83846,7 +83871,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
+var _BaseInput2=require(653 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
 
 var PADDING=16;var
 
@@ -83955,7 +83980,7 @@ paddingHorizontal:PADDING,
 paddingVertical:0,
 color:'black',
 fontSize:18}});
-}, 659, null, "react-native-textinput-effects/lib/Kohana.js");
+}, 660, null, "react-native-textinput-effects/lib/Kohana.js");
 __d(/* react-native-textinput-effects/lib/Makiko.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -83967,7 +83992,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
+var _BaseInput2=require(653 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
 
 var ICON_WIDTH=60;
 var ICON_SIZE=30;
@@ -84109,7 +84134,7 @@ paddingHorizontal:PADDING,
 paddingVertical:0,
 color:'black',
 fontSize:18}});
-}, 660, null, "react-native-textinput-effects/lib/Makiko.js");
+}, 661, null, "react-native-textinput-effects/lib/Makiko.js");
 __d(/* react-native-textinput-effects/lib/Sae.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -84119,7 +84144,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
+var _BaseInput2=require(653 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
 
 var LABEL_HEIGHT=24;
 var PADDING=16;var
@@ -84265,7 +84290,7 @@ paddingTop:PADDING/2,
 paddingLeft:0,
 color:'white',
 fontSize:18}});
-}, 661, null, "react-native-textinput-effects/lib/Sae.js");
+}, 662, null, "react-native-textinput-effects/lib/Sae.js");
 __d(/* react-native-textinput-effects/lib/Fumi.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -84276,7 +84301,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _BaseInput2=require(652 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
+var _BaseInput2=require(653 /* ./BaseInput */);var _BaseInput3=babelHelpers.interopRequireDefault(_BaseInput2);
 
 var PADDING=16;
 var ICON_WIDTH=40;var
@@ -84419,14 +84444,14 @@ position:'absolute',
 width:1,
 backgroundColor:'#f0f0f0',
 marginTop:-8}});
-}, 662, null, "react-native-textinput-effects/lib/Fumi.js");
+}, 663, null, "react-native-textinput-effects/lib/Fumi.js");
 __d(/* react-native-vector-icons/FontAwesome.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.getImageSource=exports.ToolbarAndroid=exports.TabBarItemIOS=exports.TabBarItem=exports.Button=undefined;
 
 
 
 
-var _createIconSet=require(664 /* ./lib/create-icon-set */);var _createIconSet2=babelHelpers.interopRequireDefault(_createIconSet);
-var _FontAwesome=require(710 /* ./glyphmaps/FontAwesome.json */);var _FontAwesome2=babelHelpers.interopRequireDefault(_FontAwesome);
+var _createIconSet=require(665 /* ./lib/create-icon-set */);var _createIconSet2=babelHelpers.interopRequireDefault(_createIconSet);
+var _FontAwesome=require(711 /* ./glyphmaps/FontAwesome.json */);var _FontAwesome2=babelHelpers.interopRequireDefault(_FontAwesome);
 
 var iconSet=(0,_createIconSet2.default)(_FontAwesome2.default,'FontAwesome','FontAwesome.ttf');exports.default=
 
@@ -84437,7 +84462,7 @@ var TabBarItem=exports.TabBarItem=iconSet.TabBarItem;
 var TabBarItemIOS=exports.TabBarItemIOS=iconSet.TabBarItemIOS;
 var ToolbarAndroid=exports.ToolbarAndroid=iconSet.ToolbarAndroid;
 var getImageSource=exports.getImageSource=iconSet.getImageSource;
-}, 663, null, "react-native-vector-icons/FontAwesome.js");
+}, 664, null, "react-native-vector-icons/FontAwesome.js");
 __d(/* react-native-vector-icons/lib/create-icon-set.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
@@ -84460,7 +84485,7 @@ __d(/* react-native-vector-icons/lib/create-icon-set.js */function(global, requi
 
 
 
-createIconSet;var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(665 /* ./react-native */);var _iconButton=require(666 /* ./icon-button */);var _iconButton2=babelHelpers.interopRequireDefault(_iconButton);var _tabBarItemIos=require(707 /* ./tab-bar-item-ios */);var _tabBarItemIos2=babelHelpers.interopRequireDefault(_tabBarItemIos);var _toolbarAndroid=require(709 /* ./toolbar-android */);var _toolbarAndroid2=babelHelpers.interopRequireDefault(_toolbarAndroid);var NativeIconAPI=_reactNative.NativeModules.RNVectorIconsManager||_reactNative.NativeModules.RNVectorIconsModule;var DEFAULT_ICON_SIZE=12;var DEFAULT_ICON_COLOR='black';function createIconSet(glyphMap,fontFamily,fontFile){
+createIconSet;var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(666 /* ./react-native */);var _iconButton=require(667 /* ./icon-button */);var _iconButton2=babelHelpers.interopRequireDefault(_iconButton);var _tabBarItemIos=require(708 /* ./tab-bar-item-ios */);var _tabBarItemIos2=babelHelpers.interopRequireDefault(_tabBarItemIos);var _toolbarAndroid=require(710 /* ./toolbar-android */);var _toolbarAndroid2=babelHelpers.interopRequireDefault(_toolbarAndroid);var NativeIconAPI=_reactNative.NativeModules.RNVectorIconsManager||_reactNative.NativeModules.RNVectorIconsModule;var DEFAULT_ICON_SIZE=12;var DEFAULT_ICON_COLOR='black';function createIconSet(glyphMap,fontFamily,fontFile){
 var fontReference=fontFamily;
 
 if(_reactNative.Platform.OS==='android'&&fontFile){
@@ -84572,9 +84597,9 @@ Icon.getImageSource=getImageSource;
 
 return Icon;
 }
-}, 664, null, "react-native-vector-icons/lib/create-icon-set.js");
+}, 665, null, "react-native-vector-icons/lib/create-icon-set.js");
 __d(/* react-native-vector-icons/lib/react-native.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _reactNative=require(43 /* react-native */);Object.keys(_reactNative).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _reactNative[key];}});});
-}, 665, null, "react-native-vector-icons/lib/react-native.js");
+}, 666, null, "react-native-vector-icons/lib/react-native.js");
 __d(/* react-native-vector-icons/lib/icon-button.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
@@ -84612,7 +84637,7 @@ __d(/* react-native-vector-icons/lib/icon-button.js */function(global, require, 
 
 
 
-createIconButtonComponent;var _isString=require(667 /* lodash/isString */);var _isString2=babelHelpers.interopRequireDefault(_isString);var _omit=require(668 /* lodash/omit */);var _omit2=babelHelpers.interopRequireDefault(_omit);var _pick=require(703 /* lodash/pick */);var _pick2=babelHelpers.interopRequireDefault(_pick);var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(665 /* ./react-native */);var styles=_reactNative.StyleSheet.create({container:{flexDirection:'row',justifyContent:'flex-start',alignItems:'center',padding:8},touchable:{overflow:'hidden'},icon:{marginRight:10},text:{fontWeight:'600',backgroundColor:'transparent'}});var IOS7_BLUE='#007AFF';function createIconButtonComponent(Icon){var _class,_temp;
+createIconButtonComponent;var _isString=require(668 /* lodash/isString */);var _isString2=babelHelpers.interopRequireDefault(_isString);var _omit=require(669 /* lodash/omit */);var _omit2=babelHelpers.interopRequireDefault(_omit);var _pick=require(704 /* lodash/pick */);var _pick2=babelHelpers.interopRequireDefault(_pick);var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(666 /* ./react-native */);var styles=_reactNative.StyleSheet.create({container:{flexDirection:'row',justifyContent:'flex-start',alignItems:'center',padding:8},touchable:{overflow:'hidden'},icon:{marginRight:10},text:{fontWeight:'600',backgroundColor:'transparent'}});var IOS7_BLUE='#007AFF';function createIconButtonComponent(Icon){var _class,_temp;
 return _temp=_class=function(_Component){babelHelpers.inherits(IconButton,_Component);function IconButton(){babelHelpers.classCallCheck(this,IconButton);return babelHelpers.possibleConstructorReturn(this,(IconButton.__proto__||Object.getPrototypeOf(IconButton)).apply(this,arguments));}babelHelpers.createClass(IconButton,[{key:'render',value:function render()
 
 
@@ -84664,7 +84689,7 @@ children)));
 }}]);return IconButton;}(_react.Component),_class.propTypes=babelHelpers.extends({},_reactNative.View.propTypes,{backgroundColor:_react.PropTypes.string,borderRadius:_react.PropTypes.number,color:_react.PropTypes.string,size:_react.PropTypes.number}),_class.defaultProps={backgroundColor:IOS7_BLUE,borderRadius:5,color:'white',size:20},_temp;
 
 }
-}, 666, null, "react-native-vector-icons/lib/icon-button.js");
+}, 667, null, "react-native-vector-icons/lib/icon-button.js");
 __d(/* lodash/isString.js */function(global, require, module, exports) {var baseGetTag=require(251 /* ./_baseGetTag */),
 isArray=require(293 /* ./isArray */),
 isObjectLike=require(302 /* ./isObjectLike */);
@@ -84695,15 +84720,15 @@ return typeof value=='string'||
 }
 
 module.exports=isString;
-}, 667, null, "lodash/isString.js");
+}, 668, null, "lodash/isString.js");
 __d(/* lodash/omit.js */function(global, require, module, exports) {var arrayMap=require(335 /* ./_arrayMap */),
-baseClone=require(669 /* ./_baseClone */),
-baseUnset=require(696 /* ./_baseUnset */),
+baseClone=require(670 /* ./_baseClone */),
+baseUnset=require(697 /* ./_baseUnset */),
 castPath=require(327 /* ./_castPath */),
 copyObject=require(354 /* ./_copyObject */),
-customOmitClone=require(700 /* ./_customOmitClone */),
-flatRest=require(701 /* ./_flatRest */),
-getAllKeysIn=require(681 /* ./_getAllKeysIn */);
+customOmitClone=require(701 /* ./_customOmitClone */),
+flatRest=require(702 /* ./_flatRest */),
+getAllKeysIn=require(682 /* ./_getAllKeysIn */);
 
 
 var CLONE_DEEP_FLAG=1,
@@ -84753,22 +84778,22 @@ return result;
 });
 
 module.exports=omit;
-}, 668, null, "lodash/omit.js");
+}, 669, null, "lodash/omit.js");
 __d(/* lodash/_baseClone.js */function(global, require, module, exports) {var Stack=require(233 /* ./_Stack */),
-arrayEach=require(670 /* ./_arrayEach */),
+arrayEach=require(671 /* ./_arrayEach */),
 assignValue=require(351 /* ./_assignValue */),
-baseAssign=require(671 /* ./_baseAssign */),
-baseAssignIn=require(672 /* ./_baseAssignIn */),
-cloneBuffer=require(676 /* ./_cloneBuffer */),
-copyArray=require(677 /* ./_copyArray */),
-copySymbols=require(678 /* ./_copySymbols */),
-copySymbolsIn=require(679 /* ./_copySymbolsIn */),
+baseAssign=require(672 /* ./_baseAssign */),
+baseAssignIn=require(673 /* ./_baseAssignIn */),
+cloneBuffer=require(677 /* ./_cloneBuffer */),
+copyArray=require(678 /* ./_copyArray */),
+copySymbols=require(679 /* ./_copySymbols */),
+copySymbolsIn=require(680 /* ./_copySymbolsIn */),
 getAllKeys=require(290 /* ./_getAllKeys */),
-getAllKeysIn=require(681 /* ./_getAllKeysIn */),
+getAllKeysIn=require(682 /* ./_getAllKeysIn */),
 getTag=require(316 /* ./_getTag */),
-initCloneArray=require(682 /* ./_initCloneArray */),
-initCloneByTag=require(683 /* ./_initCloneByTag */),
-initCloneObject=require(694 /* ./_initCloneObject */),
+initCloneArray=require(683 /* ./_initCloneArray */),
+initCloneByTag=require(684 /* ./_initCloneByTag */),
+initCloneObject=require(695 /* ./_initCloneObject */),
 isArray=require(293 /* ./isArray */),
 isBuffer=require(303 /* ./isBuffer */),
 isObject=require(257 /* ./isObject */),
@@ -84907,7 +84932,7 @@ return result;
 }
 
 module.exports=baseClone;
-}, 669, null, "lodash/_baseClone.js");
+}, 670, null, "lodash/_baseClone.js");
 __d(/* lodash/_arrayEach.js */function(global, require, module, exports) {
 
 
@@ -84930,7 +84955,7 @@ return array;
 }
 
 module.exports=arrayEach;
-}, 670, null, "lodash/_arrayEach.js");
+}, 671, null, "lodash/_arrayEach.js");
 __d(/* lodash/_baseAssign.js */function(global, require, module, exports) {var copyObject=require(354 /* ./_copyObject */),
 keys=require(297 /* ./keys */);
 
@@ -84948,9 +84973,9 @@ return object&&copyObject(source,keys(source),object);
 }
 
 module.exports=baseAssign;
-}, 671, null, "lodash/_baseAssign.js");
+}, 672, null, "lodash/_baseAssign.js");
 __d(/* lodash/_baseAssignIn.js */function(global, require, module, exports) {var copyObject=require(354 /* ./_copyObject */),
-keysIn=require(673 /* ./keysIn */);
+keysIn=require(674 /* ./keysIn */);
 
 
 
@@ -84966,9 +84991,9 @@ return object&&copyObject(source,keysIn(source),object);
 }
 
 module.exports=baseAssignIn;
-}, 672, null, "lodash/_baseAssignIn.js");
+}, 673, null, "lodash/_baseAssignIn.js");
 __d(/* lodash/keysIn.js */function(global, require, module, exports) {var arrayLikeKeys=require(298 /* ./_arrayLikeKeys */),
-baseKeysIn=require(674 /* ./_baseKeysIn */),
+baseKeysIn=require(675 /* ./_baseKeysIn */),
 isArrayLike=require(315 /* ./isArrayLike */);
 
 
@@ -84999,10 +85024,10 @@ return isArrayLike(object)?arrayLikeKeys(object,true):baseKeysIn(object);
 }
 
 module.exports=keysIn;
-}, 673, null, "lodash/keysIn.js");
+}, 674, null, "lodash/keysIn.js");
 __d(/* lodash/_baseKeysIn.js */function(global, require, module, exports) {var isObject=require(257 /* ./isObject */),
 isPrototype=require(312 /* ./_isPrototype */),
-nativeKeysIn=require(675 /* ./_nativeKeysIn */);
+nativeKeysIn=require(676 /* ./_nativeKeysIn */);
 
 
 var objectProto=Object.prototype;
@@ -85033,7 +85058,7 @@ return result;
 }
 
 module.exports=baseKeysIn;
-}, 674, null, "lodash/_baseKeysIn.js");
+}, 675, null, "lodash/_baseKeysIn.js");
 __d(/* lodash/_nativeKeysIn.js */function(global, require, module, exports) {
 
 
@@ -85054,7 +85079,7 @@ return result;
 }
 
 module.exports=nativeKeysIn;
-}, 675, null, "lodash/_nativeKeysIn.js");
+}, 676, null, "lodash/_nativeKeysIn.js");
 __d(/* lodash/_cloneBuffer.js */function(global, require, module, exports) {var root=require(253 /* ./_root */);
 
 
@@ -85090,7 +85115,7 @@ return result;
 }
 
 module.exports=cloneBuffer;
-}, 676, null, "lodash/_cloneBuffer.js");
+}, 677, null, "lodash/_cloneBuffer.js");
 __d(/* lodash/_copyArray.js */function(global, require, module, exports) {
 
 
@@ -85111,7 +85136,7 @@ return array;
 }
 
 module.exports=copyArray;
-}, 677, null, "lodash/_copyArray.js");
+}, 678, null, "lodash/_copyArray.js");
 __d(/* lodash/_copySymbols.js */function(global, require, module, exports) {var copyObject=require(354 /* ./_copyObject */),
 getSymbols=require(294 /* ./_getSymbols */);
 
@@ -85128,9 +85153,9 @@ return copyObject(source,getSymbols(source),object);
 }
 
 module.exports=copySymbols;
-}, 678, null, "lodash/_copySymbols.js");
+}, 679, null, "lodash/_copySymbols.js");
 __d(/* lodash/_copySymbolsIn.js */function(global, require, module, exports) {var copyObject=require(354 /* ./_copyObject */),
-getSymbolsIn=require(680 /* ./_getSymbolsIn */);
+getSymbolsIn=require(681 /* ./_getSymbolsIn */);
 
 
 
@@ -85145,7 +85170,7 @@ return copyObject(source,getSymbolsIn(source),object);
 }
 
 module.exports=copySymbolsIn;
-}, 679, null, "lodash/_copySymbolsIn.js");
+}, 680, null, "lodash/_copySymbolsIn.js");
 __d(/* lodash/_getSymbolsIn.js */function(global, require, module, exports) {var arrayPush=require(292 /* ./_arrayPush */),
 getPrototype=require(629 /* ./_getPrototype */),
 getSymbols=require(294 /* ./_getSymbols */),
@@ -85171,10 +85196,10 @@ return result;
 };
 
 module.exports=getSymbolsIn;
-}, 680, null, "lodash/_getSymbolsIn.js");
+}, 681, null, "lodash/_getSymbolsIn.js");
 __d(/* lodash/_getAllKeysIn.js */function(global, require, module, exports) {var baseGetAllKeys=require(291 /* ./_baseGetAllKeys */),
-getSymbolsIn=require(680 /* ./_getSymbolsIn */),
-keysIn=require(673 /* ./keysIn */);
+getSymbolsIn=require(681 /* ./_getSymbolsIn */),
+keysIn=require(674 /* ./keysIn */);
 
 
 
@@ -85189,7 +85214,7 @@ return baseGetAllKeys(object,keysIn,getSymbolsIn);
 }
 
 module.exports=getAllKeysIn;
-}, 681, null, "lodash/_getAllKeysIn.js");
+}, 682, null, "lodash/_getAllKeysIn.js");
 __d(/* lodash/_initCloneArray.js */function(global, require, module, exports) {
 var objectProto=Object.prototype;
 
@@ -85216,14 +85241,14 @@ return result;
 }
 
 module.exports=initCloneArray;
-}, 682, null, "lodash/_initCloneArray.js");
-__d(/* lodash/_initCloneByTag.js */function(global, require, module, exports) {var cloneArrayBuffer=require(684 /* ./_cloneArrayBuffer */),
-cloneDataView=require(685 /* ./_cloneDataView */),
-cloneMap=require(686 /* ./_cloneMap */),
-cloneRegExp=require(689 /* ./_cloneRegExp */),
-cloneSet=require(690 /* ./_cloneSet */),
-cloneSymbol=require(692 /* ./_cloneSymbol */),
-cloneTypedArray=require(693 /* ./_cloneTypedArray */);
+}, 683, null, "lodash/_initCloneArray.js");
+__d(/* lodash/_initCloneByTag.js */function(global, require, module, exports) {var cloneArrayBuffer=require(685 /* ./_cloneArrayBuffer */),
+cloneDataView=require(686 /* ./_cloneDataView */),
+cloneMap=require(687 /* ./_cloneMap */),
+cloneRegExp=require(690 /* ./_cloneRegExp */),
+cloneSet=require(691 /* ./_cloneSet */),
+cloneSymbol=require(693 /* ./_cloneSymbol */),
+cloneTypedArray=require(694 /* ./_cloneTypedArray */);
 
 
 var boolTag='[object Boolean]',
@@ -85297,7 +85322,7 @@ return cloneSymbol(object);}
 }
 
 module.exports=initCloneByTag;
-}, 683, null, "lodash/_initCloneByTag.js");
+}, 684, null, "lodash/_initCloneByTag.js");
 __d(/* lodash/_cloneArrayBuffer.js */function(global, require, module, exports) {var Uint8Array=require(286 /* ./_Uint8Array */);
 
 
@@ -85314,8 +85339,8 @@ return result;
 }
 
 module.exports=cloneArrayBuffer;
-}, 684, null, "lodash/_cloneArrayBuffer.js");
-__d(/* lodash/_cloneDataView.js */function(global, require, module, exports) {var cloneArrayBuffer=require(684 /* ./_cloneArrayBuffer */);
+}, 685, null, "lodash/_cloneArrayBuffer.js");
+__d(/* lodash/_cloneDataView.js */function(global, require, module, exports) {var cloneArrayBuffer=require(685 /* ./_cloneArrayBuffer */);
 
 
 
@@ -85331,9 +85356,9 @@ return new dataView.constructor(buffer,dataView.byteOffset,dataView.byteLength);
 }
 
 module.exports=cloneDataView;
-}, 685, null, "lodash/_cloneDataView.js");
-__d(/* lodash/_cloneMap.js */function(global, require, module, exports) {var addMapEntry=require(687 /* ./_addMapEntry */),
-arrayReduce=require(688 /* ./_arrayReduce */),
+}, 686, null, "lodash/_cloneDataView.js");
+__d(/* lodash/_cloneMap.js */function(global, require, module, exports) {var addMapEntry=require(688 /* ./_addMapEntry */),
+arrayReduce=require(689 /* ./_arrayReduce */),
 mapToArray=require(287 /* ./_mapToArray */);
 
 
@@ -85354,7 +85379,7 @@ return arrayReduce(array,addMapEntry,new map.constructor());
 }
 
 module.exports=cloneMap;
-}, 686, null, "lodash/_cloneMap.js");
+}, 687, null, "lodash/_cloneMap.js");
 __d(/* lodash/_addMapEntry.js */function(global, require, module, exports) {
 
 
@@ -85370,7 +85395,7 @@ return map;
 }
 
 module.exports=addMapEntry;
-}, 687, null, "lodash/_addMapEntry.js");
+}, 688, null, "lodash/_addMapEntry.js");
 __d(/* lodash/_arrayReduce.js */function(global, require, module, exports) {
 
 
@@ -85397,7 +85422,7 @@ return accumulator;
 }
 
 module.exports=arrayReduce;
-}, 688, null, "lodash/_arrayReduce.js");
+}, 689, null, "lodash/_arrayReduce.js");
 __d(/* lodash/_cloneRegExp.js */function(global, require, module, exports) {
 var reFlags=/\w*$/;
 
@@ -85415,9 +85440,9 @@ return result;
 }
 
 module.exports=cloneRegExp;
-}, 689, null, "lodash/_cloneRegExp.js");
-__d(/* lodash/_cloneSet.js */function(global, require, module, exports) {var addSetEntry=require(691 /* ./_addSetEntry */),
-arrayReduce=require(688 /* ./_arrayReduce */),
+}, 690, null, "lodash/_cloneRegExp.js");
+__d(/* lodash/_cloneSet.js */function(global, require, module, exports) {var addSetEntry=require(692 /* ./_addSetEntry */),
+arrayReduce=require(689 /* ./_arrayReduce */),
 setToArray=require(288 /* ./_setToArray */);
 
 
@@ -85438,7 +85463,7 @@ return arrayReduce(array,addSetEntry,new set.constructor());
 }
 
 module.exports=cloneSet;
-}, 690, null, "lodash/_cloneSet.js");
+}, 691, null, "lodash/_cloneSet.js");
 __d(/* lodash/_addSetEntry.js */function(global, require, module, exports) {
 
 
@@ -85454,7 +85479,7 @@ return set;
 }
 
 module.exports=addSetEntry;
-}, 691, null, "lodash/_addSetEntry.js");
+}, 692, null, "lodash/_addSetEntry.js");
 __d(/* lodash/_cloneSymbol.js */function(global, require, module, exports) {var Symbol=require(252 /* ./_Symbol */);
 
 
@@ -85473,8 +85498,8 @@ return symbolValueOf?Object(symbolValueOf.call(symbol)):{};
 }
 
 module.exports=cloneSymbol;
-}, 692, null, "lodash/_cloneSymbol.js");
-__d(/* lodash/_cloneTypedArray.js */function(global, require, module, exports) {var cloneArrayBuffer=require(684 /* ./_cloneArrayBuffer */);
+}, 693, null, "lodash/_cloneSymbol.js");
+__d(/* lodash/_cloneTypedArray.js */function(global, require, module, exports) {var cloneArrayBuffer=require(685 /* ./_cloneArrayBuffer */);
 
 
 
@@ -85490,8 +85515,8 @@ return new typedArray.constructor(buffer,typedArray.byteOffset,typedArray.length
 }
 
 module.exports=cloneTypedArray;
-}, 693, null, "lodash/_cloneTypedArray.js");
-__d(/* lodash/_initCloneObject.js */function(global, require, module, exports) {var baseCreate=require(695 /* ./_baseCreate */),
+}, 694, null, "lodash/_cloneTypedArray.js");
+__d(/* lodash/_initCloneObject.js */function(global, require, module, exports) {var baseCreate=require(696 /* ./_baseCreate */),
 getPrototype=require(629 /* ./_getPrototype */),
 isPrototype=require(312 /* ./_isPrototype */);
 
@@ -85509,7 +85534,7 @@ baseCreate(getPrototype(object)):
 }
 
 module.exports=initCloneObject;
-}, 694, null, "lodash/_initCloneObject.js");
+}, 695, null, "lodash/_initCloneObject.js");
 __d(/* lodash/_baseCreate.js */function(global, require, module, exports) {var isObject=require(257 /* ./isObject */);
 
 
@@ -85540,10 +85565,10 @@ return result;
 }();
 
 module.exports=baseCreate;
-}, 695, null, "lodash/_baseCreate.js");
+}, 696, null, "lodash/_baseCreate.js");
 __d(/* lodash/_baseUnset.js */function(global, require, module, exports) {var castPath=require(327 /* ./_castPath */),
-last=require(697 /* ./last */),
-parent=require(698 /* ./_parent */),
+last=require(698 /* ./last */),
+parent=require(699 /* ./_parent */),
 toKey=require(336 /* ./_toKey */);
 
 
@@ -85561,7 +85586,7 @@ return object==null||delete object[toKey(last(path))];
 }
 
 module.exports=baseUnset;
-}, 696, null, "lodash/_baseUnset.js");
+}, 697, null, "lodash/_baseUnset.js");
 __d(/* lodash/last.js */function(global, require, module, exports) {
 
 
@@ -85582,9 +85607,9 @@ return length?array[length-1]:undefined;
 }
 
 module.exports=last;
-}, 697, null, "lodash/last.js");
+}, 698, null, "lodash/last.js");
 __d(/* lodash/_parent.js */function(global, require, module, exports) {var baseGet=require(326 /* ./_baseGet */),
-baseSlice=require(699 /* ./_baseSlice */);
+baseSlice=require(700 /* ./_baseSlice */);
 
 
 
@@ -85599,7 +85624,7 @@ return path.length<2?object:baseGet(object,baseSlice(path,0,-1));
 }
 
 module.exports=parent;
-}, 698, null, "lodash/_parent.js");
+}, 699, null, "lodash/_parent.js");
 __d(/* lodash/_baseSlice.js */function(global, require, module, exports) {
 
 
@@ -85631,7 +85656,7 @@ return result;
 }
 
 module.exports=baseSlice;
-}, 699, null, "lodash/_baseSlice.js");
+}, 700, null, "lodash/_baseSlice.js");
 __d(/* lodash/_customOmitClone.js */function(global, require, module, exports) {var isPlainObject=require(628 /* ./isPlainObject */);
 
 
@@ -85648,8 +85673,8 @@ return isPlainObject(value)?undefined:value;
 }
 
 module.exports=customOmitClone;
-}, 700, null, "lodash/_customOmitClone.js");
-__d(/* lodash/_flatRest.js */function(global, require, module, exports) {var flatten=require(702 /* ./flatten */),
+}, 701, null, "lodash/_customOmitClone.js");
+__d(/* lodash/_flatRest.js */function(global, require, module, exports) {var flatten=require(703 /* ./flatten */),
 overRest=require(357 /* ./_overRest */),
 setToString=require(359 /* ./_setToString */);
 
@@ -85665,7 +85690,7 @@ return setToString(overRest(func,undefined,flatten),func+'');
 }
 
 module.exports=flatRest;
-}, 701, null, "lodash/_flatRest.js");
+}, 702, null, "lodash/_flatRest.js");
 __d(/* lodash/flatten.js */function(global, require, module, exports) {var baseFlatten=require(371 /* ./_baseFlatten */);
 
 
@@ -85688,9 +85713,9 @@ return length?baseFlatten(array,1):[];
 }
 
 module.exports=flatten;
-}, 702, null, "lodash/flatten.js");
-__d(/* lodash/pick.js */function(global, require, module, exports) {var basePick=require(704 /* ./_basePick */),
-flatRest=require(701 /* ./_flatRest */);
+}, 703, null, "lodash/flatten.js");
+__d(/* lodash/pick.js */function(global, require, module, exports) {var basePick=require(705 /* ./_basePick */),
+flatRest=require(702 /* ./_flatRest */);
 
 
 
@@ -85714,8 +85739,8 @@ return object==null?{}:basePick(object,paths);
 });
 
 module.exports=pick;
-}, 703, null, "lodash/pick.js");
-__d(/* lodash/_basePick.js */function(global, require, module, exports) {var basePickBy=require(705 /* ./_basePickBy */),
+}, 704, null, "lodash/pick.js");
+__d(/* lodash/_basePick.js */function(global, require, module, exports) {var basePickBy=require(706 /* ./_basePickBy */),
 hasIn=require(337 /* ./hasIn */);
 
 
@@ -85734,9 +85759,9 @@ return hasIn(object,path);
 }
 
 module.exports=basePick;
-}, 704, null, "lodash/_basePick.js");
+}, 705, null, "lodash/_basePick.js");
 __d(/* lodash/_basePickBy.js */function(global, require, module, exports) {var baseGet=require(326 /* ./_baseGet */),
-baseSet=require(706 /* ./_baseSet */),
+baseSet=require(707 /* ./_baseSet */),
 castPath=require(327 /* ./_castPath */);
 
 
@@ -85765,7 +85790,7 @@ return result;
 }
 
 module.exports=basePickBy;
-}, 705, null, "lodash/_basePickBy.js");
+}, 706, null, "lodash/_basePickBy.js");
 __d(/* lodash/_baseSet.js */function(global, require, module, exports) {var assignValue=require(351 /* ./_assignValue */),
 castPath=require(327 /* ./_castPath */),
 isIndex=require(305 /* ./_isIndex */),
@@ -85813,7 +85838,7 @@ return object;
 }
 
 module.exports=baseSet;
-}, 706, null, "lodash/_baseSet.js");
+}, 707, null, "lodash/_baseSet.js");
 __d(/* react-native-vector-icons/lib/tab-bar-item-ios.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
@@ -85826,7 +85851,7 @@ __d(/* react-native-vector-icons/lib/tab-bar-item-ios.js */function(global, requ
 
 
 
-createTabBarItemIOSComponent;var _isEqual=require(708 /* lodash/isEqual */);var _isEqual2=babelHelpers.interopRequireDefault(_isEqual);var _pick=require(703 /* lodash/pick */);var _pick2=babelHelpers.interopRequireDefault(_pick);var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(665 /* ./react-native */);function createTabBarItemIOSComponent(IconNamePropType,getImageSource){var _class,_temp;
+createTabBarItemIOSComponent;var _isEqual=require(709 /* lodash/isEqual */);var _isEqual2=babelHelpers.interopRequireDefault(_isEqual);var _pick=require(704 /* lodash/pick */);var _pick2=babelHelpers.interopRequireDefault(_pick);var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(666 /* ./react-native */);function createTabBarItemIOSComponent(IconNamePropType,getImageSource){var _class,_temp;
 return _temp=_class=function(_Component){babelHelpers.inherits(TabBarItemIOS,_Component);function TabBarItemIOS(){babelHelpers.classCallCheck(this,TabBarItemIOS);return babelHelpers.possibleConstructorReturn(this,(TabBarItemIOS.__proto__||Object.getPrototypeOf(TabBarItemIOS)).apply(this,arguments));}babelHelpers.createClass(TabBarItemIOS,[{key:'updateIconSources',value:function updateIconSources(
 
 
@@ -85869,7 +85894,7 @@ return _react2.default.createElement(_reactNative.TabBarIOS.Item,babelHelpers.ex
 }}]);return TabBarItemIOS;}(_react.Component),_class.propTypes={iconName:IconNamePropType.isRequired,selectedIconName:IconNamePropType,iconSize:_react.PropTypes.number,iconColor:_react.PropTypes.string,selectedIconColor:_react.PropTypes.string},_class.defaultProps={iconSize:30},_temp;
 
 }
-}, 707, null, "react-native-vector-icons/lib/tab-bar-item-ios.js");
+}, 708, null, "react-native-vector-icons/lib/tab-bar-item-ios.js");
 __d(/* lodash/isEqual.js */function(global, require, module, exports) {var baseIsEqual=require(277 /* ./_baseIsEqual */);
 
 
@@ -85905,7 +85930,7 @@ return baseIsEqual(value,other);
 }
 
 module.exports=isEqual;
-}, 708, null, "lodash/isEqual.js");
+}, 709, null, "lodash/isEqual.js");
 __d(/* react-native-vector-icons/lib/toolbar-android.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.default=
 
 
@@ -85918,7 +85943,7 @@ __d(/* react-native-vector-icons/lib/toolbar-android.js */function(global, requi
 
 
 
-createToolbarAndroidComponent;var _isEqual=require(708 /* lodash/isEqual */);var _isEqual2=babelHelpers.interopRequireDefault(_isEqual);var _pick=require(703 /* lodash/pick */);var _pick2=babelHelpers.interopRequireDefault(_pick);var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(665 /* ./react-native */);function createToolbarAndroidComponent(IconNamePropType,getImageSource){var _class,_temp;
+createToolbarAndroidComponent;var _isEqual=require(709 /* lodash/isEqual */);var _isEqual2=babelHelpers.interopRequireDefault(_isEqual);var _pick=require(704 /* lodash/pick */);var _pick2=babelHelpers.interopRequireDefault(_pick);var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);var _reactNative=require(666 /* ./react-native */);function createToolbarAndroidComponent(IconNamePropType,getImageSource){var _class,_temp;
 return _temp=_class=function(_Component){babelHelpers.inherits(IconToolbarAndroid,_Component);function IconToolbarAndroid(){babelHelpers.classCallCheck(this,IconToolbarAndroid);return babelHelpers.possibleConstructorReturn(this,(IconToolbarAndroid.__proto__||Object.getPrototypeOf(IconToolbarAndroid)).apply(this,arguments));}babelHelpers.createClass(IconToolbarAndroid,[{key:'updateIconSources',value:function updateIconSources(
 
 
@@ -85995,7 +86020,7 @@ return _react2.default.createElement(_reactNative.ToolbarAndroid,babelHelpers.ex
 }}]);return IconToolbarAndroid;}(_react.Component),_class.propTypes={logoIconName:IconNamePropType,navIconName:IconNamePropType,overflowIconName:IconNamePropType,actions:_react.PropTypes.arrayOf(_react.PropTypes.shape({title:_react.PropTypes.string.isRequired,iconName:IconNamePropType,iconSize:_react.PropTypes.number,iconColor:_react.PropTypes.string,show:_react.PropTypes.oneOf(['always','ifRoom','never']),showWithText:_react.PropTypes.bool})),iconSize:_react.PropTypes.number,iconColor:_react.PropTypes.string},_class.defaultProps={iconSize:24},_temp;
 
 }
-}, 709, null, "react-native-vector-icons/lib/toolbar-android.js");
+}, 710, null, "react-native-vector-icons/lib/toolbar-android.js");
 __d(/* react-native-vector-icons/glyphmaps/FontAwesome.json */function(global, require, module, exports) {module.exports = {
 "glass":61440,
 "music":61441,
@@ -86783,7 +86808,7 @@ __d(/* react-native-vector-icons/glyphmaps/FontAwesome.json */function(global, r
 "superpowers":62173,
 "wpexplorer":62174,
 "meetup":62176};
-}, 710, null, "react-native-vector-icons/glyphmaps/FontAwesome.json");
+}, 711, null, "react-native-vector-icons/glyphmaps/FontAwesome.json");
 __d(/* base-64/base64.js */function(global, require, module, exports) {
 ;(function(root){
 
@@ -86949,12 +86974,12 @@ root.base64=base64;
 }
 
 })(this);
-}, 711, null, "base-64/base64.js");
-__d(/* Zynle/src/actions/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _navigationActions=require(713 /* ./navigationActions */);Object.keys(_navigationActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _navigationActions[key];}});});var _saleActions=require(714 /* ./saleActions */);
-Object.keys(_saleActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _saleActions[key];}});});var _selectSaleActions=require(715 /* ./selectSaleActions */);
-Object.keys(_selectSaleActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _selectSaleActions[key];}});});var _transactionActions=require(737 /* ./transactionActions */);
+}, 712, null, "base-64/base64.js");
+__d(/* Zynle/src/actions/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _navigationActions=require(714 /* ./navigationActions */);Object.keys(_navigationActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _navigationActions[key];}});});var _saleActions=require(715 /* ./saleActions */);
+Object.keys(_saleActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _saleActions[key];}});});var _selectSaleActions=require(716 /* ./selectSaleActions */);
+Object.keys(_selectSaleActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _selectSaleActions[key];}});});var _transactionActions=require(717 /* ./transactionActions */);
 Object.keys(_transactionActions).forEach(function(key){if(key==="default"||key==="__esModule")return;Object.defineProperty(exports,key,{enumerable:true,get:function get(){return _transactionActions[key];}});});
-}, 712, null, "Zynle/src/actions/index.js");
+}, 713, null, "Zynle/src/actions/index.js");
 __d(/* Zynle/src/actions/navigationActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.backScreen=exports.moveToScreen=undefined;var _types=require(646 /* ./types */);
 
 
@@ -86973,7 +86998,7 @@ type:_types.BACK_SCREEN};
 
 
 };
-}, 713, null, "Zynle/src/actions/navigationActions.js");
+}, 714, null, "Zynle/src/actions/navigationActions.js");
 __d(/* Zynle/src/actions/saleActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.clearSales=exports.deleteSale=exports.updateSaleNote=exports.updateSaleAmount=exports.createSale=undefined;var _types=require(646 /* ./types */);
 
 
@@ -87017,7 +87042,7 @@ return{
 type:_types.CLEAR_SALES};
 
 };
-}, 714, null, "Zynle/src/actions/saleActions.js");
+}, 715, null, "Zynle/src/actions/saleActions.js");
 __d(/* Zynle/src/actions/selectSaleActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.selectSale=undefined;var _types=require(646 /* ./types */);
 
 var selectSale=exports.selectSale=function selectSale(index){
@@ -87026,7 +87051,7 @@ type:_types.SELECTED_ID,
 payload:index};
 
 };
-}, 715, null, "Zynle/src/actions/selectSaleActions.js");
+}, 716, null, "Zynle/src/actions/selectSaleActions.js");
 __d(/* Zynle/src/actions/transactionActions.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.getTrasnactionId=undefined;var _types=require(646 /* ./types */);
 
 
@@ -87036,14 +87061,16 @@ type:_types.TRANSACTION_ID_SAVE,
 payload:id};
 
 };
-}, 737, null, "Zynle/src/actions/transactionActions.js");
+}, 717, null, "Zynle/src/actions/transactionActions.js");
 __d(/* Zynle/src/components/Charge.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 
 
 var _reactRedux=require(616 /* react-redux */);
-var _actions=require(712 /* ../actions */);
+var _actions=require(713 /* ../actions */);
 
-var _Tabs=require(717 /* ./Tabs */);var _Tabs2=babelHelpers.interopRequireDefault(_Tabs);
+var _Tabs=require(719 /* ./Tabs */);var _Tabs2=babelHelpers.interopRequireDefault(_Tabs);
+
+var _FormatMoney=require(724 /* ../utils/FormatMoney */);var _FormatMoney2=babelHelpers.interopRequireDefault(_FormatMoney);
 
 var _reactNative=require(43 /* react-native */);
 
@@ -87131,10 +87158,8 @@ Charge=function(_Component){babelHelpers.inherits(Charge,_Component);function Ch
 
 
 
-
-
 state={
-toolTipText:'this is a tool tip'},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelpers.createClass(Charge,[{key:'componentDidMount',value:function componentDidMount(){var _this2=this;_reactNative.BackAndroid.addEventListener('backPress',function(){_reactNative.Alert.alert('Caution','Would You like to exit ZynlePay?',[{text:'Exit ZynlePay',onPress:function onPress(){return _reactNative.BackAndroid.exitApp();}},{text:'Cancel'}]);return true;});_reactNative.AsyncStorage.getItem("LoggedIn").then(function(value){_this2.setState({"LoggedIn":value});}).done();}},{key:'goToCharge',value:function goToCharge()
+toolTipText:'this is a tool tip'},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelpers.createClass(Charge,[{key:'componentDidMount',value:function componentDidMount(){_reactNative.BackAndroid.addEventListener('backPress',function(){_reactNative.Alert.alert('Caution','Would You like to exit ZynlePay?',[{text:'Exit ZynlePay',onPress:function onPress(){return _reactNative.BackAndroid.exitApp();}},{text:'Cancel'}]);return true;});}},{key:'goToCharge',value:function goToCharge()
 
 
 
@@ -87155,19 +87180,19 @@ this.props.moveToScreen('ChargeCard');
 }
 }},{key:'render',value:function render()
 
-{var _this3=this;
+{var _this2=this;
 
-console.log("this is the key: "+this.state.myKey);
+
 return(
 _react2.default.createElement(_reactNative.View,{style:styles.container},
 
 _react2.default.createElement(_reactNative.View,{style:styles.header},
 
 _react2.default.createElement(_reactNative.TouchableOpacity,{
-onPress:function onPress(){return _this3.props.moveToScreen('SalesList');},
+onPress:function onPress(){return _this2.props.moveToScreen('SalesList');},
 style:{flexDirection:'row'}},
 _react2.default.createElement(_reactNative.Text,{style:styles.headerText},'Current Sale '),
-_react2.default.createElement(_reactNative.Image,{style:styles.saleImage,source:require(723 /* ../images/salesDock.png */)},
+_react2.default.createElement(_reactNative.Image,{style:styles.saleImage,source:require(727 /* ../images/salesDock.png */)},
 _react2.default.createElement(_reactNative.Text,{style:{color:"#95989A",fontSize:15,fontWeight:"bold"}},this.props.totalSales)))),
 
 
@@ -87180,7 +87205,9 @@ underlayColor:'#39B7EF',
 onPress:this.goToCharge.bind(this)},
 
 _react2.default.createElement(_reactNative.Text,{style:styles.buttonText},'Charge '),
-_react2.default.createElement(_reactNative.Text,{style:styles.buttonText},'K',this.props.totalCharge))),
+_react2.default.createElement(_reactNative.Text,{style:styles.buttonText},
+(0,_FormatMoney2.default)(this.props.totalCharge,'K','',',','.',2,2)))),
+
 
 
 
@@ -87209,12 +87236,12 @@ return result+Number(item.amount);
 
 
 (0,_reactRedux.connect)(mapStateToProps,{moveToScreen:_actions.moveToScreen})(Charge);
-}, 716, null, "Zynle/src/components/Charge.js");
+}, 718, null, "Zynle/src/components/Charge.js");
 __d(/* Zynle/src/components/Tabs.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
-var _Keypad=require(718 /* ./Keypad */);var _Keypad2=babelHelpers.interopRequireDefault(_Keypad);
-var _PastSales=require(722 /* ./PastSales */);var _PastSales2=babelHelpers.interopRequireDefault(_PastSales);
+var _Keypad=require(720 /* ./Keypad */);var _Keypad2=babelHelpers.interopRequireDefault(_Keypad);
+var _PastSales=require(725 /* ./PastSales */);var _PastSales2=babelHelpers.interopRequireDefault(_PastSales);
 
 var _reactNavigation=require(554 /* react-navigation */);
 
@@ -87282,16 +87309,16 @@ _react2.default.createElement(BasicApp,null));
 
 
 }}]);return Tabs;}(_react.Component);exports.default=Tabs;
-}, 717, null, "Zynle/src/components/Tabs.js");
+}, 719, null, "Zynle/src/components/Tabs.js");
 __d(/* Zynle/src/components/Keypad.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 
 
-var _NumPad=require(719 /* ../utils/NumPad */);var _NumPad2=babelHelpers.interopRequireDefault(_NumPad);
-var _SimpleLineIcons=require(720 /* react-native-vector-icons/SimpleLineIcons */);var _SimpleLineIcons2=babelHelpers.interopRequireDefault(_SimpleLineIcons);
+var _NumPad=require(721 /* ../utils/NumPad */);var _NumPad2=babelHelpers.interopRequireDefault(_NumPad);
+var _SimpleLineIcons=require(722 /* react-native-vector-icons/SimpleLineIcons */);var _SimpleLineIcons2=babelHelpers.interopRequireDefault(_SimpleLineIcons);
 
 
 var _reactRedux=require(616 /* react-redux */);
-var _actions=require(712 /* ../actions */);
+var _actions=require(713 /* ../actions */);
 
 
 var _reactNative=require(43 /* react-native */);
@@ -87304,6 +87331,7 @@ var _reactNative=require(43 /* react-native */);
 
 
 
+var _FormatMoney=require(724 /* ../utils/FormatMoney */);var _FormatMoney2=babelHelpers.interopRequireDefault(_FormatMoney);
 
 
 var styles={
@@ -87469,7 +87497,7 @@ _react2.default.createElement(_reactNative.Text,{style:stylesModal.headerText},'
 
 _react2.default.createElement(_reactNative.View,{style:stylesModal.contentArea},
 _react2.default.createElement(_reactNative.TextInput,{style:stylesModal.textBox,
-placeholder:'Enter your product name here',
+placeholder:'+ add product/service name',
 multiline:true,
 maxLength:30,
 numberOfLines:2,
@@ -87496,7 +87524,7 @@ _react2.default.createElement(_reactNative.Text,{style:styles.addNote},'Item Nam
 
 
 _react2.default.createElement(_reactNative.View,{style:styles.itemCharge},
-_react2.default.createElement(_reactNative.Text,{style:styles.itemChargeText},'K',this.state.totalCharge))),
+_react2.default.createElement(_reactNative.Text,{style:styles.itemChargeText},(0,_FormatMoney2.default)(this.state.totalCharge,'K','',',','.',2,2)))),
 
 
 
@@ -87539,7 +87567,7 @@ _react2.default.createElement(_NumPad2.default,{num:'+',onPress:this.addtoTotal.
 
 
 (0,_reactRedux.connect)(null,{createSale:_actions.createSale})(Keypad);
-}, 718, null, "Zynle/src/components/Keypad.js");
+}, 720, null, "Zynle/src/components/Keypad.js");
 __d(/* Zynle/src/utils/NumPad.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -87585,14 +87613,14 @@ this.props.num))));
 
 
 }}]);return NumPad;}(_react.Component);exports.default=NumPad;
-}, 719, null, "Zynle/src/utils/NumPad.js");
+}, 721, null, "Zynle/src/utils/NumPad.js");
 __d(/* react-native-vector-icons/SimpleLineIcons.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.getImageSource=exports.ToolbarAndroid=exports.TabBarItemIOS=exports.TabBarItem=exports.Button=undefined;
 
 
 
 
-var _createIconSet=require(664 /* ./lib/create-icon-set */);var _createIconSet2=babelHelpers.interopRequireDefault(_createIconSet);
-var _SimpleLineIcons=require(721 /* ./glyphmaps/SimpleLineIcons.json */);var _SimpleLineIcons2=babelHelpers.interopRequireDefault(_SimpleLineIcons);
+var _createIconSet=require(665 /* ./lib/create-icon-set */);var _createIconSet2=babelHelpers.interopRequireDefault(_createIconSet);
+var _SimpleLineIcons=require(723 /* ./glyphmaps/SimpleLineIcons.json */);var _SimpleLineIcons2=babelHelpers.interopRequireDefault(_SimpleLineIcons);
 
 var iconSet=(0,_createIconSet2.default)(_SimpleLineIcons2.default,'simple-line-icons','SimpleLineIcons.ttf');exports.default=
 
@@ -87603,7 +87631,7 @@ var TabBarItem=exports.TabBarItem=iconSet.TabBarItem;
 var TabBarItemIOS=exports.TabBarItemIOS=iconSet.TabBarItemIOS;
 var ToolbarAndroid=exports.ToolbarAndroid=iconSet.ToolbarAndroid;
 var getImageSource=exports.getImageSource=iconSet.getImageSource;
-}, 720, null, "react-native-vector-icons/SimpleLineIcons.js");
+}, 722, null, "react-native-vector-icons/SimpleLineIcons.js");
 __d(/* react-native-vector-icons/glyphmaps/SimpleLineIcons.json */function(global, require, module, exports) {module.exports = {
 "user":57349,
 "people":57345,
@@ -87794,11 +87822,96 @@ __d(/* react-native-vector-icons/glyphmaps/SimpleLineIcons.json */function(globa
 "social-dropbox":57356,
 "social-vkontakte":58904,
 "social-steam":58912};
-}, 721, null, "react-native-vector-icons/glyphmaps/SimpleLineIcons.json");
+}, 723, null, "react-native-vector-icons/glyphmaps/SimpleLineIcons.json");
+__d(/* Zynle/src/utils/FormatMoney.js */function(global, require, module, exports) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var FormatMoney=function FormatMoney(amount,currency_symbol_before,
+currency_symbol_after,thousands_separator,decimal_point,
+significant_after_decimal_pt,display_after_decimal_pt)
+{
+
+
+var significant_multiplier=Math.pow(10,significant_after_decimal_pt);
+
+
+var str_minus=amount*significant_multiplier<=-0.5?"-":"";
+
+
+amount=parseFloat(amount);
+if(isNaN(amount)||Math.LOG10E*Math.log(Math.abs(amount))+
+Math.max(display_after_decimal_pt,significant_after_decimal_pt)>=21)
+{
+return str_minus+currency_symbol_before+(
+isNaN(amount)?"#":"####################".substring(0,Math.LOG10E*Math.log(Math.abs(amount))))+(
+display_after_decimal_pt>=1?
+decimal_point+"##################".substring(0,display_after_decimal_pt):"")+
+currency_symbol_after;
+}
+
+
+amount=Math.abs(amount)+0.5/significant_multiplier;
+
+amount*=significant_multiplier;
+
+var str_display=parseInt(
+parseInt(amount)*Math.pow(10,display_after_decimal_pt-significant_after_decimal_pt)).toString();
+
+
+if(str_display.length<=display_after_decimal_pt)
+str_display=(Math.pow(10,display_after_decimal_pt-str_display.length+1).toString()+
+str_display).substring(1);
+
+var comma_sep_pounds=str_display.substring(0,str_display.length-display_after_decimal_pt);
+var str_pence=str_display.substring(str_display.length-display_after_decimal_pt);
+
+if(thousands_separator.length>0&&comma_sep_pounds.length>3)
+{
+comma_sep_pounds+=",";
+
+
+
+
+if(comma_sep_pounds.length>7)
+comma_sep_pounds=comma_sep_pounds.replace(/(?=[0-9]([0-9]{3})+,)(.)(...)/g,"$2,$3");
+
+comma_sep_pounds=comma_sep_pounds.replace(/(?=[0-9]([0-9]{3})+,)(.)(...)/g,"$2,$3");
+
+
+comma_sep_pounds=comma_sep_pounds.substring(0,comma_sep_pounds.length-1).replace(/,/g,thousands_separator);
+}
+
+return str_minus+currency_symbol_before+
+comma_sep_pounds+(display_after_decimal_pt>=1?decimal_point+str_pence:"")+
+currency_symbol_after;
+};
+
+
+module.exports=FormatMoney;
+}, 724, null, "Zynle/src/utils/FormatMoney.js");
 __d(/* Zynle/src/components/PastSales.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 
 
-var _SimpleLineIcons=require(720 /* react-native-vector-icons/SimpleLineIcons */);var _SimpleLineIcons2=babelHelpers.interopRequireDefault(_SimpleLineIcons);
+var _SimpleLineIcons=require(722 /* react-native-vector-icons/SimpleLineIcons */);var _SimpleLineIcons2=babelHelpers.interopRequireDefault(_SimpleLineIcons);
 
 
 var _reactNative=require(43 /* react-native */);
@@ -87809,26 +87922,347 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var styles=_reactNative.StyleSheet.create({
+
+
+var _FormatMoney=require(724 /* ../utils/FormatMoney */);var _FormatMoney2=babelHelpers.interopRequireDefault(_FormatMoney);
+
+var _dateformat=require(726 /* dateformat */);var _dateformat2=babelHelpers.interopRequireDefault(_dateformat);
+
+
+var styles={
+
 container:{
+flex:1,
+flexDirection:'column',
+backgroundColor:'white',
+justifyContent:'space-between',
+padding:20},
 
-padding:20}});var
+button:{
+backgroundColor:'red',
+height:75,
+alignSelf:'stretch',
+alignItems:'center',
+justifyContent:'center',
+flexDirection:'row'},
+
+buttonText:{
+color:'white',
+fontSize:28}};
 
 
 
-PastSales=function(_Component){babelHelpers.inherits(PastSales,_Component);function PastSales(){babelHelpers.classCallCheck(this,PastSales);return babelHelpers.possibleConstructorReturn(this,(PastSales.__proto__||Object.getPrototypeOf(PastSales)).apply(this,arguments));}babelHelpers.createClass(PastSales,[{key:'render',value:function render()
+
+
+var stylesItem={
+container:{
+flexDirection:'row',
+justifyContent:'space-between',
+padding:5},
+
+text:{
+fontSize:14,
+
+color:'#95989A'}};var
+
+
+
+
+
+PastSales=function(_Component){babelHelpers.inherits(PastSales,_Component);function PastSales(){var _ref,_this2=this;var _temp,_this,_ret;babelHelpers.classCallCheck(this,PastSales);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}return _ret=(_temp=(_this=babelHelpers.possibleConstructorReturn(this,(_ref=PastSales.__proto__||Object.getPrototypeOf(PastSales)).call.apply(_ref,[this].concat(args))),_this),_this.
+
+
+
+
+onLoad=function _callee(oResult){var ds;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:
+
+ds=new _reactNative.ListView.DataSource({rowHasChanged:function rowHasChanged(r1,r2){return r1!==r2;}});
+if(oResult){
+try{
+oResult=JSON.parse(oResult);
+_this._history=oResult;
+_this.setState({dataSource:ds.cloneWithRows(_this._history)});
+}
+catch(exp){
+console.log(exp);
+}
+}case 2:case'end':return _context.stop();}}},null,_this2);},_this.
+
+
+
+
+state={
+dataSource:null},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelpers.createClass(PastSales,[{key:'componentWillMount',value:function componentWillMount()
+
+
+{var _this3=this;
+
+var ds=new _reactNative.ListView.DataSource({
+rowHasChanged:function rowHasChanged(r1,r2){return r1!==r2;}});
+
+
+_reactNative.AsyncStorage.getItem('@MyApp:history').then(function(value){_this3.onLoad(value);});
+
+this._history=[{amount:0,time:0}];
+this.state.dataSource=ds.cloneWithRows(this._history);
+}},{key:'renderItem',value:function renderItem(
+
+
+rowData){
+
+var now=(0,_dateformat2.default)(rowData.time,"h:MM ddd mmm dS, yyyy");
+
+return(
+_react2.default.createElement(_reactNative.View,{style:stylesItem.container},
+_react2.default.createElement(_SimpleLineIcons2.default,{name:'credit-card',size:25,color:'#95989A'}),
+_react2.default.createElement(_reactNative.Text,{style:stylesItem.text},(0,_FormatMoney2.default)(rowData.amount,'K','',',','.',2,2)),
+_react2.default.createElement(_reactNative.Text,{style:stylesItem.text},now)));
+
+
+}},{key:'render',value:function render()
 
 
 {
 return(
 _react2.default.createElement(_reactNative.View,{style:styles.container},
-_react2.default.createElement(_reactNative.Text,null,'History Here')));
+_react2.default.createElement(_reactNative.Text,null),
+_react2.default.createElement(_reactNative.ListView,{
+dataSource:this.state.dataSource,
+renderRow:this.renderItem})));
+
 
 
 }}]);return PastSales;}(_react.Component);exports.default=PastSales;
-}, 722, null, "Zynle/src/components/PastSales.js");
+}, 725, null, "Zynle/src/components/PastSales.js");
+__d(/* dateformat/lib/dateformat.js */function(global, require, module, exports) {
+
+
+
+
+
+
+
+
+
+
+
+
+
+(function(global){
+'use strict';
+
+var dateFormat=function(){
+var token=/d{1,4}|m{1,4}|yy(?:yy)?|([HhMsTt])\1?|[LloSZWN]|'[^']*'|'[^']*'/g;
+var timezone=/\b(?:[PMCEA][SDP]T|(?:Pacific|Mountain|Central|Eastern|Atlantic) (?:Standard|Daylight|Prevailing) Time|(?:GMT|UTC)(?:[-+]\d{4})?)\b/g;
+var timezoneClip=/[^-+\dA-Z]/g;
+
+
+return function(date,mask,utc,gmt){
+
+
+if(arguments.length===1&&kindOf(date)==='string'&&!/\d/.test(date)){
+mask=date;
+date=undefined;
+}
+
+date=date||new Date();
+
+if(!(date instanceof Date)){
+date=new Date(date);
+}
+
+if(isNaN(date)){
+throw TypeError('Invalid date');
+}
+
+mask=String(dateFormat.masks[mask]||mask||dateFormat.masks['default']);
+
+
+var maskSlice=mask.slice(0,4);
+if(maskSlice==='UTC:'||maskSlice==='GMT:'){
+mask=mask.slice(4);
+utc=true;
+if(maskSlice==='GMT:'){
+gmt=true;
+}
+}
+
+var _=utc?'getUTC':'get';
+var d=date[_+'Date']();
+var D=date[_+'Day']();
+var m=date[_+'Month']();
+var y=date[_+'FullYear']();
+var H=date[_+'Hours']();
+var M=date[_+'Minutes']();
+var s=date[_+'Seconds']();
+var L=date[_+'Milliseconds']();
+var o=utc?0:date.getTimezoneOffset();
+var W=getWeek(date);
+var N=getDayOfWeek(date);
+var flags={
+d:d,
+dd:pad(d),
+ddd:dateFormat.i18n.dayNames[D],
+dddd:dateFormat.i18n.dayNames[D+7],
+m:m+1,
+mm:pad(m+1),
+mmm:dateFormat.i18n.monthNames[m],
+mmmm:dateFormat.i18n.monthNames[m+12],
+yy:String(y).slice(2),
+yyyy:y,
+h:H%12||12,
+hh:pad(H%12||12),
+H:H,
+HH:pad(H),
+M:M,
+MM:pad(M),
+s:s,
+ss:pad(s),
+l:pad(L,3),
+L:pad(Math.round(L/10)),
+t:H<12?'a':'p',
+tt:H<12?'am':'pm',
+T:H<12?'A':'P',
+TT:H<12?'AM':'PM',
+Z:gmt?'GMT':utc?'UTC':(String(date).match(timezone)||['']).pop().replace(timezoneClip,''),
+o:(o>0?'-':'+')+pad(Math.floor(Math.abs(o)/60)*100+Math.abs(o)%60,4),
+S:['th','st','nd','rd'][d%10>3?0:(d%100-d%10!=10)*d%10],
+W:W,
+N:N};
+
+
+return mask.replace(token,function(match){
+if(match in flags){
+return flags[match];
+}
+return match.slice(1,match.length-1);
+});
+};
+}();
+
+dateFormat.masks={
+'default':'ddd mmm dd yyyy HH:MM:ss',
+'shortDate':'m/d/yy',
+'mediumDate':'mmm d, yyyy',
+'longDate':'mmmm d, yyyy',
+'fullDate':'dddd, mmmm d, yyyy',
+'shortTime':'h:MM TT',
+'mediumTime':'h:MM:ss TT',
+'longTime':'h:MM:ss TT Z',
+'isoDate':'yyyy-mm-dd',
+'isoTime':'HH:MM:ss',
+'isoDateTime':'yyyy-mm-dd\'T\'HH:MM:sso',
+'isoUtcDateTime':'UTC:yyyy-mm-dd\'T\'HH:MM:ss\'Z\'',
+'expiresHeaderFormat':'ddd, dd mmm yyyy HH:MM:ss Z'};
+
+
+
+dateFormat.i18n={
+dayNames:[
+'Sun','Mon','Tue','Wed','Thu','Fri','Sat',
+'Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+
+monthNames:[
+'Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec',
+'January','February','March','April','May','June','July','August','September','October','November','December']};
+
+
+
+function pad(val,len){
+val=String(val);
+len=len||2;
+while(val.length<len){
+val='0'+val;
+}
+return val;
+}
+
+
+
+
+
+
+
+
+
+function getWeek(date){
+
+var targetThursday=new Date(date.getFullYear(),date.getMonth(),date.getDate());
+
+
+targetThursday.setDate(targetThursday.getDate()-(targetThursday.getDay()+6)%7+3);
+
+
+var firstThursday=new Date(targetThursday.getFullYear(),0,4);
+
+
+firstThursday.setDate(firstThursday.getDate()-(firstThursday.getDay()+6)%7+3);
+
+
+var ds=targetThursday.getTimezoneOffset()-firstThursday.getTimezoneOffset();
+targetThursday.setHours(targetThursday.getHours()-ds);
+
+
+var weekDiff=(targetThursday-firstThursday)/(86400000*7);
+return 1+Math.floor(weekDiff);
+}
+
+
+
+
+
+
+
+
+function getDayOfWeek(date){
+var dow=date.getDay();
+if(dow===0){
+dow=7;
+}
+return dow;
+}
+
+
+
+
+
+
+function kindOf(val){
+if(val===null){
+return'null';
+}
+
+if(val===undefined){
+return'undefined';
+}
+
+if(typeof val!=='object'){
+return typeof val;
+}
+
+if(Array.isArray(val)){
+return'array';
+}
+
+return{}.toString.call(val).
+slice(8,-1).toLowerCase();
+};
+
+
+
+if(typeof define==='function'&&define.amd){
+define(function(){
+return dateFormat;
+});
+}else if(typeof exports==='object'){
+module.exports=dateFormat;
+}else{
+global.dateFormat=dateFormat;
+}
+})(this);
+}, 726, null, "dateformat/lib/dateformat.js");
 __d(/* Zynle/src/images/salesDock.png */function(global, require, module, exports) {module.exports = require(173 /* react-native/Libraries/Image/AssetRegistry */).registerAsset({"__packager_asset":true,"httpServerLocation":"/assets/src/images","width":121,"height":118,"scales":[1],"hash":"b4803bb435e529a626621ae230eb08de","name":"salesDock","type":"png"});
-}, 723, null, "Zynle/src/images/salesDock.png");
+}, 727, null, "Zynle/src/images/salesDock.png");
 __d(/* Zynle/src/components/ChargeCard.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -87842,15 +88276,16 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _Api=require(725 /* ../utils/Api */);var _Api2=babelHelpers.interopRequireDefault(_Api);
-var _FontAwesome=require(663 /* react-native-vector-icons/FontAwesome */);var _FontAwesome2=babelHelpers.interopRequireDefault(_FontAwesome);
-var _reactNativeTextinputEffects=require(650 /* react-native-textinput-effects */);
-var _reactNativeAwesomeCardIo=require(726 /* react-native-awesome-card-io */);
+
+var _Api=require(729 /* ../utils/Api */);var _Api2=babelHelpers.interopRequireDefault(_Api);
+var _MaterialCommunityIcons=require(730 /* react-native-vector-icons/MaterialCommunityIcons */);var _MaterialCommunityIcons2=babelHelpers.interopRequireDefault(_MaterialCommunityIcons);
+var _reactNativeTextinputEffects=require(651 /* react-native-textinput-effects */);
+var _reactNativeAwesomeCardIo=require(732 /* react-native-awesome-card-io */);
 
 
 
 var _reactRedux=require(616 /* react-redux */);
-var _actions=require(712 /* ../actions */);
+var _actions=require(713 /* ../actions */);
 
 
 var styles={
@@ -87982,10 +88417,14 @@ res:null},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelper
 
 
 
+this.setState({'loading':true});
 
 
 this.state.res=_Api2.default.CallWebAPI(this.props.totalCharge,this.state.cardNumber,this.state.expiryMonth,this.state.expiryYear,this.state.cvv,'Sales From ZynlePay App',this.state.nameOnCard).
 then(function(response){
+
+
+
 console.log(response);
 
 if(response.responseDescription==='Success'){
@@ -87999,6 +88438,7 @@ _this3.props.moveToScreen('PaymentSuccess');
 
 }else{
 
+_this3.setState({'loading':false});
 _reactNative.Alert.alert(
 'Transaction Failed',
 'The card was not charged.',
@@ -88008,7 +88448,9 @@ _reactNative.Alert.alert(
 
 }).
 catch(function(err){
-aler(err);
+_this3.setState({'loading':false});
+alert(err);
+
 });
 
 
@@ -88029,7 +88471,8 @@ nameOnCard:card.cardholderName,
 cardNumber:card.cardNumber,
 expiryMonth:card.expiryMonth.toString(),
 expiryYear:card.expiryYear.toString(),
-cvv:card.cvv});
+cvv:card.cvv,
+loading:false});
 
 
 ;
@@ -88051,17 +88494,38 @@ _reactNative.Alert.alert('Card Scan Cancelled',
 if(this.state.cardReaderConnected){
 
 statusIcon=_react2.default.createElement(_reactNative.View,{style:styles.subContainer},
-_react2.default.createElement(_FontAwesome2.default,{name:'check-circle',size:25,color:'green'}),
+_react2.default.createElement(_MaterialCommunityIcons2.default,{name:'check-circle',size:25,color:'green'}),
 _react2.default.createElement(_reactNative.Text,null,'  The card reader is connected!'));
 
 }else{
 
 statusIcon=_react2.default.createElement(_reactNative.View,{style:styles.subContainer},
-_react2.default.createElement(_FontAwesome2.default,{name:'times-circle',size:25,color:'red'}),
+_react2.default.createElement(_MaterialCommunityIcons2.default,{name:'close-circle',size:25,color:'red'}),
 _react2.default.createElement(_reactNative.Text,{style:{color:'#95989A',fontSize:16}},'  The card reader is NOT connected!'));
 
 }
 return statusIcon;
+}},{key:'renderSpinnerOrButton',value:function renderSpinnerOrButton()
+
+
+
+{
+
+
+if(this.state.loading){
+
+
+return _react2.default.createElement(_reactNative.ActivityIndicator,{size:'large',style:{height:55,margin:20}});
+
+}else{
+
+return _react2.default.createElement(_reactNative.TouchableOpacity,{style:styles.button,underlayColor:'#39B7EF',
+onPress:this.chargeCard.bind(this)},
+_react2.default.createElement(_reactNative.Text,{style:styles.buttonText},'Charge Card'));
+
+}
+
+
 }},{key:'render',value:function render()
 
 {var _this5=this;
@@ -88073,8 +88537,8 @@ _react2.default.createElement(_reactNative.Text,null,'Charging K',this.props.tot
 
 
 _react2.default.createElement(_reactNativeTextinputEffects.Hideo,{
-iconClass:_FontAwesome2.default,
-iconName:'smile-o',
+iconClass:_MaterialCommunityIcons2.default,
+iconName:'account-settings',
 iconColor:'white',
 
 iconBackgroundColor:'#39B7EF',
@@ -88088,7 +88552,7 @@ value:this.state.nameOnCard}),
 
 
 _react2.default.createElement(_reactNativeTextinputEffects.Hideo,{
-iconClass:_FontAwesome2.default,
+iconClass:_MaterialCommunityIcons2.default,
 iconName:'credit-card',
 iconColor:'white',
 
@@ -88103,7 +88567,7 @@ value:this.state.cardNumber}),
 
 
 _react2.default.createElement(_reactNativeTextinputEffects.Hideo,{
-iconClass:_FontAwesome2.default,
+iconClass:_MaterialCommunityIcons2.default,
 iconName:'lock',
 iconColor:'white',
 
@@ -88122,8 +88586,8 @@ secureTextEntry:true}),
 _react2.default.createElement(_reactNative.Text,{style:{fontSize:16,color:'#95989A',alignSelf:'center',marginBottom:5}},'Expiry Date'),
 _react2.default.createElement(_reactNative.View,{style:{flexDirection:'row',flex:1}},
 _react2.default.createElement(_reactNativeTextinputEffects.Hideo,{
-iconClass:_FontAwesome2.default,
-iconName:'calendar-o',
+iconClass:_MaterialCommunityIcons2.default,
+iconName:'calendar',
 iconColor:'white',
 
 iconBackgroundColor:'#39B7EF',
@@ -88138,8 +88602,8 @@ value:this.state.expiryMonth}),
 
 
 _react2.default.createElement(_reactNativeTextinputEffects.Hideo,{
-iconClass:_FontAwesome2.default,
-iconName:'calendar-o',
+iconClass:_MaterialCommunityIcons2.default,
+iconName:'calendar-range',
 iconColor:'white',
 
 iconBackgroundColor:'#39B7EF',
@@ -88158,20 +88622,17 @@ value:this.state.expiryYear})),
 _react2.default.createElement(_reactNative.View,{style:{alignItems:'center',marginTop:10}},
 _react2.default.createElement(_reactNative.TouchableOpacity,{
 onPress:this.scanCard.bind(this)},
-_react2.default.createElement(_FontAwesome2.default,{name:'camera',size:50,color:'#39B7EF'}),
+_react2.default.createElement(_MaterialCommunityIcons2.default,{name:'credit-card-scan',size:70,color:'#39B7EF'}),
 _react2.default.createElement(_reactNative.Text,{style:{fontSize:18,fontWeight:'600',alignSelf:'center'}},'Scan'))),
 
 
 
 
-_react2.default.createElement(_reactNative.TouchableOpacity,{style:styles.button,underlayColor:'#39B7EF',
-onPress:this.chargeCard.bind(this)},
-_react2.default.createElement(_reactNative.Text,{style:styles.buttonText},'Charge Card'))));
+this.renderSpinnerOrButton()));
 
 
 
-
-}}]);return ChargeCard;}(_react.Component);ChargeCard.navigationOptions={title:'Charge K',header:function header(navigation){return{left:_react2.default.createElement(_reactNative.TouchableOpacity,{style:{marginLeft:20},onPress:function onPress(){return navigation.dispatch({type:'back_screen'});}},_react2.default.createElement(_reactNative.Image,{style:{width:25,height:25},source:require(730 /* ../images/Undo-100.png */)})),tintColor:'#95989A',style:{backgroundColor:'#EDEDED'}};}};
+}}]);return ChargeCard;}(_react.Component);ChargeCard.navigationOptions={title:'Charge K',header:function header(navigation){return{left:_react2.default.createElement(_reactNative.TouchableOpacity,{style:{marginLeft:20},onPress:function onPress(){return navigation.dispatch({type:'back_screen'});}},_react2.default.createElement(_reactNative.Image,{style:{width:25,height:25},source:require(736 /* ../images/Undo-100.png */)})),tintColor:'#95989A',style:{backgroundColor:'#EDEDED'}};}};
 
 
 
@@ -88188,8 +88649,8 @@ return result+Number(item.amount);
 
 
 (0,_reactRedux.connect)(mapStateToProps,{moveToScreen:_actions.moveToScreen,backScreen:_actions.backScreen,getTrasnactionId:_actions.getTrasnactionId})(ChargeCard);
-}, 724, null, "Zynle/src/components/ChargeCard.js");
-__d(/* Zynle/src/utils/Api.js */function(global, require, module, exports) {var _base=require(711 /* base-64 */);var _base2=babelHelpers.interopRequireDefault(_base);
+}, 728, null, "Zynle/src/components/ChargeCard.js");
+__d(/* Zynle/src/utils/Api.js */function(global, require, module, exports) {var _base=require(712 /* base-64 */);var _base2=babelHelpers.interopRequireDefault(_base);
 
 var Api={
 authenticateUser:function authenticateUser(){
@@ -88370,13 +88831,1756 @@ return temp.toLowerCase();
 
 
 module.exports=Api;
-}, 725, null, "Zynle/src/utils/Api.js");
-__d(/* react-native-awesome-card-io/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.CardIOUtilities=exports.CardIOModule=exports.CardIOView=undefined;var _CardIOView=require(727 /* ./CardIOView */);var _CardIOView2=babelHelpers.interopRequireDefault(_CardIOView);
-var _CardIOModule=require(728 /* ./CardIOModule */);var _CardIOModule2=babelHelpers.interopRequireDefault(_CardIOModule);
-var _CardIOUtilities=require(729 /* ./CardIOUtilities */);var _CardIOUtilities2=babelHelpers.interopRequireDefault(_CardIOUtilities);exports.
+}, 729, null, "Zynle/src/utils/Api.js");
+__d(/* react-native-vector-icons/MaterialCommunityIcons.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.getImageSource=exports.ToolbarAndroid=exports.TabBarItemIOS=exports.TabBarItem=exports.Button=undefined;
+
+
+
+
+var _createIconSet=require(665 /* ./lib/create-icon-set */);var _createIconSet2=babelHelpers.interopRequireDefault(_createIconSet);
+var _MaterialCommunityIcons=require(731 /* ./glyphmaps/MaterialCommunityIcons.json */);var _MaterialCommunityIcons2=babelHelpers.interopRequireDefault(_MaterialCommunityIcons);
+
+var iconSet=(0,_createIconSet2.default)(_MaterialCommunityIcons2.default,'Material Design Icons','MaterialCommunityIcons.ttf');exports.default=
+
+iconSet;
+
+var Button=exports.Button=iconSet.Button;
+var TabBarItem=exports.TabBarItem=iconSet.TabBarItem;
+var TabBarItemIOS=exports.TabBarItemIOS=iconSet.TabBarItemIOS;
+var ToolbarAndroid=exports.ToolbarAndroid=iconSet.ToolbarAndroid;
+var getImageSource=exports.getImageSource=iconSet.getImageSource;
+}, 730, null, "react-native-vector-icons/MaterialCommunityIcons.js");
+__d(/* react-native-vector-icons/glyphmaps/MaterialCommunityIcons.json */function(global, require, module, exports) {module.exports = {
+"access-point":61442,
+"access-point-network":61443,
+"account":61444,
+"account-alert":61445,
+"account-box":61446,
+"account-box-outline":61447,
+"account-card-details":62930,
+"account-check":61448,
+"account-circle":61449,
+"account-convert":61450,
+"account-key":61451,
+"account-location":61452,
+"account-minus":61453,
+"account-multiple":61454,
+"account-multiple-minus":62931,
+"account-multiple-outline":61455,
+"account-multiple-plus":61456,
+"account-network":61457,
+"account-off":61458,
+"account-outline":61459,
+"account-plus":61460,
+"account-remove":61461,
+"account-search":61462,
+"account-settings":63024,
+"account-settings-variant":63025,
+"account-star":61463,
+"account-star-variant":61464,
+"account-switch":61465,
+"adjust":61466,
+"air-conditioner":61467,
+"airballoon":61468,
+"airplane":61469,
+"airplane-landing":62932,
+"airplane-off":61470,
+"airplane-takeoff":62933,
+"airplay":61471,
+"alarm":61472,
+"alarm-check":61473,
+"alarm-multiple":61474,
+"alarm-off":61475,
+"alarm-plus":61476,
+"alarm-snooze":63117,
+"album":61477,
+"alert":61478,
+"alert-box":61479,
+"alert-circle":61480,
+"alert-circle-outline":62934,
+"alert-octagon":61481,
+"alert-outline":61482,
+"alpha":61483,
+"alphabetical":61484,
+"altimeter":62935,
+"amazon":61485,
+"amazon-clouddrive":61486,
+"ambulance":61487,
+"amplifier":61488,
+"anchor":61489,
+"android":61490,
+"android-debug-bridge":61491,
+"android-studio":61492,
+"angular":63153,
+"animation":62936,
+"apple":61493,
+"apple-finder":61494,
+"apple-ios":61495,
+"apple-keyboard-caps":63026,
+"apple-keyboard-command":63027,
+"apple-keyboard-control":63028,
+"apple-keyboard-option":63029,
+"apple-keyboard-shift":63030,
+"apple-mobileme":61496,
+"apple-safari":61497,
+"application":62996,
+"appnet":61498,
+"apps":61499,
+"archive":61500,
+"arrange-bring-forward":61501,
+"arrange-bring-to-front":61502,
+"arrange-send-backward":61503,
+"arrange-send-to-back":61504,
+"arrow-all":61505,
+"arrow-bottom-left":61506,
+"arrow-bottom-right":61507,
+"arrow-compress":62997,
+"arrow-compress-all":61508,
+"arrow-down":61509,
+"arrow-down-bold":61510,
+"arrow-down-bold-circle":61511,
+"arrow-down-bold-circle-outline":61512,
+"arrow-down-bold-hexagon-outline":61513,
+"arrow-down-drop-circle":61514,
+"arrow-down-drop-circle-outline":61515,
+"arrow-expand":62998,
+"arrow-expand-all":61516,
+"arrow-left":61517,
+"arrow-left-bold":61518,
+"arrow-left-bold-circle":61519,
+"arrow-left-bold-circle-outline":61520,
+"arrow-left-bold-hexagon-outline":61521,
+"arrow-left-drop-circle":61522,
+"arrow-left-drop-circle-outline":61523,
+"arrow-right":61524,
+"arrow-right-bold":61525,
+"arrow-right-bold-circle":61526,
+"arrow-right-bold-circle-outline":61527,
+"arrow-right-bold-hexagon-outline":61528,
+"arrow-right-drop-circle":61529,
+"arrow-right-drop-circle-outline":61530,
+"arrow-top-left":61531,
+"arrow-top-right":61532,
+"arrow-up":61533,
+"arrow-up-bold":61534,
+"arrow-up-bold-circle":61535,
+"arrow-up-bold-circle-outline":61536,
+"arrow-up-bold-hexagon-outline":61537,
+"arrow-up-drop-circle":61538,
+"arrow-up-drop-circle-outline":61539,
+"assistant":61540,
+"at":61541,
+"attachment":61542,
+"audiobook":61543,
+"auto-fix":61544,
+"auto-upload":61545,
+"autorenew":61546,
+"av-timer":61547,
+"baby":61548,
+"baby-buggy":63118,
+"backburger":61549,
+"backspace":61550,
+"backup-restore":61551,
+"bandcamp":63092,
+"bank":61552,
+"barcode":61553,
+"barcode-scan":61554,
+"barley":61555,
+"barrel":61556,
+"basecamp":61557,
+"basket":61558,
+"basket-fill":61559,
+"basket-unfill":61560,
+"battery":61561,
+"battery-10":61562,
+"battery-20":61563,
+"battery-30":61564,
+"battery-40":61565,
+"battery-50":61566,
+"battery-60":61567,
+"battery-70":61568,
+"battery-80":61569,
+"battery-90":61570,
+"battery-alert":61571,
+"battery-charging":61572,
+"battery-charging-100":61573,
+"battery-charging-20":61574,
+"battery-charging-30":61575,
+"battery-charging-40":61576,
+"battery-charging-60":61577,
+"battery-charging-80":61578,
+"battery-charging-90":61579,
+"battery-minus":61580,
+"battery-negative":61581,
+"battery-outline":61582,
+"battery-plus":61583,
+"battery-positive":61584,
+"battery-unknown":61585,
+"beach":61586,
+"beaker":63119,
+"beats":61591,
+"beer":61592,
+"behance":61593,
+"bell":61594,
+"bell-off":61595,
+"bell-outline":61596,
+"bell-plus":61597,
+"bell-ring":61598,
+"bell-ring-outline":61599,
+"bell-sleep":61600,
+"beta":61601,
+"bible":61602,
+"bike":61603,
+"bing":61604,
+"binoculars":61605,
+"bio":61606,
+"biohazard":61607,
+"bitbucket":61608,
+"black-mesa":61609,
+"blackberry":61610,
+"blender":61611,
+"blinds":61612,
+"block-helper":61613,
+"blogger":61614,
+"bluetooth":61615,
+"bluetooth-audio":61616,
+"bluetooth-connect":61617,
+"bluetooth-off":61618,
+"bluetooth-settings":61619,
+"bluetooth-transfer":61620,
+"blur":61621,
+"blur-linear":61622,
+"blur-off":61623,
+"blur-radial":61624,
+"bomb":63120,
+"bone":61625,
+"book":61626,
+"book-minus":62937,
+"book-multiple":61627,
+"book-multiple-variant":61628,
+"book-open":61629,
+"book-open-page-variant":62938,
+"book-open-variant":61630,
+"book-plus":62939,
+"book-variant":61631,
+"bookmark":61632,
+"bookmark-check":61633,
+"bookmark-music":61634,
+"bookmark-outline":61635,
+"bookmark-plus":61637,
+"bookmark-plus-outline":61636,
+"bookmark-remove":61638,
+"boombox":62940,
+"border-all":61639,
+"border-bottom":61640,
+"border-color":61641,
+"border-horizontal":61642,
+"border-inside":61643,
+"border-left":61644,
+"border-none":61645,
+"border-outside":61646,
+"border-right":61647,
+"border-style":61648,
+"border-top":61649,
+"border-vertical":61650,
+"bow-tie":63095,
+"bowl":62999,
+"bowling":61651,
+"box":61652,
+"box-cutter":61653,
+"box-shadow":63031,
+"bridge":63000,
+"briefcase":61654,
+"briefcase-check":61655,
+"briefcase-download":61656,
+"briefcase-upload":61657,
+"brightness-1":61658,
+"brightness-2":61659,
+"brightness-3":61660,
+"brightness-4":61661,
+"brightness-5":61662,
+"brightness-6":61663,
+"brightness-7":61664,
+"brightness-auto":61665,
+"broom":61666,
+"brush":61667,
+"buffer":63001,
+"bug":61668,
+"bulletin-board":61669,
+"bullhorn":61670,
+"bullseye":62941,
+"burst-mode":62942,
+"bus":61671,
+"cached":61672,
+"cake":61673,
+"cake-layered":61674,
+"cake-variant":61675,
+"calculator":61676,
+"calendar":61677,
+"calendar-blank":61678,
+"calendar-check":61679,
+"calendar-clock":61680,
+"calendar-multiple":61681,
+"calendar-multiple-check":61682,
+"calendar-plus":61683,
+"calendar-question":63121,
+"calendar-range":63096,
+"calendar-remove":61684,
+"calendar-text":61685,
+"calendar-today":61686,
+"call-made":61687,
+"call-merge":61688,
+"call-missed":61689,
+"call-received":61690,
+"call-split":61691,
+"camcorder":61692,
+"camcorder-box":61693,
+"camcorder-box-off":61694,
+"camcorder-off":61695,
+"camera":61696,
+"camera-burst":63122,
+"camera-enhance":61697,
+"camera-front":61698,
+"camera-front-variant":61699,
+"camera-iris":61700,
+"camera-off":62943,
+"camera-party-mode":61701,
+"camera-rear":61702,
+"camera-rear-variant":61703,
+"camera-switch":61704,
+"camera-timer":61705,
+"candle":62946,
+"candycane":61706,
+"car":61707,
+"car-battery":61708,
+"car-connected":61709,
+"car-wash":61710,
+"cards":63032,
+"cards-outline":63033,
+"cards-playing-outline":63034,
+"carrot":61711,
+"cart":61712,
+"cart-off":63083,
+"cart-outline":61713,
+"cart-plus":61714,
+"case-sensitive-alt":61715,
+"cash":61716,
+"cash-100":61717,
+"cash-multiple":61718,
+"cash-usd":61719,
+"cast":61720,
+"cast-connected":61721,
+"castle":61722,
+"cat":61723,
+"cellphone":61724,
+"cellphone-android":61725,
+"cellphone-basic":61726,
+"cellphone-dock":61727,
+"cellphone-iphone":61728,
+"cellphone-link":61729,
+"cellphone-link-off":61730,
+"cellphone-settings":61731,
+"certificate":61732,
+"chair-school":61733,
+"chart-arc":61734,
+"chart-areaspline":61735,
+"chart-bar":61736,
+"chart-bubble":62947,
+"chart-gantt":63084,
+"chart-histogram":61737,
+"chart-line":61738,
+"chart-pie":61739,
+"chart-scatterplot-hexbin":63085,
+"chart-timeline":63086,
+"check":61740,
+"check-all":61741,
+"check-circle":62944,
+"check-circle-outline":62945,
+"checkbox-blank":61742,
+"checkbox-blank-circle":61743,
+"checkbox-blank-circle-outline":61744,
+"checkbox-blank-outline":61745,
+"checkbox-marked":61746,
+"checkbox-marked-circle":61747,
+"checkbox-marked-circle-outline":61748,
+"checkbox-marked-outline":61749,
+"checkbox-multiple-blank":61750,
+"checkbox-multiple-blank-circle":63035,
+"checkbox-multiple-blank-circle-outline":63036,
+"checkbox-multiple-blank-outline":61751,
+"checkbox-multiple-marked":61752,
+"checkbox-multiple-marked-circle":63037,
+"checkbox-multiple-marked-circle-outline":63038,
+"checkbox-multiple-marked-outline":61753,
+"checkerboard":61754,
+"chemical-weapon":61755,
+"chevron-double-down":61756,
+"chevron-double-left":61757,
+"chevron-double-right":61758,
+"chevron-double-up":61759,
+"chevron-down":61760,
+"chevron-left":61761,
+"chevron-right":61762,
+"chevron-up":61763,
+"chip":63002,
+"church":61764,
+"cisco-webex":61765,
+"city":61766,
+"clipboard":61767,
+"clipboard-account":61768,
+"clipboard-alert":61769,
+"clipboard-arrow-down":61770,
+"clipboard-arrow-left":61771,
+"clipboard-check":61772,
+"clipboard-outline":61773,
+"clipboard-text":61774,
+"clippy":61775,
+"clock":61776,
+"clock-alert":62926,
+"clock-end":61777,
+"clock-fast":61778,
+"clock-in":61779,
+"clock-out":61780,
+"clock-start":61781,
+"close":61782,
+"close-box":61783,
+"close-box-outline":61784,
+"close-circle":61785,
+"close-circle-outline":61786,
+"close-network":61787,
+"close-octagon":61788,
+"close-octagon-outline":61789,
+"closed-caption":61790,
+"cloud":61791,
+"cloud-check":61792,
+"cloud-circle":61793,
+"cloud-download":61794,
+"cloud-outline":61795,
+"cloud-outline-off":61796,
+"cloud-print":61797,
+"cloud-print-outline":61798,
+"cloud-sync":63039,
+"cloud-upload":61799,
+"code-array":61800,
+"code-braces":61801,
+"code-brackets":61802,
+"code-equal":61803,
+"code-greater-than":61804,
+"code-greater-than-or-equal":61805,
+"code-less-than":61806,
+"code-less-than-or-equal":61807,
+"code-not-equal":61808,
+"code-not-equal-variant":61809,
+"code-parentheses":61810,
+"code-string":61811,
+"code-tags":61812,
+"code-tags-check":63123,
+"codepen":61813,
+"coffee":61814,
+"coffee-to-go":61815,
+"coin":61816,
+"coins":63124,
+"collage":63040,
+"color-helper":61817,
+"comment":61818,
+"comment-account":61819,
+"comment-account-outline":61820,
+"comment-alert":61821,
+"comment-alert-outline":61822,
+"comment-check":61823,
+"comment-check-outline":61824,
+"comment-multiple-outline":61825,
+"comment-outline":61826,
+"comment-plus-outline":61827,
+"comment-processing":61828,
+"comment-processing-outline":61829,
+"comment-question-outline":61830,
+"comment-remove-outline":61831,
+"comment-text":61832,
+"comment-text-outline":61833,
+"compare":61834,
+"compass":61835,
+"compass-outline":61836,
+"console":61837,
+"contact-mail":61838,
+"content-copy":61839,
+"content-cut":61840,
+"content-duplicate":61841,
+"content-paste":61842,
+"content-save":61843,
+"content-save-all":61844,
+"content-save-settings":63003,
+"contrast":61845,
+"contrast-box":61846,
+"contrast-circle":61847,
+"cookie":61848,
+"copyright":62950,
+"counter":61849,
+"cow":61850,
+"creation":61897,
+"credit-card":61851,
+"credit-card-multiple":61852,
+"credit-card-off":62948,
+"credit-card-plus":63093,
+"credit-card-scan":61853,
+"crop":61854,
+"crop-free":61855,
+"crop-landscape":61856,
+"crop-portrait":61857,
+"crop-rotate":63125,
+"crop-square":61858,
+"crosshairs":61859,
+"crosshairs-gps":61860,
+"crown":61861,
+"cube":61862,
+"cube-outline":61863,
+"cube-send":61864,
+"cube-unfolded":61865,
+"cup":61866,
+"cup-off":62949,
+"cup-water":61867,
+"currency-btc":61868,
+"currency-eur":61869,
+"currency-gbp":61870,
+"currency-inr":61871,
+"currency-ngn":61872,
+"currency-rub":61873,
+"currency-try":61874,
+"currency-usd":61875,
+"currency-usd-off":63097,
+"cursor-default":61876,
+"cursor-default-outline":61877,
+"cursor-move":61878,
+"cursor-pointer":61879,
+"cursor-text":62951,
+"database":61880,
+"database-minus":61881,
+"database-plus":61882,
+"debug-step-into":61883,
+"debug-step-out":61884,
+"debug-step-over":61885,
+"decimal-decrease":61886,
+"decimal-increase":61887,
+"delete":61888,
+"delete-circle":63106,
+"delete-forever":62952,
+"delete-sweep":62953,
+"delete-variant":61889,
+"delta":61890,
+"deskphone":61891,
+"desktop-mac":61892,
+"desktop-tower":61893,
+"details":61894,
+"developer-board":63126,
+"deviantart":61895,
+"dialpad":63004,
+"diamond":61896,
+"dice-1":61898,
+"dice-2":61899,
+"dice-3":61900,
+"dice-4":61901,
+"dice-5":61902,
+"dice-6":61903,
+"dice-d20":62954,
+"dice-d4":62955,
+"dice-d6":62956,
+"dice-d8":62957,
+"dictionary":63005,
+"directions":61904,
+"directions-fork":63041,
+"discord":63087,
+"disk":62958,
+"disk-alert":61905,
+"disqus":61906,
+"disqus-outline":61907,
+"division":61908,
+"division-box":61909,
+"dna":63107,
+"dns":61910,
+"do-not-disturb":63127,
+"do-not-disturb-off":63128,
+"dolby":63154,
+"domain":61911,
+"dots-horizontal":61912,
+"dots-vertical":61913,
+"douban":63129,
+"download":61914,
+"drag":61915,
+"drag-horizontal":61916,
+"drag-vertical":61917,
+"drawing":61918,
+"drawing-box":61919,
+"dribbble":61920,
+"dribbble-box":61921,
+"drone":61922,
+"dropbox":61923,
+"drupal":61924,
+"duck":61925,
+"dumbbell":61926,
+"earth":61927,
+"earth-off":61928,
+"edge":61929,
+"eject":61930,
+"elevation-decline":61931,
+"elevation-rise":61932,
+"elevator":61933,
+"email":61934,
+"email-open":61935,
+"email-open-outline":62959,
+"email-outline":61936,
+"email-secure":61937,
+"email-variant":62960,
+"emby":63155,
+"emoticon":61938,
+"emoticon-cool":61939,
+"emoticon-dead":63130,
+"emoticon-devil":61940,
+"emoticon-excited":63131,
+"emoticon-happy":61941,
+"emoticon-neutral":61942,
+"emoticon-poop":61943,
+"emoticon-sad":61944,
+"emoticon-tongue":61945,
+"engine":61946,
+"engine-outline":61947,
+"equal":61948,
+"equal-box":61949,
+"eraser":61950,
+"eraser-variant":63042,
+"escalator":61951,
+"ethernet":61952,
+"ethernet-cable":61953,
+"ethernet-cable-off":61954,
+"etsy":61955,
+"ev-station":62961,
+"evernote":61956,
+"exclamation":61957,
+"exit-to-app":61958,
+"export":61959,
+"eye":61960,
+"eye-off":61961,
+"eyedropper":61962,
+"eyedropper-variant":61963,
+"face":63043,
+"face-profile":63044,
+"facebook":61964,
+"facebook-box":61965,
+"facebook-messenger":61966,
+"factory":61967,
+"fan":61968,
+"fast-forward":61969,
+"fax":61970,
+"ferry":61971,
+"file":61972,
+"file-chart":61973,
+"file-check":61974,
+"file-cloud":61975,
+"file-delimited":61976,
+"file-document":61977,
+"file-document-box":61978,
+"file-excel":61979,
+"file-excel-box":61980,
+"file-export":61981,
+"file-find":61982,
+"file-hidden":62995,
+"file-image":61983,
+"file-import":61984,
+"file-lock":61985,
+"file-multiple":61986,
+"file-music":61987,
+"file-outline":61988,
+"file-pdf":61989,
+"file-pdf-box":61990,
+"file-powerpoint":61991,
+"file-powerpoint-box":61992,
+"file-presentation-box":61993,
+"file-restore":63088,
+"file-send":61994,
+"file-tree":63045,
+"file-video":61995,
+"file-word":61996,
+"file-word-box":61997,
+"file-xml":61998,
+"film":61999,
+"filmstrip":62000,
+"filmstrip-off":62001,
+"filter":62002,
+"filter-outline":62003,
+"filter-remove":62004,
+"filter-remove-outline":62005,
+"filter-variant":62006,
+"fingerprint":62007,
+"fire":62008,
+"firefox":62009,
+"fish":62010,
+"flag":62011,
+"flag-checkered":62012,
+"flag-outline":62013,
+"flag-outline-variant":62014,
+"flag-triangle":62015,
+"flag-variant":62016,
+"flash":62017,
+"flash-auto":62018,
+"flash-off":62019,
+"flash-red-eye":63098,
+"flashlight":62020,
+"flashlight-off":62021,
+"flask":61587,
+"flask-empty":61588,
+"flask-empty-outline":61589,
+"flask-outline":61590,
+"flattr":62022,
+"flip-to-back":62023,
+"flip-to-front":62024,
+"floppy":62025,
+"flower":62026,
+"folder":62027,
+"folder-account":62028,
+"folder-download":62029,
+"folder-google-drive":62030,
+"folder-image":62031,
+"folder-lock":62032,
+"folder-lock-open":62033,
+"folder-move":62034,
+"folder-multiple":62035,
+"folder-multiple-image":62036,
+"folder-multiple-outline":62037,
+"folder-outline":62038,
+"folder-plus":62039,
+"folder-remove":62040,
+"folder-star":63132,
+"folder-upload":62041,
+"food":62042,
+"food-apple":62043,
+"food-fork-drink":62962,
+"food-off":62963,
+"food-variant":62044,
+"football":62045,
+"football-australian":62046,
+"football-helmet":62047,
+"format-align-center":62048,
+"format-align-justify":62049,
+"format-align-left":62050,
+"format-align-right":62051,
+"format-annotation-plus":63046,
+"format-bold":62052,
+"format-clear":62053,
+"format-color-fill":62054,
+"format-color-text":63133,
+"format-float-center":62055,
+"format-float-left":62056,
+"format-float-none":62057,
+"format-float-right":62058,
+"format-header-1":62059,
+"format-header-2":62060,
+"format-header-3":62061,
+"format-header-4":62062,
+"format-header-5":62063,
+"format-header-6":62064,
+"format-header-decrease":62065,
+"format-header-equal":62066,
+"format-header-increase":62067,
+"format-header-pound":62068,
+"format-horizontal-align-center":63006,
+"format-horizontal-align-left":63007,
+"format-horizontal-align-right":63008,
+"format-indent-decrease":62069,
+"format-indent-increase":62070,
+"format-italic":62071,
+"format-line-spacing":62072,
+"format-line-style":62920,
+"format-line-weight":62921,
+"format-list-bulleted":62073,
+"format-list-bulleted-type":62074,
+"format-list-numbers":62075,
+"format-paint":62076,
+"format-paragraph":62077,
+"format-quote":62078,
+"format-section":63134,
+"format-size":62079,
+"format-strikethrough":62080,
+"format-strikethrough-variant":62081,
+"format-subscript":62082,
+"format-superscript":62083,
+"format-text":62084,
+"format-textdirection-l-to-r":62085,
+"format-textdirection-r-to-l":62086,
+"format-title":62964,
+"format-underline":62087,
+"format-vertical-align-bottom":63009,
+"format-vertical-align-center":63010,
+"format-vertical-align-top":63011,
+"format-wrap-inline":62088,
+"format-wrap-square":62089,
+"format-wrap-tight":62090,
+"format-wrap-top-bottom":62091,
+"forum":62092,
+"forward":62093,
+"foursquare":62094,
+"fridge":62095,
+"fridge-filled":62096,
+"fridge-filled-bottom":62097,
+"fridge-filled-top":62098,
+"fullscreen":62099,
+"fullscreen-exit":62100,
+"function":62101,
+"gamepad":62102,
+"gamepad-variant":62103,
+"gas-cylinder":63047,
+"gas-station":62104,
+"gate":62105,
+"gauge":62106,
+"gavel":62107,
+"gender-female":62108,
+"gender-male":62109,
+"gender-male-female":62110,
+"gender-transgender":62111,
+"ghost":62112,
+"gift":62113,
+"git":62114,
+"github-box":62115,
+"github-circle":62116,
+"glass-flute":62117,
+"glass-mug":62118,
+"glass-stange":62119,
+"glass-tulip":62120,
+"glassdoor":62121,
+"glasses":62122,
+"gmail":62123,
+"gnome":62124,
+"gondola":63109,
+"google":62125,
+"google-cardboard":62126,
+"google-chrome":62127,
+"google-circles":62128,
+"google-circles-communities":62129,
+"google-circles-extended":62130,
+"google-circles-group":62131,
+"google-controller":62132,
+"google-controller-off":62133,
+"google-drive":62134,
+"google-earth":62135,
+"google-glass":62136,
+"google-maps":62965,
+"google-nearby":62137,
+"google-pages":62138,
+"google-physical-web":62139,
+"google-play":62140,
+"google-plus":62141,
+"google-plus-box":62142,
+"google-translate":62143,
+"google-wallet":62144,
+"gradient":63135,
+"grease-pencil":63048,
+"grid":62145,
+"grid-off":62146,
+"group":62147,
+"guitar-electric":62148,
+"guitar-pick":62149,
+"guitar-pick-outline":62150,
+"hackernews":63012,
+"hamburger":63108,
+"hand-pointing-right":62151,
+"hanger":62152,
+"hangouts":62153,
+"harddisk":62154,
+"headphones":62155,
+"headphones-box":62156,
+"headphones-settings":62157,
+"headset":62158,
+"headset-dock":62159,
+"headset-off":62160,
+"heart":62161,
+"heart-box":62162,
+"heart-box-outline":62163,
+"heart-broken":62164,
+"heart-outline":62165,
+"heart-pulse":62966,
+"help":62166,
+"help-circle":62167,
+"help-circle-outline":63013,
+"hexagon":62168,
+"hexagon-outline":62169,
+"highway":62967,
+"history":62170,
+"hololens":62171,
+"home":62172,
+"home-map-marker":62968,
+"home-modern":62173,
+"home-outline":63136,
+"home-variant":62174,
+"hops":62175,
+"hospital":62176,
+"hospital-building":62177,
+"hospital-marker":62178,
+"hotel":62179,
+"houzz":62180,
+"houzz-box":62181,
+"human":62182,
+"human-child":62183,
+"human-female":63049,
+"human-greeting":63050,
+"human-handsdown":63051,
+"human-handsup":63052,
+"human-male":63053,
+"human-male-female":62184,
+"human-pregnant":62927,
+"image":62185,
+"image-album":62186,
+"image-area":62187,
+"image-area-close":62188,
+"image-broken":62189,
+"image-broken-variant":62190,
+"image-filter":62191,
+"image-filter-black-white":62192,
+"image-filter-center-focus":62193,
+"image-filter-center-focus-weak":62194,
+"image-filter-drama":62195,
+"image-filter-frames":62196,
+"image-filter-hdr":62197,
+"image-filter-none":62198,
+"image-filter-tilt-shift":62199,
+"image-filter-vintage":62200,
+"image-multiple":62201,
+"import":62202,
+"inbox":63110,
+"inbox-arrow-down":62203,
+"inbox-arrow-up":62417,
+"incognito":62969,
+"information":62204,
+"information-outline":62205,
+"information-variant":63054,
+"instagram":62206,
+"instapaper":62207,
+"internet-explorer":62208,
+"invert-colors":62209,
+"itunes":63094,
+"jeepney":62210,
+"jira":62211,
+"jsfiddle":62212,
+"json":63014,
+"keg":62213,
+"kettle":62970,
+"key":62214,
+"key-change":62215,
+"key-minus":62216,
+"key-plus":62217,
+"key-remove":62218,
+"key-variant":62219,
+"keyboard":62220,
+"keyboard-backspace":62221,
+"keyboard-caps":62222,
+"keyboard-close":62223,
+"keyboard-off":62224,
+"keyboard-return":62225,
+"keyboard-tab":62226,
+"keyboard-variant":62227,
+"kodi":62228,
+"label":62229,
+"label-outline":62230,
+"lambda":63015,
+"lamp":63156,
+"lan":62231,
+"lan-connect":62232,
+"lan-disconnect":62233,
+"lan-pending":62234,
+"language-c":63089,
+"language-cpp":63090,
+"language-csharp":62235,
+"language-css3":62236,
+"language-html5":62237,
+"language-javascript":62238,
+"language-php":62239,
+"language-python":62240,
+"language-python-text":62241,
+"laptop":62242,
+"laptop-chromebook":62243,
+"laptop-mac":62244,
+"laptop-windows":62245,
+"lastfm":62246,
+"launch":62247,
+"layers":62248,
+"layers-off":62249,
+"lead-pencil":63055,
+"leaf":62250,
+"led-off":62251,
+"led-on":62252,
+"led-outline":62253,
+"led-variant-off":62254,
+"led-variant-on":62255,
+"led-variant-outline":62256,
+"library":62257,
+"library-books":62258,
+"library-music":62259,
+"library-plus":62260,
+"lightbulb":62261,
+"lightbulb-outline":62262,
+"link":62263,
+"link-off":62264,
+"link-variant":62265,
+"link-variant-off":62266,
+"linkedin":62267,
+"linkedin-box":62268,
+"linux":62269,
+"lock":62270,
+"lock-open":62271,
+"lock-open-outline":62272,
+"lock-outline":62273,
+"lock-plus":62971,
+"login":62274,
+"login-variant":62972,
+"logout":62275,
+"logout-variant":62973,
+"looks":62276,
+"loupe":62277,
+"lumx":62278,
+"magnet":62279,
+"magnet-on":62280,
+"magnify":62281,
+"magnify-minus":62282,
+"magnify-plus":62283,
+"mail-ru":62284,
+"map":62285,
+"map-marker":62286,
+"map-marker-circle":62287,
+"map-marker-minus":63056,
+"map-marker-multiple":62288,
+"map-marker-off":62289,
+"map-marker-plus":63057,
+"map-marker-radius":62290,
+"margin":62291,
+"markdown":62292,
+"marker":63058,
+"marker-check":62293,
+"martini":62294,
+"material-ui":62295,
+"math-compass":62296,
+"matrix":63016,
+"maxcdn":62297,
+"medium":62298,
+"memory":62299,
+"menu":62300,
+"menu-down":62301,
+"menu-down-outline":63157,
+"menu-left":62302,
+"menu-right":62303,
+"menu-up":62304,
+"menu-up-outline":63158,
+"message":62305,
+"message-alert":62306,
+"message-bulleted":63137,
+"message-bulleted-off":63138,
+"message-draw":62307,
+"message-image":62308,
+"message-outline":62309,
+"message-plus":63059,
+"message-processing":62310,
+"message-reply":62311,
+"message-reply-text":62312,
+"message-text":62313,
+"message-text-outline":62314,
+"message-video":62315,
+"meteor":63017,
+"microphone":62316,
+"microphone-off":62317,
+"microphone-outline":62318,
+"microphone-settings":62319,
+"microphone-variant":62320,
+"microphone-variant-off":62321,
+"microscope":63060,
+"microsoft":62322,
+"minecraft":62323,
+"minus":62324,
+"minus-box":62325,
+"minus-circle":62326,
+"minus-circle-outline":62327,
+"minus-network":62328,
+"mixcloud":63018,
+"monitor":62329,
+"monitor-multiple":62330,
+"more":62331,
+"motorbike":62332,
+"mouse":62333,
+"mouse-off":62334,
+"mouse-variant":62335,
+"mouse-variant-off":62336,
+"move-resize":63061,
+"move-resize-variant":63062,
+"movie":62337,
+"multiplication":62338,
+"multiplication-box":62339,
+"music-box":62340,
+"music-box-outline":62341,
+"music-circle":62342,
+"music-note":62343,
+"music-note-bluetooth":62974,
+"music-note-bluetooth-off":62975,
+"music-note-eighth":62344,
+"music-note-half":62345,
+"music-note-off":62346,
+"music-note-quarter":62347,
+"music-note-sixteenth":62348,
+"music-note-whole":62349,
+"nature":62350,
+"nature-people":62351,
+"navigation":62352,
+"near-me":62925,
+"needle":62353,
+"nest-protect":62354,
+"nest-thermostat":62355,
+"new-box":62356,
+"newspaper":62357,
+"nfc":62358,
+"nfc-tap":62359,
+"nfc-variant":62360,
+"nodejs":62361,
+"note":62362,
+"note-multiple":63159,
+"note-multiple-outline":63160,
+"note-outline":62363,
+"note-plus":62364,
+"note-plus-outline":62365,
+"note-text":62366,
+"notification-clear-all":62367,
+"nuke":63139,
+"numeric":62368,
+"numeric-0-box":62369,
+"numeric-0-box-multiple-outline":62370,
+"numeric-0-box-outline":62371,
+"numeric-1-box":62372,
+"numeric-1-box-multiple-outline":62373,
+"numeric-1-box-outline":62374,
+"numeric-2-box":62375,
+"numeric-2-box-multiple-outline":62376,
+"numeric-2-box-outline":62377,
+"numeric-3-box":62378,
+"numeric-3-box-multiple-outline":62379,
+"numeric-3-box-outline":62380,
+"numeric-4-box":62381,
+"numeric-4-box-multiple-outline":62382,
+"numeric-4-box-outline":62383,
+"numeric-5-box":62384,
+"numeric-5-box-multiple-outline":62385,
+"numeric-5-box-outline":62386,
+"numeric-6-box":62387,
+"numeric-6-box-multiple-outline":62388,
+"numeric-6-box-outline":62389,
+"numeric-7-box":62390,
+"numeric-7-box-multiple-outline":62391,
+"numeric-7-box-outline":62392,
+"numeric-8-box":62393,
+"numeric-8-box-multiple-outline":62394,
+"numeric-8-box-outline":62395,
+"numeric-9-box":62396,
+"numeric-9-box-multiple-outline":62397,
+"numeric-9-box-outline":62398,
+"numeric-9-plus-box":62399,
+"numeric-9-plus-box-multiple-outline":62400,
+"numeric-9-plus-box-outline":62401,
+"nutrition":62402,
+"oar":63099,
+"octagon":62403,
+"octagon-outline":62404,
+"odnoklassniki":62405,
+"office":62406,
+"oil":62407,
+"oil-temperature":62408,
+"omega":62409,
+"onedrive":62410,
+"opacity":62924,
+"open-in-app":62411,
+"open-in-new":62412,
+"openid":62413,
+"opera":62414,
+"ornament":62415,
+"ornament-variant":62416,
+"owl":62418,
+"package":62419,
+"package-down":62420,
+"package-up":62421,
+"package-variant":62422,
+"package-variant-closed":62423,
+"page-first":62976,
+"page-last":62977,
+"palette":62424,
+"palette-advanced":62425,
+"panda":62426,
+"pandora":62427,
+"panorama":62428,
+"panorama-fisheye":62429,
+"panorama-horizontal":62430,
+"panorama-vertical":62431,
+"panorama-wide-angle":62432,
+"paper-cut-vertical":62433,
+"paperclip":62434,
+"parking":62435,
+"pause":62436,
+"pause-circle":62437,
+"pause-circle-outline":62438,
+"pause-octagon":62439,
+"pause-octagon-outline":62440,
+"paw":62441,
+"paw-off":63063,
+"pen":62442,
+"pencil":62443,
+"pencil-box":62444,
+"pencil-box-outline":62445,
+"pencil-lock":62446,
+"pencil-off":62447,
+"percent":62448,
+"pharmacy":62449,
+"phone":62450,
+"phone-bluetooth":62451,
+"phone-classic":62978,
+"phone-forward":62452,
+"phone-hangup":62453,
+"phone-in-talk":62454,
+"phone-incoming":62455,
+"phone-locked":62456,
+"phone-log":62457,
+"phone-minus":63064,
+"phone-missed":62458,
+"phone-outgoing":62459,
+"phone-paused":62460,
+"phone-plus":63065,
+"phone-settings":62461,
+"phone-voip":62462,
+"pi":62463,
+"pi-box":62464,
+"piano":63100,
+"pig":62465,
+"pill":62466,
+"pin":62467,
+"pin-off":62468,
+"pine-tree":62469,
+"pine-tree-box":62470,
+"pinterest":62471,
+"pinterest-box":62472,
+"pizza":62473,
+"plane-shield":63162,
+"play":62474,
+"play-box-outline":62475,
+"play-circle":62476,
+"play-circle-outline":62477,
+"play-pause":62478,
+"play-protected-content":62479,
+"playlist-check":62919,
+"playlist-minus":62480,
+"playlist-play":62481,
+"playlist-plus":62482,
+"playlist-remove":62483,
+"playstation":62484,
+"plex":63161,
+"plus":62485,
+"plus-box":62486,
+"plus-circle":62487,
+"plus-circle-multiple-outline":62488,
+"plus-circle-outline":62489,
+"plus-network":62490,
+"plus-one":62491,
+"pocket":62492,
+"pokeball":62493,
+"polaroid":62494,
+"poll":62495,
+"poll-box":62496,
+"polymer":62497,
+"pool":62982,
+"popcorn":62498,
+"pot":63066,
+"pot-mix":63067,
+"pound":62499,
+"pound-box":62500,
+"power":62501,
+"power-plug":63140,
+"power-plug-off":63141,
+"power-settings":62502,
+"power-socket":62503,
+"presentation":62504,
+"presentation-play":62505,
+"printer":62506,
+"printer-3d":62507,
+"printer-alert":62508,
+"priority-high":62979,
+"priority-low":62980,
+"professional-hexagon":62509,
+"projector":62510,
+"projector-screen":62511,
+"publish":63142,
+"pulse":62512,
+"puzzle":62513,
+"qqchat":62981,
+"qrcode":62514,
+"qrcode-scan":62515,
+"quadcopter":62516,
+"quality-high":62517,
+"quicktime":62518,
+"radar":62519,
+"radiator":62520,
+"radio":62521,
+"radio-handheld":62522,
+"radio-tower":62523,
+"radioactive":62524,
+"radiobox-blank":62525,
+"radiobox-marked":62526,
+"raspberrypi":62527,
+"ray-end":62528,
+"ray-end-arrow":62529,
+"ray-start":62530,
+"ray-start-arrow":62531,
+"ray-start-end":62532,
+"ray-vertex":62533,
+"rdio":62534,
+"read":62535,
+"readability":62536,
+"receipt":62537,
+"record":62538,
+"record-rec":62539,
+"recycle":62540,
+"reddit":62541,
+"redo":62542,
+"redo-variant":62543,
+"refresh":62544,
+"regex":62545,
+"relative-scale":62546,
+"reload":62547,
+"remote":62548,
+"rename-box":62549,
+"reorder-horizontal":63111,
+"reorder-vertical":63112,
+"repeat":62550,
+"repeat-off":62551,
+"repeat-once":62552,
+"replay":62553,
+"reply":62554,
+"reply-all":62555,
+"reproduction":62556,
+"resize-bottom-right":62557,
+"responsive":62558,
+"restore":63143,
+"rewind":62559,
+"ribbon":62560,
+"road":62561,
+"road-variant":62562,
+"robot":63144,
+"rocket":62563,
+"rotate-3d":62564,
+"rotate-90":63145,
+"rotate-left":62565,
+"rotate-left-variant":62566,
+"rotate-right":62567,
+"rotate-right-variant":62568,
+"rounded-corner":62983,
+"router-wireless":62569,
+"routes":62570,
+"rowing":62984,
+"rss":62571,
+"rss-box":62572,
+"ruler":62573,
+"run":62574,
+"sale":62575,
+"satellite":62576,
+"satellite-variant":62577,
+"saxophone":62985,
+"scale":62578,
+"scale-balance":62929,
+"scale-bathroom":62579,
+"scanner":63146,
+"school":62580,
+"screen-rotation":62581,
+"screen-rotation-lock":62582,
+"screwdriver":62583,
+"script":62584,
+"sd":62585,
+"seal":62586,
+"seat-flat":62587,
+"seat-flat-angled":62588,
+"seat-individual-suite":62589,
+"seat-legroom-extra":62590,
+"seat-legroom-normal":62591,
+"seat-legroom-reduced":62592,
+"seat-recline-extra":62593,
+"seat-recline-normal":62594,
+"security":62595,
+"security-home":63113,
+"security-network":62596,
+"select":62597,
+"select-all":62598,
+"select-inverse":62599,
+"select-off":62600,
+"selection":62601,
+"send":62602,
+"serial-port":63068,
+"server":62603,
+"server-minus":62604,
+"server-network":62605,
+"server-network-off":62606,
+"server-off":62607,
+"server-plus":62608,
+"server-remove":62609,
+"server-security":62610,
+"settings":62611,
+"settings-box":62612,
+"shape-circle-plus":63069,
+"shape-plus":62613,
+"shape-polygon-plus":63070,
+"shape-rectangle-plus":63071,
+"shape-square-plus":63072,
+"share":62614,
+"share-variant":62615,
+"shield":62616,
+"shield-outline":62617,
+"shopping":62618,
+"shopping-music":62619,
+"shredder":62620,
+"shuffle":62621,
+"shuffle-disabled":62622,
+"shuffle-variant":62623,
+"sigma":62624,
+"sigma-lower":63019,
+"sign-caution":62625,
+"signal":62626,
+"signal-variant":62986,
+"silverware":62627,
+"silverware-fork":62628,
+"silverware-spoon":62629,
+"silverware-variant":62630,
+"sim":62631,
+"sim-alert":62632,
+"sim-off":62633,
+"sitemap":62634,
+"skip-backward":62635,
+"skip-forward":62636,
+"skip-next":62637,
+"skip-next-circle":63073,
+"skip-next-circle-outline":63074,
+"skip-previous":62638,
+"skip-previous-circle":63075,
+"skip-previous-circle-outline":63076,
+"skull":63115,
+"skype":62639,
+"skype-business":62640,
+"slack":62641,
+"sleep":62642,
+"sleep-off":62643,
+"smoking":62644,
+"smoking-off":62645,
+"snapchat":62646,
+"snowman":62647,
+"soccer":62648,
+"sofa":62649,
+"solid":63116,
+"sort":62650,
+"sort-alphabetical":62651,
+"sort-ascending":62652,
+"sort-descending":62653,
+"sort-numeric":62654,
+"sort-variant":62655,
+"soundcloud":62656,
+"source-branch":63020,
+"source-fork":62657,
+"source-merge":63021,
+"source-pull":62658,
+"speaker":62659,
+"speaker-off":62660,
+"speedometer":62661,
+"spellcheck":62662,
+"spotify":62663,
+"spotlight":62664,
+"spotlight-beam":62665,
+"spray":63077,
+"square-inc":62666,
+"square-inc-cash":62667,
+"stackexchange":62987,
+"stackoverflow":62668,
+"stairs":62669,
+"star":62670,
+"star-circle":62671,
+"star-half":62672,
+"star-off":62673,
+"star-outline":62674,
+"steam":62675,
+"steering":62676,
+"step-backward":62677,
+"step-backward-2":62678,
+"step-forward":62679,
+"step-forward-2":62680,
+"stethoscope":62681,
+"sticker":62928,
+"stocking":62682,
+"stop":62683,
+"stop-circle":63078,
+"stop-circle-outline":63079,
+"store":62684,
+"store-24-hour":62685,
+"stove":62686,
+"subdirectory-arrow-left":62988,
+"subdirectory-arrow-right":62989,
+"subway":63147,
+"subway-variant":62687,
+"sunglasses":62688,
+"surround-sound":62917,
+"swap-horizontal":62689,
+"swap-vertical":62690,
+"swim":62691,
+"switch":62692,
+"sword":62693,
+"sync":62694,
+"sync-alert":62695,
+"sync-off":62696,
+"tab":62697,
+"tab-unselected":62698,
+"table":62699,
+"table-column-plus-after":62700,
+"table-column-plus-before":62701,
+"table-column-remove":62702,
+"table-column-width":62703,
+"table-edit":62704,
+"table-large":62705,
+"table-row-height":62706,
+"table-row-plus-after":62707,
+"table-row-plus-before":62708,
+"table-row-remove":62709,
+"tablet":62710,
+"tablet-android":62711,
+"tablet-ipad":62712,
+"tag":62713,
+"tag-faces":62714,
+"tag-heart":63114,
+"tag-multiple":62715,
+"tag-outline":62716,
+"tag-text-outline":62717,
+"target":62718,
+"taxi":62719,
+"teamviewer":62720,
+"telegram":62721,
+"television":62722,
+"television-guide":62723,
+"temperature-celsius":62724,
+"temperature-fahrenheit":62725,
+"temperature-kelvin":62726,
+"tennis":62727,
+"tent":62728,
+"terrain":62729,
+"test-tube":63080,
+"text-shadow":63081,
+"text-to-speech":62730,
+"text-to-speech-off":62731,
+"textbox":62990,
+"texture":62732,
+"theater":62733,
+"theme-light-dark":62734,
+"thermometer":62735,
+"thermometer-lines":62736,
+"thumb-down":62737,
+"thumb-down-outline":62738,
+"thumb-up":62739,
+"thumb-up-outline":62740,
+"thumbs-up-down":62741,
+"ticket":62742,
+"ticket-account":62743,
+"ticket-confirmation":62744,
+"tie":62745,
+"timelapse":62746,
+"timer":62747,
+"timer-10":62748,
+"timer-3":62749,
+"timer-off":62750,
+"timer-sand":62751,
+"timer-sand-empty":63148,
+"timetable":62752,
+"toggle-switch":62753,
+"toggle-switch-off":62754,
+"tooltip":62755,
+"tooltip-edit":62756,
+"tooltip-image":62757,
+"tooltip-outline":62758,
+"tooltip-outline-plus":62759,
+"tooltip-text":62760,
+"tooth":62761,
+"tor":62762,
+"tower-beach":63104,
+"tower-fire":63105,
+"traffic-light":62763,
+"train":62764,
+"tram":62765,
+"transcribe":62766,
+"transcribe-close":62767,
+"transfer":62768,
+"transit-transfer":63149,
+"translate":62922,
+"tree":62769,
+"trello":62770,
+"trending-down":62771,
+"trending-neutral":62772,
+"trending-up":62773,
+"triangle":62774,
+"triangle-outline":62775,
+"trophy":62776,
+"trophy-award":62777,
+"trophy-outline":62778,
+"trophy-variant":62779,
+"trophy-variant-outline":62780,
+"truck":62781,
+"truck-delivery":62782,
+"tshirt-crew":62783,
+"tshirt-v":62784,
+"tumblr":62785,
+"tumblr-reblog":62786,
+"tune":63022,
+"tune-vertical":63082,
+"twitch":62787,
+"twitter":62788,
+"twitter-box":62789,
+"twitter-circle":62790,
+"twitter-retweet":62791,
+"ubuntu":62792,
+"umbraco":62793,
+"umbrella":62794,
+"umbrella-outline":62795,
+"undo":62796,
+"undo-variant":62797,
+"unfold-less":62798,
+"unfold-more":62799,
+"ungroup":62800,
+"unity":63150,
+"untappd":62801,
+"update":63151,
+"upload":62802,
+"usb":62803,
+"vector-arrange-above":62804,
+"vector-arrange-below":62805,
+"vector-circle":62806,
+"vector-circle-variant":62807,
+"vector-combine":62808,
+"vector-curve":62809,
+"vector-difference":62810,
+"vector-difference-ab":62811,
+"vector-difference-ba":62812,
+"vector-intersection":62813,
+"vector-line":62814,
+"vector-point":62815,
+"vector-polygon":62816,
+"vector-polyline":62817,
+"vector-rectangle":62918,
+"vector-selection":62818,
+"vector-square":61441,
+"vector-triangle":62819,
+"vector-union":62820,
+"verified":62821,
+"vibrate":62822,
+"video":62823,
+"video-off":62824,
+"video-switch":62825,
+"view-agenda":62826,
+"view-array":62827,
+"view-carousel":62828,
+"view-column":62829,
+"view-dashboard":62830,
+"view-day":62831,
+"view-grid":62832,
+"view-headline":62833,
+"view-list":62834,
+"view-module":62835,
+"view-quilt":62836,
+"view-stream":62837,
+"view-week":62838,
+"vimeo":62839,
+"vine":62840,
+"violin":62991,
+"visualstudio":62992,
+"vk":62841,
+"vk-box":62842,
+"vk-circle":62843,
+"vlc":62844,
+"voice":62923,
+"voicemail":62845,
+"volume-high":62846,
+"volume-low":62847,
+"volume-medium":62848,
+"volume-off":62849,
+"vpn":62850,
+"walk":62851,
+"wallet":62852,
+"wallet-giftcard":62853,
+"wallet-membership":62854,
+"wallet-travel":62855,
+"wan":62856,
+"watch":62857,
+"watch-export":62858,
+"watch-import":62859,
+"watch-vibrate":63152,
+"water":62860,
+"water-off":62861,
+"water-percent":62862,
+"water-pump":62863,
+"watermark":62994,
+"weather-cloudy":62864,
+"weather-fog":62865,
+"weather-hail":62866,
+"weather-lightning":62867,
+"weather-lightning-rainy":63101,
+"weather-night":62868,
+"weather-partlycloudy":62869,
+"weather-pouring":62870,
+"weather-rainy":62871,
+"weather-snowy":62872,
+"weather-snowy-rainy":63102,
+"weather-sunny":62873,
+"weather-sunset":62874,
+"weather-sunset-down":62875,
+"weather-sunset-up":62876,
+"weather-windy":62877,
+"weather-windy-variant":62878,
+"web":62879,
+"webcam":62880,
+"webhook":63023,
+"wechat":62993,
+"weight":62881,
+"weight-kilogram":62882,
+"whatsapp":62883,
+"wheelchair-accessibility":62884,
+"white-balance-auto":62885,
+"white-balance-incandescent":62886,
+"white-balance-iridescent":62887,
+"white-balance-sunny":62888,
+"wifi":62889,
+"wifi-off":62890,
+"wii":62891,
+"wikipedia":62892,
+"window-close":62893,
+"window-closed":62894,
+"window-maximize":62895,
+"window-minimize":62896,
+"window-open":62897,
+"window-restore":62898,
+"windows":62899,
+"wordpress":62900,
+"worker":62901,
+"wrap":62902,
+"wrench":62903,
+"wunderlist":62904,
+"xaml":63091,
+"xbox":62905,
+"xbox-controller":62906,
+"xbox-controller-off":62907,
+"xda":62908,
+"xing":62909,
+"xing-box":62910,
+"xing-circle":62911,
+"xml":62912,
+"yeast":62913,
+"yelp":62914,
+"yin-yang":63103,
+"youtube-play":62915,
+"zip-box":62916,
+"blank":63116};
+}, 731, null, "react-native-vector-icons/glyphmaps/MaterialCommunityIcons.json");
+__d(/* react-native-awesome-card-io/index.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.CardIOUtilities=exports.CardIOModule=exports.CardIOView=undefined;var _CardIOView=require(733 /* ./CardIOView */);var _CardIOView2=babelHelpers.interopRequireDefault(_CardIOView);
+var _CardIOModule=require(734 /* ./CardIOModule */);var _CardIOModule2=babelHelpers.interopRequireDefault(_CardIOModule);
+var _CardIOUtilities=require(735 /* ./CardIOUtilities */);var _CardIOUtilities2=babelHelpers.interopRequireDefault(_CardIOUtilities);exports.
 
 CardIOView=_CardIOView2.default;exports.CardIOModule=_CardIOModule2.default;exports.CardIOUtilities=_CardIOUtilities2.default;
-}, 726, null, "react-native-awesome-card-io/index.js");
+}, 732, null, "react-native-awesome-card-io/index.js");
 __d(/* react-native-awesome-card-io/CardIOView.android.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);var
 
@@ -88411,7 +90615,7 @@ fontSize:10}});exports.default=
 
 
 CardIOView;
-}, 727, null, "react-native-awesome-card-io/CardIOView.android.js");
+}, 733, null, "react-native-awesome-card-io/CardIOView.android.js");
 __d(/* react-native-awesome-card-io/CardIOModule.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _reactNative=require(43 /* react-native */);
 
 var RNCardIOModule=_reactNative.NativeModules.CardIOModule;
@@ -88423,15 +90627,15 @@ return RNCardIOModule.scanCard(config);
 
 
 CardIOModule;
-}, 728, null, "react-native-awesome-card-io/CardIOModule.js");
+}, 734, null, "react-native-awesome-card-io/CardIOModule.js");
 __d(/* react-native-awesome-card-io/CardIOUtilities.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _reactNative=require(43 /* react-native */);var
 
 CardIOUtilities=_reactNative.NativeModules.CardIOUtilities;exports.default=
 
 CardIOUtilities;
-}, 729, null, "react-native-awesome-card-io/CardIOUtilities.js");
+}, 735, null, "react-native-awesome-card-io/CardIOUtilities.js");
 __d(/* Zynle/src/images/Undo-100.png */function(global, require, module, exports) {module.exports = require(173 /* react-native/Libraries/Image/AssetRegistry */).registerAsset({"__packager_asset":true,"httpServerLocation":"/assets/src/images","width":100,"height":100,"scales":[1],"hash":"b5d4835ab111137f50535bf80b97de83","name":"Undo-100","type":"png"});
-}, 730, null, "Zynle/src/images/Undo-100.png");
+}, 736, null, "Zynle/src/images/Undo-100.png");
 __d(/* Zynle/src/components/PaymentSuccess.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 var _reactNative=require(43 /* react-native */);
 
@@ -88443,12 +90647,15 @@ var _reactNative=require(43 /* react-native */);
 
 
 
-var _EvilIcons=require(732 /* react-native-vector-icons/EvilIcons */);var _EvilIcons2=babelHelpers.interopRequireDefault(_EvilIcons);
-var _reactNativeTextinputEffects=require(650 /* react-native-textinput-effects */);
+
+var _EvilIcons=require(738 /* react-native-vector-icons/EvilIcons */);var _EvilIcons2=babelHelpers.interopRequireDefault(_EvilIcons);
+var _reactNativeTextinputEffects=require(651 /* react-native-textinput-effects */);
 
 
 var _reactRedux=require(616 /* react-redux */);
-var _actions=require(712 /* ../actions */);
+var _actions=require(713 /* ../actions */);
+
+var _FormatMoney=require(724 /* ../utils/FormatMoney */);var _FormatMoney2=babelHelpers.interopRequireDefault(_FormatMoney);
 
 var styles={
 container:{
@@ -88526,9 +90733,70 @@ fontSize:28}};
 var totalCharge=null;
 var sms=null;var
 
-PaymentSuccess=function(_Component){babelHelpers.inherits(PaymentSuccess,_Component);function PaymentSuccess(){var _ref;var _temp,_this,_ret;babelHelpers.classCallCheck(this,PaymentSuccess);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}return _ret=(_temp=(_this=babelHelpers.possibleConstructorReturn(this,(_ref=PaymentSuccess.__proto__||Object.getPrototypeOf(PaymentSuccess)).call.apply(_ref,[this].concat(args))),_this),_this.
+PaymentSuccess=function(_Component){babelHelpers.inherits(PaymentSuccess,_Component);function PaymentSuccess(){var _ref,_this2=this;var _temp,_this,_ret;babelHelpers.classCallCheck(this,PaymentSuccess);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}return _ret=(_temp=(_this=babelHelpers.possibleConstructorReturn(this,(_ref=PaymentSuccess.__proto__||Object.getPrototypeOf(PaymentSuccess)).call.apply(_ref,[this].concat(args))),_this),_this.
 
 
+
+
+
+
+
+
+
+
+onLoad=function _callee(){var storedValue,transactionDetails,_transactionDetails;return regeneratorRuntime.async(function _callee$(_context){while(1){switch(_context.prev=_context.next){case 0:_context.prev=0;_context.next=3;return regeneratorRuntime.awrap(
+
+
+
+_reactNative.AsyncStorage.getItem('@MyApp:history'));case 3:storedValue=_context.sent;
+
+console.log("stored value is: "+storedValue);
+
+
+if(storedValue===null){
+
+
+transactionDetails=JSON.stringify([{amount:_this.props.totalCharge,time:Date.now()}]);
+
+console.log("the current value looks like this: "+transactionDetails);
+
+
+_this.onSave(transactionDetails);
+
+}else{
+
+_transactionDetails={amount:_this.props.totalCharge,time:Date()};
+
+
+storedValue=JSON.parse(storedValue);
+
+
+storedValue.push(_transactionDetails);
+
+console.log("the TOTAL array looks like this: "+storedValue);
+
+
+storedValue=JSON.stringify(storedValue);
+
+
+_this.onSave(storedValue);
+}_context.next=11;break;case 8:_context.prev=8;_context.t0=_context['catch'](0);
+
+console.log('there was an error loading the data '+_context.t0);case 11:case'end':return _context.stop();}}},null,_this2,[[0,8]]);},_this.
+
+
+
+
+onSave=function _callee2(text){return regeneratorRuntime.async(function _callee2$(_context2){while(1){switch(_context2.prev=_context2.next){case 0:_context2.prev=0;_context2.next=3;return regeneratorRuntime.awrap(
+
+
+
+_reactNative.AsyncStorage.setItem('@MyApp:history',text));case 3:
+console.log('saved: successfully on device');_context2.next=9;break;case 6:_context2.prev=6;_context2.t0=_context2['catch'](0);
+
+
+
+console.log('Error: there was an error saving data '+_context2.t0);case 9:case'end':return _context2.stop();}}},null,_this2,[[0,6]]);},_this.
 
 
 
@@ -88557,7 +90825,8 @@ PaymentSuccess=function(_Component){babelHelpers.inherits(PaymentSuccess,_Compon
 state={
 phoneNumber:null,
 refrenceNumber:'12356',
-totalCharge:null},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelpers.createClass(PaymentSuccess,[{key:'componentDidMount',value:function componentDidMount(){_reactNative.BackAndroid.addEventListener('backPress',function(){_reactNative.Alert.alert('Not allowed...','You cannot go back to the previous screen. You can start a new transaction by tapping the COMPLETE button.',[{text:'Exit ZynlePay',onPress:function onPress(){return _reactNative.BackAndroid.exitApp();}},{text:'Got it'}]);return true;});}},{key:'componentWillUnmount',value:function componentWillUnmount(){_reactNative.BackAndroid.removeEventListener('backPress');}},{key:'goHome',value:function goHome()
+totalCharge:null,
+transactionIdShort:null},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}babelHelpers.createClass(PaymentSuccess,[{key:'componentWillMount',value:function componentWillMount(){this.onLoad();}},{key:'componentDidMount',value:function componentDidMount(){_reactNative.BackAndroid.addEventListener('backPress',function(){_reactNative.Alert.alert('Not allowed...','You cannot go back to the previous screen. You can start a new transaction by tapping the COMPLETE button.',[{text:'Exit ZynlePay',onPress:function onPress(){return _reactNative.BackAndroid.exitApp();}},{text:'Got it'}]);return true;});}},{key:'componentWillUnmount',value:function componentWillUnmount(){_reactNative.BackAndroid.removeEventListener('backPress');}},{key:'goHome',value:function goHome()
 
 
 
@@ -88575,7 +90844,11 @@ totalCharge:null},_temp),babelHelpers.possibleConstructorReturn(_this,_ret);}bab
 
 if(this.state.phoneNumber!=null){
 
-sms='Thank you for your order. You receipt number is '+this.state.refrenceNumber+' for the amount K'+this.state.totalCharge;
+
+this.state.transactionIdShort=this.props.transactionId.slice(0,6);
+
+
+sms='Thank you for your order. You receipt number is '+this.state.transactionIdShort+' for the amount '+(0,_FormatMoney2.default)(this.props.totalCharge,'K','',',','.',2,2);
 fetch('http://www.bulksms.co.zm/smsservice/httpapi?username=zynlepay&password=zynle12&msg='+sms+'&shortcode=2343&sender_id=0955000679&phone='+this.state.phoneNumber+'&api_key=121231313213123123').
 catch(function(error){
 alert(error);
@@ -88588,14 +90861,18 @@ _reactNative.ToastAndroid.show('Receipt Sent to '+this.state.phoneNumber,_reactN
 
 
 
-
 this.props.clearSales();
+
+
+
+
+
 this.props.moveToScreen('Charge');
 
 
 }},{key:'render',value:function render()
 
-{var _this2=this;
+{var _this3=this;
 
 return(
 _react2.default.createElement(_reactNative.View,{style:styles.container},
@@ -88603,7 +90880,7 @@ _react2.default.createElement(_reactNative.View,{style:styles.container},
 _react2.default.createElement(_reactNative.View,{style:styles.greyContainer},
 _react2.default.createElement(_reactNative.Text,{style:styles.heading3},'Payment Successful'),
 _react2.default.createElement(_EvilIcons2.default,{name:'check',size:150,color:'#95989A'}),
-_react2.default.createElement(_reactNative.Text,{style:styles.heading2},'Payment for K',this.props.totalCharge,' was successful'),
+_react2.default.createElement(_reactNative.Text,{style:styles.heading2},'Payment for ',(0,_FormatMoney2.default)(this.props.totalCharge,'K','',',','.',2,2),' was successful'),
 _react2.default.createElement(_reactNative.Text,null,'Reference #: ',this.props.transactionId),
 _react2.default.createElement(_reactNative.Text,{style:styles.heading1},'How would u like your reciept?')),
 
@@ -88620,7 +90897,7 @@ style:{marginBottom:5},
 placeholder:'SMS reciept',
 multiline:true,
 value:this.state.phoneNumber,
-onChangeText:function onChangeText(phoneNumber){return _this2.setState({phoneNumber:phoneNumber});},
+onChangeText:function onChangeText(phoneNumber){return _this3.setState({phoneNumber:phoneNumber});},
 keyboardType:'numeric'}),
 
 _react2.default.createElement(_reactNative.Text,{style:styles.heading1},'If you do not want to send a reciept, simply leave the sms field empty.'),
@@ -88652,14 +90929,14 @@ return result+Number(item.amount);
 };exports.default=
 
 (0,_reactRedux.connect)(mapStateToProps,{moveToScreen:_actions.moveToScreen,clearSales:_actions.clearSales})(PaymentSuccess);
-}, 731, null, "Zynle/src/components/PaymentSuccess.js");
+}, 737, null, "Zynle/src/components/PaymentSuccess.js");
 __d(/* react-native-vector-icons/EvilIcons.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});exports.getImageSource=exports.ToolbarAndroid=exports.TabBarItemIOS=exports.TabBarItem=exports.Button=undefined;
 
 
 
 
-var _createIconSet=require(664 /* ./lib/create-icon-set */);var _createIconSet2=babelHelpers.interopRequireDefault(_createIconSet);
-var _EvilIcons=require(733 /* ./glyphmaps/EvilIcons.json */);var _EvilIcons2=babelHelpers.interopRequireDefault(_EvilIcons);
+var _createIconSet=require(665 /* ./lib/create-icon-set */);var _createIconSet2=babelHelpers.interopRequireDefault(_createIconSet);
+var _EvilIcons=require(739 /* ./glyphmaps/EvilIcons.json */);var _EvilIcons2=babelHelpers.interopRequireDefault(_EvilIcons);
 
 var iconSet=(0,_createIconSet2.default)(_EvilIcons2.default,'EvilIcons','EvilIcons.ttf');exports.default=
 
@@ -88670,7 +90947,7 @@ var TabBarItem=exports.TabBarItem=iconSet.TabBarItem;
 var TabBarItemIOS=exports.TabBarItemIOS=iconSet.TabBarItemIOS;
 var ToolbarAndroid=exports.ToolbarAndroid=iconSet.ToolbarAndroid;
 var getImageSource=exports.getImageSource=iconSet.getImageSource;
-}, 732, null, "react-native-vector-icons/EvilIcons.js");
+}, 738, null, "react-native-vector-icons/EvilIcons.js");
 __d(/* react-native-vector-icons/glyphmaps/EvilIcons.json */function(global, require, module, exports) {module.exports = {
 "archive":61696,
 "arrow-down":61697,
@@ -88742,12 +91019,12 @@ __d(/* react-native-vector-icons/glyphmaps/EvilIcons.json */function(global, req
 "undo":61763,
 "unlock":61764,
 "user":61765};
-}, 733, null, "react-native-vector-icons/glyphmaps/EvilIcons.json");
+}, 739, null, "react-native-vector-icons/glyphmaps/EvilIcons.json");
 __d(/* Zynle/src/components/SaleList.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 
 
 var _reactRedux=require(616 /* react-redux */);
-var _actions=require(712 /* ../actions */);
+var _actions=require(713 /* ../actions */);
 
 
 var _reactNative=require(43 /* react-native */);
@@ -88762,8 +91039,9 @@ var _reactNative=require(43 /* react-native */);
 
 
 
+var _FormatMoney=require(724 /* ../utils/FormatMoney */);var _FormatMoney2=babelHelpers.interopRequireDefault(_FormatMoney);
 
-var _reactNavigation=require(554 /* react-navigation */);
+
 
 
 var styles={
@@ -88888,7 +91166,7 @@ dataSource:this.dataSource,
 renderRow:function renderRow(rowData,sectionID,rowID){return(
 _react2.default.createElement(_reactNative.TouchableNativeFeedback,{onPress:_this3.openSaleItem.bind(_this3,rowID)},
 _react2.default.createElement(_reactNative.View,{style:stylesItem.container},
-_react2.default.createElement(_reactNative.Text,{style:stylesItem.text},'K',rowData.amount),
+_react2.default.createElement(_reactNative.Text,{style:stylesItem.text},(0,_FormatMoney2.default)(rowData.amount,'K','',',','.',2,2)),
 _react2.default.createElement(_reactNative.Text,{style:stylesItem.text},rowData.note))));}}),
 
 
@@ -88905,7 +91183,7 @@ _react2.default.createElement(_reactNative.Text,{style:styles.buttonText},'Clear
 
 
 
-}}]);return SalesList;}(_react.Component);SalesList.navigationOptions={title:'Total K',header:function header(navigation){return{left:_react2.default.createElement(_reactNative.TouchableOpacity,{style:{marginLeft:20},onPress:function onPress(){return navigation.dispatch({type:'back_screen'});}},_react2.default.createElement(_reactNative.Image,{style:{width:25,height:25},source:require(730 /* ../images/Undo-100.png */)})),tintColor:'#95989A',style:{backgroundColor:'#EDEDED'}};}};
+}}]);return SalesList;}(_react.Component);SalesList.navigationOptions={title:'Total K',header:function header(navigation){return{left:_react2.default.createElement(_reactNative.TouchableOpacity,{style:{marginLeft:20},onPress:function onPress(){return navigation.dispatch({type:'back_screen'});}},_react2.default.createElement(_reactNative.Image,{style:{width:25,height:25},source:require(736 /* ../images/Undo-100.png */)})),tintColor:'#95989A',style:{backgroundColor:'#EDEDED'}};}};
 
 
 
@@ -88926,12 +91204,12 @@ sale:state.sale};
 
 
 (0,_reactRedux.connect)(mapStateToProps,{moveToScreen:_actions.moveToScreen,selectSale:_actions.selectSale,backScreen:_actions.backScreen,clearSales:_actions.clearSales})(SalesList);
-}, 734, null, "Zynle/src/components/SaleList.js");
+}, 740, null, "Zynle/src/components/SaleList.js");
 __d(/* Zynle/src/components/SalesDetail.js */function(global, require, module, exports) {Object.defineProperty(exports,"__esModule",{value:true});var _react=require(13 /* react */);var _react2=babelHelpers.interopRequireDefault(_react);
 
 
 var _reactRedux=require(616 /* react-redux */);
-var _actions=require(712 /* ../actions */);
+var _actions=require(713 /* ../actions */);
 
 
 var _reactNative=require(43 /* react-native */);
@@ -89124,7 +91402,7 @@ _react2.default.createElement(_reactNative.Text,{style:styles.buttonText},'Save'
 
 
 
-}}]);return SalesDetail;}(_react.Component);SalesDetail.navigationOptions={title:'Amount K',header:function header(navigation){return{left:_react2.default.createElement(_reactNative.TouchableOpacity,{style:{marginLeft:20},onPress:function onPress(){return navigation.dispatch({type:'back_screen'});}},_react2.default.createElement(_reactNative.Image,{style:{width:25,height:25},source:require(730 /* ../images/Undo-100.png */)})),tintColor:'#95989A',style:{backgroundColor:'#EDEDED'}};}};
+}}]);return SalesDetail;}(_react.Component);SalesDetail.navigationOptions={title:'Amount K',header:function header(navigation){return{left:_react2.default.createElement(_reactNative.TouchableOpacity,{style:{marginLeft:20},onPress:function onPress(){return navigation.dispatch({type:'back_screen'});}},_react2.default.createElement(_reactNative.Image,{style:{width:25,height:25},source:require(736 /* ../images/Undo-100.png */)})),tintColor:'#95989A',style:{backgroundColor:'#EDEDED'}};}};
 
 
 
@@ -89151,7 +91429,7 @@ index:state.selectedSale};
 
 
 (0,_reactRedux.connect)(mapStateToProps,{updateSaleAmount:_actions.updateSaleAmount,updateSaleNote:_actions.updateSaleNote,deleteSale:_actions.deleteSale,backScreen:_actions.backScreen,moveToScreen:_actions.moveToScreen})(SalesDetail);
-}, 735, null, "Zynle/src/components/SalesDetail.js");
+}, 741, null, "Zynle/src/components/SalesDetail.js");
 ;require(193);
 ;require(0);
 //# sourceMappingURL=index.android.map
