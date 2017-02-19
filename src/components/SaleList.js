@@ -68,12 +68,12 @@ class SalesList extends  Component {
 
     static navigationOptions = {
         // Nav options can be defined as a function of the navigation prop:
-        title: `Total K`,  //use redux for charge total
+        title: (navigation) => `Total: K${navigation.state.title}`,
         header: (navigation) => ({
             left: (
                 <TouchableOpacity
                     style={{marginLeft: 20}}
-                    onPress={() => navigation.dispatch({type: 'back_screen'})}>
+                    onPress={() => navigation.dispatch({type: 'navigate', payload: 'Charge'})}>
                     <Image style={{width:25, height:25}} source={require('../images/Undo-100.png')}/>
                 </TouchableOpacity>
             ),
@@ -90,9 +90,11 @@ class SalesList extends  Component {
     componentDidMount() {
         BackAndroid.addEventListener('backPress', () => {
             //dispatch back action
-            this.props.backScreen();
+            this.props.moveToScreen('Charge');
             return true
         })
+
+        this.props.navigation.state.title = this.props.totalCharge
     }
 
 
@@ -105,6 +107,20 @@ class SalesList extends  Component {
         });
 
         this.dataSource = ds.cloneWithRows(this.props.sale);
+
+    }
+
+
+    //re-render list view if its datasource is changed by the edit details screen
+    componentDidUpdate(){
+
+        const ds = new ListView.DataSource({
+            rowHasChanged: (r1, r2) => r1 !== r2
+        });
+
+        this.dataSource = ds.cloneWithRows(this.props.sale)
+
+        this.props.navigation.state.title = this.props.totalCharge
 
     }
 
@@ -125,10 +141,11 @@ class SalesList extends  Component {
     //function to clear sales
     clearSales(){
 
+        //delete sales list
         this.props.clearSales();
 
         //back to previous screen
-        this.props.backScreen();
+        this.props.moveToScreen('Charge');
 
     }
 
@@ -173,9 +190,9 @@ const mapStateToProps = (state) => {
         sale: state.sale,
 
         //return the sum of all sale items aka total amount
-       // totalCharge: state.sale.reduce(function(result, item) {
-        //    return result + Number(item.amount);
-        //}, 0)
+        totalCharge: state.sale.reduce(function(result, item) {
+            return result + Number(item.amount);
+        }, 0)
     }
 }
 

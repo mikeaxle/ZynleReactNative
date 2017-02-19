@@ -7,7 +7,8 @@ import {
     Alert,
     BackAndroid,
     Image,
-    ActivityIndicator
+    ActivityIndicator,
+    ScrollView
 
 } from 'react-native';
 
@@ -17,10 +18,11 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; //import ic
 import { Hideo } from 'react-native-textinput-effects'; //import textinput effects
 import { CardIOModule, CardIOUtilities } from 'react-native-awesome-card-io'; //import carIO
 
-
 /**     import redux  stuff   **/
 import { connect } from 'react-redux';
 import { moveToScreen, backScreen, getTrasnactionId } from '../actions';
+
+import creditcardutils from 'creditcardutils';
 
 //define screen styes
 var styles = {
@@ -34,7 +36,7 @@ var styles = {
 
     },
     textBox: {
-        height: 50,
+        height: 40,
         borderTopRightRadius: 5,
         borderBottomRightRadius: 5,
         backgroundColor: '#EDEDED',
@@ -45,7 +47,7 @@ var styles = {
     subContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 20
+        marginBottom: 10
 
     },
     button: {
@@ -57,7 +59,7 @@ var styles = {
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        marginTop: 20,
+        marginTop: 10,
     },
     buttonText: {
         color: '#95989A',
@@ -74,23 +76,16 @@ var statusIcon = null;
 
 class ChargeCard extends Component {
 
-    //set up back button listener
-    componentDidMount() {
-        BackAndroid.addEventListener('backPress', () => {
-            //dispatch back action
-            this.props.backScreen();
-            return true
-        })
-    }
-
     static navigationOptions = {
+
+
         // Nav options can be defined as a function of the navigation prop:
-        title: `Charge K`,  //use redux for charge total
+        title: (navigation) => `Charging K${navigation.state.title}`,
         header: (navigation) => ({
             left: (
                 <TouchableOpacity
                     style={{marginLeft: 20}}
-                    onPress={() => navigation.dispatch({type: 'back_screen'})}>
+                    onPress={() => navigation.dispatch({type: 'navigate', payload: 'Charge'})}>
                     <Image style={{width:25, height:25}} source={require('../images/Undo-100.png')}/>
                 </TouchableOpacity>
             ),
@@ -102,7 +97,20 @@ class ChargeCard extends Component {
     };
 
 
-    componentWillUnmount() {
+    //set up back button listener
+    componentDidMount() {
+        BackAndroid.addEventListener('backPress', () => {
+            //dispatch back action
+            this.props.moveToScreen('Charge');
+            return true
+        })
+
+
+        //set header title
+        this.props.navigation.state.title = this.props.totalCharge
+    }
+
+   componentWillUnmount() {
         BackAndroid.removeEventListener('backPress')
     }
 
@@ -117,26 +125,19 @@ class ChargeCard extends Component {
         cardNumber: '4383755000927515',
         expiryMonth: '04',
         expiryYear: '22',
-        cvv: '549',
-        **/
+        cvv: '549',*/
+
         res: null,
 
 
-
-        //     card details
+        //*     card details
         nameOnCard: '',
         cardNumber: '',
         expiryMonth: '',
         expiryYear: '',
         cvv: ''
 
-
-
-
         }
-
-
-
 
 
 //charge card method
@@ -187,10 +188,6 @@ class ChargeCard extends Component {
                 alert(err)
 
             })
-
-
-
-
     }
 
 //scan card method
@@ -250,7 +247,7 @@ class ChargeCard extends Component {
         if(this.state.loading){
 
             //render spinner
-            return <ActivityIndicator size= "large" style={{height: 55, margin:20}}/>
+            return <ActivityIndicator size= "large" style={{height: 55, margin:10}}/>
 
         } else {
             //render button
@@ -263,12 +260,15 @@ class ChargeCard extends Component {
 
     }
 
+
+
     render(){
+
+        console.log("The formatted card number is: " +  creditcardutils.formatCardNumber(this.state.cardNumber))
         return(
-            <View style={styles.container}>
+            <ScrollView scrollEnabled={false} contentContainerStyle={styles.container}  >
                 <View>
                     {this.checkCardReader()}
-                    <Text>Charging K{this.props.totalCharge}</Text>
                 </View>
 
                 <Hideo
@@ -315,7 +315,6 @@ class ChargeCard extends Component {
                     onChangeText={(cvv) => this.setState({cvv})}
                     value={this.state.cvv}
                     secureTextEntry
-
                 />
 
                 <Text style={{fontSize: 16, color: '#95989A', alignSelf: 'center', marginBottom: 5}}>Expiry Date</Text>
@@ -331,9 +330,9 @@ class ChargeCard extends Component {
                         placeholder='MM'
                         multiline={true}
                         keyboardType='numeric'
-
                         onChangeText={(expiryMonth) => this.setState({expiryMonth})}
                         value={this.state.expiryMonth}
+                        maxLength={2}
                     />
 
                     <Hideo
@@ -350,6 +349,7 @@ class ChargeCard extends Component {
 
                         onChangeText={(expiryYear) => this.setState({expiryYear})}
                         value={this.state.expiryYear}
+                        maxLength={2}
                     />
                 </View>
 
@@ -365,7 +365,7 @@ class ChargeCard extends Component {
 
                 {this.renderSpinnerOrButton()}
 
-            </View>
+            </ScrollView>
         );
     }
 }
@@ -375,6 +375,7 @@ class ChargeCard extends Component {
 const mapStateToProps = (state) => {
 
     return {
+
         //return the sum of all sale items aka total amount
         totalCharge: state.sale.reduce(function(result, item) {
             return result + Number(item.amount);

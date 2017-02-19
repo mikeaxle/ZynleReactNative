@@ -79,7 +79,6 @@ class Charge extends Component {
     componentDidMount() {
         BackAndroid.addEventListener('backPress', () => {
             //show alert
-
             Alert.alert(
                 'Caution',
                 'Would You like to exit ZynlePay?',
@@ -88,12 +87,13 @@ class Charge extends Component {
 
             return true
         })
-
-
     }
 
+    componentWillUnmount() {
+        BackAndroid.removeEventListener('backPress')
+    }
 
-
+    //set local state
     state = {
       toolTipText: 'this is a tool tip',
     }
@@ -118,14 +118,14 @@ class Charge extends Component {
   
   render(){
 
-       // console.log("this is the key: " + this.state.storedValue)
+       // console.log("this is the total: " + this.state.storedValue)
     return (
       <View style={styles.container}>
 
         <View style={styles.header}>
 
             <TouchableOpacity
-                onPress={() => this.props.moveToScreen('SalesList')}
+                onPress={() => { this.props.totalSales === 0 ? Alert.alert('No sales...', 'You have no sales to edit', [{text: 'Add Sales'}]) : this.props.moveToScreen('SalesList')}}
                 style={{flexDirection:'row'}}>
                 <Text style={styles.headerText}>Current Sale </Text>
                 <Image style={styles.saleImage} source={require('../images/salesDock.png')} >

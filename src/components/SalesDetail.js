@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { moveToScreen, updateSaleAmount, updateSaleNote , deleteSale, backScreen } from '../actions';
 
+import KeyboardSpacer from 'react-native-keyboard-spacer'; //import keyboard spacer
+
 
 import {
     View,
@@ -12,10 +14,10 @@ import {
     TouchableOpacity,
     ListView,
     TextInput,
-    BackAndroid
+    BackAndroid,
+    ScrollView
 } from 'react-native';
 
-import { CardStack, } from 'react-navigation';
 
 //define scene styles
 const styles = {
@@ -72,29 +74,14 @@ const styles = {
 //create SaleDetail Screen
 class SalesDetail extends  Component {
 
-    //set up back button listener
-    componentDidMount() {
-        BackAndroid.addEventListener('backPress', () => {
-            //dispatch back action
-            this.props.backScreen();
-            return true
-        })
-    }
-
-    //remove back button listener
-    componentWillUnmount() {
-        BackAndroid.removeEventListener('backPress')
-    }
-
-
     static navigationOptions = {
         // Nav options can be defined as a function of the navigation prop:
-        title: `Amount K`,  //use redux for charge total
+        title: (navigation) => `Total: K${navigation.state.title}`,
         header: (navigation) => ({
             left: (
                 <TouchableOpacity
                     style={{marginLeft: 20}}
-                    onPress={() => navigation.dispatch({type: 'back_screen'})}>
+                    onPress={() => navigation.dispatch({type: 'navigate', payload: 'SalesList'})}>
                     <Image style={{width:25, height:25}} source={require('../images/Undo-100.png')}/>
                 </TouchableOpacity>
             ),
@@ -105,13 +92,23 @@ class SalesDetail extends  Component {
         }),
     };
 
-    //define local state
+    //set up back button listener
+    componentDidMount() {
+        BackAndroid.addEventListener('backPress', () => {
+            //dispatch back action
+            this.props.backScreen('SalesList');
+            return true
+        })
 
-  /*  state = {
-        index: this.props.index,
-        amount: this.props.currentSale.amount,
-        note: this.props.currentSale.note
-    }*/
+        //set header titles
+        this.props.navigation.state.title = this.props.currentSale.amount
+    }
+
+    //remove back button listener
+    componentWillUnmount() {
+        BackAndroid.removeEventListener('backPress')
+    }
+
 
     //function to clear sales
     clearSale(){
@@ -125,14 +122,25 @@ class SalesDetail extends  Component {
     //function to save changes
     saveSale(){
 
-        this.props.backScreen();
+        this.props.backScreen('SalesList');
     }
 
 
     //update amount redux state
     onAmountChanged(amount){
 
-        this.props.updateSaleAmount(amount,this.props.index)
+        //remove all non number characters from input
+        let newAmount = '';
+        let numbers = '0123456789';
+
+        for (var i = 0; i < amount.length; i++) {
+                if ( numbers.indexOf(amount[i]) > -1 ) {
+                    newAmount = newAmount + amount[i];
+
+            }
+
+        }
+        this.props.updateSaleAmount(newAmount,this.props.index)
 
     }
 
@@ -147,7 +155,7 @@ class SalesDetail extends  Component {
     render() {
 
         return(
-            <View style={styles.container}>
+            <ScrollView scrollEnabled={false} contentContainerStyle={styles.container}  >
                 <View style={styles.contentAea}>
 
                     <View style={{marginBottom: 20}}>
@@ -156,6 +164,7 @@ class SalesDetail extends  Component {
                             style={styles.textBox}
                             value={this.props.currentSale.amount}
                             onChangeText={this.onAmountChanged.bind(this)}
+                            keyboardType='numeric'
 
                         />
                     </View>
@@ -166,6 +175,7 @@ class SalesDetail extends  Component {
                             style={styles.textBox}
                             value={this.props.currentSale.note}
                             onChangeText={this.onNoteChanged.bind(this)}
+                            onSubmitEditing={this.saveSale.bind(this)}
 
                         />
                     </View>
@@ -192,8 +202,7 @@ class SalesDetail extends  Component {
                         <Text style={styles.buttonText}>Save</Text>
                     </TouchableOpacity>
                 </View>
-
-            </View>
+            </ScrollView>
         );
     }
 

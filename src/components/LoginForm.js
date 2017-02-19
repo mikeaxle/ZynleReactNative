@@ -7,7 +7,9 @@ import {
     ActivityIndicator,
     Alert,
     ToastAndroid,
-    AsyncStorage
+    AsyncStorage,
+    ScrollView,
+
 
 } from 'react-native'; //import react native componenets
 
@@ -93,7 +95,7 @@ class LoginForm extends Component {
             if(storedValue === 'loggedIn'){
 
                 //console.log("this is a storage test: " + storedValue)
-                this.props.moveToScreen('Charge');
+               // this.props.moveToScreen('Charge');
             }
 
         } catch (err) {
@@ -109,7 +111,7 @@ class LoginForm extends Component {
         }
     };
 
-    //initialize local state
+    //***********initialize local state***********
     state = {
         'username': '',
         'password': '',
@@ -353,62 +355,67 @@ class LoginForm extends Component {
     render() {
 
         return (
-            <View style={styles.container}>
-
-                <View style={{flexDirection:'row', alignItems:'center', flex:1, marginBottom:150, marginTop:20}}>
-                    <View style={styles.icon}>
-                        <Icon name="credit-card" size={30} color="#fff" />
+                <ScrollView scrollEnabled={false} contentContainerStyle={styles.container}  >
+                    <View style={{flexDirection:'row', alignItems:'center', flex:1, marginBottom:150, marginTop:20}}>
+                        <View style={styles.icon}>
+                            <Icon name="credit-card" size={30} color="#fff" />
+                        </View>
+                        <Text style={{fontSize:35}}>  Zynle</Text>
+                        <Text style={{fontSize:35, color: '#39B7EF'}}>Pay</Text>
                     </View>
-                    <Text style={{fontSize:35}}>  Zynle</Text>
-                    <Text style={{fontSize:35, color: '#39B7EF'}}>Pay</Text>
-                </View>
 
 
-                <Hideo
-                    iconClass={Icon}
-                    iconName={'phone'}
-                    iconColor={'white'}
-                    //this is used as backgroundColor of icon container view.
-                    iconBackgroundColor={'#39B7EF'}
-                    inputStyle={styles.textBox}
-                    style={{marginBottom: 5}}
-                    placeholder='phone number'
-                    multiline={true}
-                    onChangeText={(username) => this.setState({username})}
-                    value={this.state.username}
+                    <Hideo
+                        iconClass={Icon}
+                        iconName={'phone'}
+                        iconColor={'white'}
+                        //this is used as backgroundColor of icon container view.
+                        iconBackgroundColor={'#39B7EF'}
+                        inputStyle={styles.textBox}
+                        style={{marginBottom: 5}}
+                        placeholder='phone number'
+                        multiline={true}
+                        onChangeText={(username) => this.setState({username})}
+                        value={this.state.username}
+                        keyboardType='phone-pad'
+                        returnKeyType='next'
 
 
-                />
-                <Hideo
-                    iconClass={Icon}
-                    iconName={'chain'}
-                    iconColor={'white'}
-                    // this is used as backgroundColor of icon container view.
-                    iconBackgroundColor={'#39B7EF'}
-                    inputStyle={styles.textBox}
-                    style={{marginBottom: 5}}
-                    placeholder='password'
-                    multiline={true}
-                    onChangeText={(password) => this.setState({password})}
-                    value={this.state.password}
-                    secureTextEntry
-                />
-                <Hideo
-                    iconClass={Icon}
-                    iconName={'id-badge'}
-                    iconColor={'white'}
-                    // this is used as backgroundColor of icon container view.
-                    iconBackgroundColor={'#39B7EF'}
-                    inputStyle={styles.textBox}
-                    style={{marginBottom: 5}}
-                    placeholder='Agent ID'
-                    multiline={true}
-                    onChangeText={(merchant_id) => this.setState({merchant_id})}
-                    value={this.state.merchant_id}
-                />
+                    />
+                    <Hideo
+                        iconClass={Icon}
+                        iconName={'chain'}
+                        iconColor={'white'}
+                        // this is used as backgroundColor of icon container view.
+                        iconBackgroundColor={'#39B7EF'}
+                        inputStyle={styles.textBox}
+                        style={{marginBottom: 5}}
+                        placeholder='password'
+                        multiline={true}
+                        onChangeText={(password) => this.setState({password})}
+                        value={this.state.password}
+                        keyboardType='email-address'
+                        returnKeyType='next'
+                        secureTextEntry
+                    />
+                    <Hideo
+                        iconClass={Icon}
+                        iconName={'id-badge'}
+                        iconColor={'white'}
+                        // this is used as backgroundColor of icon container view.
+                        iconBackgroundColor={'#39B7EF'}
+                        inputStyle={styles.textBox}
+                        style={{marginBottom: 5}}
+                        placeholder='Agent ID'
+                        multiline={true}
+                        onChangeText={(merchant_id) => this.setState({merchant_id})}
+                        value={this.state.merchant_id}
+                        onSubmitEditing={this.checkLogin.bind(this)}
+                        keyboardType='numeric'
+                    />
 
-                {this.renderSpinnerOrButton()}
-            </View>
+                    {this.renderSpinnerOrButton()}
+                </ScrollView>
         )
     }
 }

@@ -161,13 +161,27 @@ class Keypad extends Component {
     }
 
     //function to add to total charge - redux
-    addtoTotal(){
+    addToTotal(){
 
-      //clear current charge
-        this.clearScreen();
+      //check if charge is zero
+        if(this.state.totalCharge === 0) {
 
-      //add to redux
-       this.props.createSale({ amount: this.state.totalCharge, note: this.state.note });
+            //display alert
+            Alert.alert(
+                'Invalid Amount',
+                'You must enter a value more than zero to charge a card.',[
+                    {text: 'Correct this'},
+                ]
+            )
+
+
+        } else {
+            //clear current charge
+            this.clearScreen();
+
+            //add to redux
+            this.props.createSale({ amount: this.state.totalCharge, note: this.state.note });
+        }
     }
 
     render() {
@@ -237,7 +251,7 @@ class Keypad extends Component {
               <View style={styles.numpad}>
                 <NumPad num={'c'} onPress={this.clearScreen.bind(this)}/>
                 <NumPad num={'0'} onPress={this.addToScreen.bind(this, '0')}/>
-                <NumPad num={'+'} onPress={this.addtoTotal.bind(this)}/>
+                <NumPad num={'+'} onPress={this.addToTotal.bind(this)}/>
               </View>
 
             </View>

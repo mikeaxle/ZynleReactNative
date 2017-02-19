@@ -7,7 +7,10 @@ import {
     ToastAndroid,
     BackAndroid,
     Alert,
-    AsyncStorage
+    AsyncStorage,
+    ScrollView,
+    KeyboardAvoidingView
+
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/EvilIcons'; //import icons
@@ -18,6 +21,7 @@ import { connect } from 'react-redux';
 import { moveToScreen, clearSales } from '../actions';
 
 import FormatMoney from '../utils/FormatMoney' //import number formatting function
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 var styles = {
     container: {
@@ -97,11 +101,10 @@ var sms = null;
 
 class PaymentSuccess extends Component {
 
-  static navigationOptions = {
-    title: 'Payment Successful',
-  }
 
     componentWillMount(){
+
+        //write total sale to Async storage
         this.onLoad()
     }
 
@@ -186,9 +189,8 @@ class PaymentSuccess extends Component {
   //define local state
   state = {
       phoneNumber: null,
-      refrenceNumber: '12356', //replace with redux item
-      totalCharge: null, //replace with redux item
-      transactionIdShort: null
+      transactionIdShort: null,
+      behavior: 'position'
   }
 
   //define navigation options for screen
@@ -219,9 +221,6 @@ class PaymentSuccess extends Component {
             ToastAndroid.show(`Receipt Sent to ${this.state.phoneNumber}`, ToastAndroid.SHORT);
         }
 
-        //write total sale to Async storage
-        //code here
-
         //clear sales stack
         this.props.clearSales();
 
@@ -237,40 +236,38 @@ class PaymentSuccess extends Component {
     render(){
 
         return(
-            <View style={styles.container}>
+            <ScrollView scrollEnabled={false} contentContainerStyle={styles.container}  >
+                    <View style={styles.greyContainer}>
+                        <Text style={styles.heading3}>Payment Successful</Text>
+                        <Icon name="check" size={150} color='#95989A'/>
+                        <Text style={styles.heading2}>Payment for {FormatMoney(this.props.totalCharge,'K','',',','.',2,2)} was successful</Text>
+                        <Text>Reference #: {this.props.transactionId}</Text>
+                        <Text style={styles.heading1}>How would u like your reciept?</Text>
+                    </View>
 
-              <View style={styles.greyContainer}>
-                <Text style={styles.heading3}>Payment Successful</Text>
-                <Icon name="check" size={150} color='#95989A'/>
-                <Text style={styles.heading2}>Payment for {FormatMoney(this.props.totalCharge,'K','',',','.',2,2)} was successful</Text>
-                  <Text>Reference #: {this.props.transactionId}</Text>
-                <Text style={styles.heading1}>How would u like your reciept?</Text>
-              </View>
-              <View style={styles.whiteContainer}>
-
-                <Hideo
-                    iconClass={Icon}
-                    iconName={'comment'}
-                    iconColor={'white'}
-                    // this is used as backgroundColor of icon container view.
-                    iconBackgroundColor={'#39B7EF'}
-                    inputStyle={styles.textBox}
-                    style={{marginBottom: 5}}
-                    placeholder='SMS reciept'
-                    multiline={true}
-                    value={this.state.phoneNumber}
-                    onChangeText={ (phoneNumber) => this.setState({phoneNumber}) }
-                    keyboardType='numeric'
-                />
-                <Text style={styles.heading1}>If you do not want to send a reciept, simply leave the sms field empty.</Text>
-
-                <TouchableOpacity style={styles.button} underlayColor="#39B7EF"
-                                  onPress={this.goHome.bind(this)}
-                >
-                  <Text style={styles.buttonText}>Complete</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+                    <View style={styles.whiteContainer}>
+                        <Hideo
+                            iconClass={Icon}
+                            iconName={'comment'}
+                            iconColor={'white'}
+                            // this is used as backgroundColor of icon container view.
+                            iconBackgroundColor={'#39B7EF'}
+                            inputStyle={styles.textBox}
+                            style={{marginBottom: 5}}
+                            placeholder='SMS reciept'
+                            multiline={true}
+                            value={this.state.phoneNumber}
+                            onChangeText={ (phoneNumber) => this.setState({phoneNumber}) }
+                            keyboardType='phone-pad'
+                            onSubmitEditing={this.goHome.bind(this)}
+                        />
+                        <Text style={styles.heading1}>If you do not want to send a reciept, simply leave the sms field empty.</Text>
+                        <TouchableOpacity style={styles.button} underlayColor="#39B7EF"
+                                          onPress={this.goHome.bind(this)}>
+                            <Text style={styles.buttonText}>Complete</Text>
+                        </TouchableOpacity>
+                    </View>
+            </ScrollView>
         );
     }
 }

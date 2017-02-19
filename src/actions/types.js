@@ -1,6 +1,6 @@
 /** Define action type constants **/
 
-export const NAVIGATE = 'Navigate';
+export const NAVIGATE = 'navigate';
 export const BACK_SCREEN = 'back_screen';
 export const SALE_CREATE = 'sale_create';
 export const SALE_DELETE = 'sale_delete';
