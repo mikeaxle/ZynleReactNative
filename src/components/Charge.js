@@ -69,7 +69,7 @@ class Charge extends Component {
 
     //define navigation option - hide header
     static navigationOptions = {
-        title: 'Login Form',
+        title: 'Charge',
         header: {
             visible: false
         }

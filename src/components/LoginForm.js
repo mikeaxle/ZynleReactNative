@@ -95,7 +95,7 @@ class LoginForm extends Component {
             if(storedValue === 'loggedIn'){
 
                 //console.log("this is a storage test: " + storedValue)
-               // this.props.moveToScreen('Charge');
+               this.props.moveToScreen('Charge');
             }
 
         } catch (err) {
@@ -394,8 +394,6 @@ class LoginForm extends Component {
                         multiline={true}
                         onChangeText={(password) => this.setState({password})}
                         value={this.state.password}
-                        keyboardType='email-address'
-                        returnKeyType='next'
                         secureTextEntry
                     />
                     <Hideo

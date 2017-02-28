@@ -9,7 +9,9 @@ import {
     Alert,
     AsyncStorage,
     ScrollView,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    ActivityIndicator
+
 
 } from 'react-native';
 
@@ -190,7 +192,7 @@ class PaymentSuccess extends Component {
   state = {
       phoneNumber: null,
       transactionIdShort: null,
-      behavior: 'position'
+      loading: false
   }
 
   //define navigation options for screen
@@ -202,10 +204,10 @@ class PaymentSuccess extends Component {
         }
     };
 
-  //function to clear reload app and clear redux state
+    //function to clear reload app and clear redux state
     goHome(){
-
-
+        //show spinner
+        this.setState({ 'loading': true});
         if(this.state.phoneNumber != null){
 
             //truncate transaction ID
@@ -214,21 +216,63 @@ class PaymentSuccess extends Component {
             //send text
             sms = `Thank you for your order. You receipt number is ${this.state.transactionIdShort} for the amount ${FormatMoney(this.props.totalCharge,'K','',',','.',2,2)}`;
             fetch(`http://www.bulksms.co.zm/smsservice/httpapi?username=zynlepay&password=zynle12&msg=${sms}&shortcode=2343&sender_id=0955000679&phone=${this.state.phoneNumber}&api_key=121231313213123123`)
+                .then(() => {
+
+                    //log phone number
+                    console.log('sms sent to ' + this.state.phoneNumber);
+
+                    //show toast to user
+                    ToastAndroid.show(`Receipt Sent to ${this.state.phoneNumber}`, ToastAndroid.SHORT);
+
+                    //clear sales stack
+                    this.props.clearSales();
+
+                    //back to home
+                    this.props.moveToScreen('Charge');
+
+                })
                 .catch((error) => {
-                    alert(error);
-                });
-            console.log('sms sent to ' + this.state.phoneNumber);
-            ToastAndroid.show(`Receipt Sent to ${this.state.phoneNumber}`, ToastAndroid.SHORT);
+                    //hide spinner
+                    this.setState({ 'loading': false});
+
+                    //alert network error
+                    Alert.alert(
+                        'No internet connectivity...',
+                        'It appears your phone is not connected to the internet. Please connect to a wifi network or turn on your mobile data',
+                        [{text: 'Got it', onPress: () => console.log(error)}]
+                    )
+                })
+
+        } else {
+
+            //clear sales stack
+            this.props.clearSales();
+
+            //back to home
+            this.props.moveToScreen('Charge');
+
         }
 
-        //clear sales stack
-        this.props.clearSales();
 
-        //clear navigation stack
-        //code here
 
-        //back to home
-       this.props.moveToScreen('Charge');
+    }
+
+
+    //function to render spinner or button
+    renderSpinnerOrButton(){
+
+        //check state value of loading varibale
+        if(this.state.loading){
+
+            //render spinner
+            return <ActivityIndicator size= "large" style={{height: 55, margin:20}}/>
+
+        } else {
+            //render button
+            return   <TouchableOpacity style={styles.button} underlayColor="#39B7EF" onPress={this.goHome.bind(this)}>
+                <Text style={styles.buttonText}>Complete</Text>
+            </TouchableOpacity>
+        }
 
 
     }
@@ -262,10 +306,9 @@ class PaymentSuccess extends Component {
                             onSubmitEditing={this.goHome.bind(this)}
                         />
                         <Text style={styles.heading1}>If you do not want to send a reciept, simply leave the sms field empty.</Text>
-                        <TouchableOpacity style={styles.button} underlayColor="#39B7EF"
-                                          onPress={this.goHome.bind(this)}>
-                            <Text style={styles.buttonText}>Complete</Text>
-                        </TouchableOpacity>
+
+                        {this.renderSpinnerOrButton()}
+
                     </View>
             </ScrollView>
         );

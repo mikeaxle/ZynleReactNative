@@ -59,7 +59,7 @@ var styles = {
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-        marginTop: 10,
+        marginTop: 20,
     },
     buttonText: {
         color: '#95989A',
@@ -130,7 +130,7 @@ class ChargeCard extends Component {
         res: null,
 
 
-        //*     card details
+        //**     card details
         nameOnCard: '',
         cardNumber: '',
         expiryMonth: '',
@@ -145,7 +145,7 @@ class ChargeCard extends Component {
 
         //validation
         /*if (this.state.cardNumber === null || this.state.expiryDate === null || this.state.cvv === null){
-         alert('Scan card using peripheral or camera, or enter card details manually');
+         Alert.alert('Scan card using peripheral or camera, or enter card details manually');
          } else {
          //call zynle api
 
@@ -183,10 +183,13 @@ class ChargeCard extends Component {
                 }
 
             })
-            .catch((err) => {
+            .catch((error) => {
                 this.setState({ 'loading': false})
-                alert(err)
-
+                Alert.alert(
+                    'No internet connectivity...',
+                    'It appears your phone is not connected to the internet. Please connect to a wifi network or turn on your mobile data',
+                    [{text: 'Got it', onPress: () => console.log(error)}]
+                )
             })
     }
 
@@ -247,7 +250,7 @@ class ChargeCard extends Component {
         if(this.state.loading){
 
             //render spinner
-            return <ActivityIndicator size= "large" style={{height: 55, margin:10}}/>
+            return <ActivityIndicator size= "large" style={{height: 55, margin:20}}/>
 
         } else {
             //render button

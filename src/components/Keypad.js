@@ -164,7 +164,7 @@ class Keypad extends Component {
     addToTotal(){
 
       //check if charge is zero
-        if(this.state.totalCharge === 0) {
+        if(this.state.totalCharge < 1) {
 
             //display alert
             Alert.alert(
@@ -185,6 +185,7 @@ class Keypad extends Component {
     }
 
     render() {
+        console.log("total charge is: " + this.state.totalCharge)
         return(
             <View style={styles.container}>
 
