@@ -131,13 +131,6 @@ class ChargeCard extends Component {
     state = {
         cardReaderConnected: false, //card swipe flag
 
-        /**     card details
-        nameOnCard: 'Michael Lungu',
-        cardNumber: '4383755000927515',
-        expiryMonth: '04',
-        expiryYear: '22',
-        cvv: '549',*/
-
         res: null,
 
 
