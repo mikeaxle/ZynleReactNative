@@ -30,7 +30,8 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new RNCardIOPackage(),
             new RandomBytesPackage(),
-            new VectorIconsPackage()
+            new VectorIconsPackage(),
+              new mreaderPackage()
       );
     }
   };

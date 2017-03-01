@@ -8,10 +8,13 @@ import {
     BackAndroid,
     Image,
     ActivityIndicator,
-    ScrollView
+    ScrollView,
+    NativeModules
 
 } from 'react-native';
 
+//instantiate magnetic card reader module
+const magnetic = NativeModules.mreaderManager
 
 import Api from '../utils/Api'; //import zynle api
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'; //import icons
@@ -69,8 +72,6 @@ var styles = {
 };
 
 
-
-
 //variable to render status
 var statusIcon = null;
 
@@ -108,12 +109,25 @@ class ChargeCard extends Component {
 
         //set header title
         this.props.navigation.state.title = this.props.totalCharge
+
+
+
+        
+    }
+
+    componentWillMount(){
+
+                //test
+        magnetic.greetUser("Mike", (res)=> {
+            console.log("the user was greeted: " + res )
+        })
+
     }
 
    componentWillUnmount() {
         BackAndroid.removeEventListener('backPress')
+        //magnetic.onDestroy()
     }
-
 
 
     //define local state
@@ -137,8 +151,21 @@ class ChargeCard extends Component {
         expiryYear: '',
         cvv: ''
 
-        }
+    }
+    
+    //method to run magentic card listener and return result
+    magenticCardScan(){
+        magnetic.run( (cardNo, cardHolder, expDate) => {
+            this.setState({
+                nameOnCard: cardHolder,
+                cardNumber: cardNo,
+                expiryMonth: expDate,
+                expiryYear: expDate
+            })
+        })
 
+        //console.log("card number is: " + cardNo + ", card holder is: " + cardHolder + ", expiry data is " + expDate)
+    }
 
 //charge card method
     chargeCard(){
@@ -267,7 +294,8 @@ class ChargeCard extends Component {
 
     render(){
 
-        console.log("The formatted card number is: " +  creditcardutils.formatCardNumber(this.state.cardNumber))
+        this.magenticCardScan()
+        //console.log("The formatted card number is: " +  creditcardutils.formatCardNumber(this.state.cardNumber))
         return(
             <ScrollView scrollEnabled={false} contentContainerStyle={styles.container}  >
                 <View>

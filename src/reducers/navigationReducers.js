@@ -11,8 +11,8 @@ const INITIAL_NAV_STATE = {
 
     index: 0,
     routes: [
-        { key: 'LoginForm', routeName: 'LoginForm' },
-        //{ key: 'Charge', routeName: 'Charge' },
+        //{ key: 'LoginForm', routeName: 'LoginForm' },
+        { key: 'Charge', routeName: 'Charge' },
     ],
 }
 
@@ -29,6 +29,4 @@ export default (state = INITIAL_NAV_STATE, action) => {
             return state;
 
     };
-
-    return state;
 };

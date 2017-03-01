@@ -12,4 +12,23 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "Zynle";
     }
+
+
+   /* @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mreaderManager.handler.onDestroy();
+    }
+
+
+    @Override
+    public void onStart() {
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mreaderManager.handler.powerOff();
+
+    }*/
 }
