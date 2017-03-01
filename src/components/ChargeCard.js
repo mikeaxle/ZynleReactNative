@@ -25,7 +25,7 @@ import { CardIOModule, CardIOUtilities } from 'react-native-awesome-card-io'; //
 import { connect } from 'react-redux';
 import { moveToScreen, backScreen, getTrasnactionId } from '../actions';
 
-import creditcardutils from 'creditcardutils';
+//import creditcardutils from 'creditcardutils';
 
 //define screen styes
 var styles = {
@@ -109,9 +109,6 @@ class ChargeCard extends Component {
 
         //set header title
         this.props.navigation.state.title = this.props.totalCharge
-
-
-
         
     }
 
@@ -159,12 +156,10 @@ class ChargeCard extends Component {
             this.setState({
                 nameOnCard: cardHolder,
                 cardNumber: cardNo,
-                expiryMonth: expDate,
-                expiryYear: expDate
+                expiryMonth: expDate.substring(2), 
+                expiryYear: expDate.substring(0,2)
             })
         })
-
-        //console.log("card number is: " + cardNo + ", card holder is: " + cardHolder + ", expiry data is " + expDate)
     }
 
 //charge card method
@@ -293,9 +288,9 @@ class ChargeCard extends Component {
 
 
     render(){
-
+        /** call card magentic reader listener  */
         this.magenticCardScan()
-        //console.log("The formatted card number is: " +  creditcardutils.formatCardNumber(this.state.cardNumber))
+      
         return(
             <ScrollView scrollEnabled={false} contentContainerStyle={styles.container}  >
                 <View>
